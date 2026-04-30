@@ -1,266 +1,217 @@
 :root {
-	--accent: #4a7c59;
-	--accent-dark: #2e5239;
-	--accent-light: #7aab8a;
-	--black: 40, 44, 38;
-	--gray: 110, 120, 105;
-	--gray-light: 230, 235, 225;
-	--gray-dark: 50, 58, 46;
-	--beige: 248, 245, 238;
-	--box-shadow:
-		0 2px 8px rgba(74, 124, 89, 0.08),
-		0 8px 24px rgba(74, 124, 89, 0.06);
+	--green:        #4a7a5a;
+	--green-dark:   #2d5a3d;
+	--green-light:  #7aaa8a;
+	--green-pale:   #e8f2eb;
+	--acorn:        #b87333;
+	--acorn-light:  #f0e0c8;
+	--cream:        #faf8f2;
+	--cream-dark:   #f2ede0;
+	--border:       #e2d9c8;
+	--text:         #3a3228;
+	--text-muted:   #7a6e62;
+	--white:        #ffffff;
+	--shadow-sm:    0 2px 8px rgba(45, 90, 61, 0.08);
+	--shadow-md:    0 4px 20px rgba(45, 90, 61, 0.12);
+	--shadow-hover: 0 8px 28px rgba(45, 90, 61, 0.16);
+	--radius:       14px;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 body {
-	font-family: system-ui, -apple-system, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+	font-family: system-ui, -apple-system, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
 	margin: 0;
 	padding: 0;
-	text-align: left;
-	background-color: #f8f9f6;
+	background-color: var(--cream);
 	background-image:
-		radial-gradient(ellipse at 20% 0%, rgba(144, 195, 154, 0.18) 0%, transparent 55%),
-		radial-gradient(ellipse at 80% 10%, rgba(180, 210, 160, 0.12) 0%, transparent 50%),
-		radial-gradient(ellipse at 50% 100%, rgba(200, 220, 180, 0.1) 0%, transparent 60%);
+		radial-gradient(ellipse at 5% 10%, rgba(122, 170, 138, 0.15) 0%, transparent 45%),
+		radial-gradient(ellipse at 95% 5%,  rgba(184, 115, 51, 0.08) 0%, transparent 40%),
+		radial-gradient(ellipse at 50% 95%, rgba(122, 170, 138, 0.10) 0%, transparent 50%);
+	color: var(--text);
+	font-size: 17px;
+	line-height: 1.85;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 18px;
-	line-height: 1.85;
 }
 
 main {
-	width: 720px;
+	width: 860px;
 	max-width: calc(100% - 2em);
 	margin: auto;
-	padding: 3em 1em 5em;
+	padding: 2.5em 1em 5em;
 }
 
+/* ── 見出し ─────────────────── */
 h1, h2, h3, h4, h5, h6 {
-	margin: 0 0 0.6rem 0;
-	color: rgb(var(--black));
-	line-height: 1.3;
+	color: var(--text);
+	line-height: 1.35;
 	font-weight: 700;
+	margin: 0 0 0.6em;
 }
+h1 { font-size: 2em; }
+h2 { font-size: 1.55em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.05em; }
 
-h1 { font-size: 2.2em; }
-h2 { font-size: 1.6em; }
-h3 { font-size: 1.25em; }
-h4 { font-size: 1.1em; }
-h5 { font-size: 1em; }
-
+/* 記事本文のh2に葉っぱアクセント */
 .prose h2 {
-	border-left: 4px solid var(--accent-light);
-	padding-left: 0.75em;
-	margin-top: 2.5em;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-top: 2.8em;
 	margin-bottom: 0.8em;
-	color: rgb(var(--black));
+	padding-bottom: 0.5em;
+	border-bottom: 2px solid var(--green-pale);
+	color: var(--green-dark);
+}
+.prose h2::before {
+	content: '🌿';
+	font-size: 0.85em;
+	flex-shrink: 0;
 }
 
 .prose h3 {
 	margin-top: 2em;
-	color: var(--accent-dark);
+	padding-left: 0.8em;
+	border-left: 3px solid var(--acorn);
+	color: var(--green-dark);
 }
 
-strong, b {
-	font-weight: 700;
-}
-
+/* ── テキスト ────────────────── */
 a {
-	color: var(--accent);
+	color: var(--green);
 	text-decoration: none;
+	transition: color 0.15s;
 }
-
 a:hover {
-	color: var(--accent-dark);
+	color: var(--green-dark);
 	text-decoration: underline;
 }
 
-p {
-	margin-bottom: 1.2em;
-}
+p { margin-bottom: 1.2em; }
+.prose p { margin-bottom: 1.5em; }
 
-.prose p {
-	margin-bottom: 1.6em;
-}
+strong, b { font-weight: 700; }
 
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-
-input {
-	font-size: 16px;
-}
-
+/* ── テーブル ────────────────── */
 table {
 	width: 100%;
 	border-collapse: collapse;
+	font-size: 0.92em;
+	margin: 1.5em 0;
 }
-
 table th {
-	background: rgba(var(--gray-light), 0.6);
-	padding: 0.5em 0.8em;
+	background: var(--green-pale);
+	color: var(--green-dark);
+	padding: 0.6em 0.9em;
 	text-align: left;
-	font-weight: 600;
+	font-weight: 700;
+	border-bottom: 2px solid var(--green-light);
 }
-
 table td {
-	padding: 0.5em 0.8em;
-	border-bottom: 1px solid rgba(var(--gray-light), 1);
+	padding: 0.55em 0.9em;
+	border-bottom: 1px solid var(--border);
 }
+table tr:last-child td { border-bottom: none; }
 
+/* ── リスト ──────────────────── */
+ul, ol { padding-left: 1.5em; }
+li { margin-bottom: 0.4em; }
+
+.prose ul li::marker { color: var(--green); }
+
+/* ── 画像 ────────────────────── */
 img {
 	max-width: 100%;
 	height: auto;
 	border-radius: 10px;
 }
 
+/* ── コード ──────────────────── */
 code {
 	padding: 2px 6px;
-	background-color: rgba(var(--gray-light), 0.8);
-	border-radius: 4px;
-	font-size: 0.9em;
+	background: var(--cream-dark);
+	border-radius: 5px;
+	font-size: 0.88em;
+	color: var(--green-dark);
 }
-
 pre {
-	padding: 1.5em;
+	padding: 1.4em;
 	border-radius: 10px;
-	background: rgba(var(--gray-light), 0.5);
+	background: var(--cream-dark);
+	overflow-x: auto;
 }
+pre > code { all: unset; font-size: 0.88em; }
 
-pre > code {
-	all: unset;
-}
-
+/* ── 引用 ────────────────────── */
 blockquote {
-	border-left: 4px solid var(--accent-light);
-	padding: 0.5em 0 0.5em 1.2em;
+	border-left: 4px solid var(--green-light);
+	background: var(--green-pale);
+	padding: 0.8em 1.2em;
 	margin: 1.5em 0;
-	color: rgb(var(--gray));
-	font-size: 1.05em;
+	border-radius: 0 10px 10px 0;
+	color: var(--text-muted);
 }
 
 hr {
 	border: none;
-	border-top: 1px solid rgba(var(--gray-light), 1);
-	margin: 2em 0;
+	border-top: 2px dashed var(--border);
+	margin: 2.5em 0;
 }
 
-ul li, ol li {
-	margin-bottom: 0.4em;
-}
-
-@media (max-width: 720px) {
-	body {
-		font-size: 16px;
-	}
-	main {
-		padding: 1.5em 1em 3em;
-	}
-}
-
-/* ----------------------------------------
-   アフィリエイト用ボタン・商品ブロック
----------------------------------------- */
-
+/* ── アフィリエイト用ボタン・商品ブロック ── */
 .btn {
 	display: inline-block;
-	padding: 0.55em 1.2em;
-	border-radius: 8px;
+	padding: 0.55em 1.3em;
+	border-radius: 50px;
 	font-size: 0.875em;
-	font-weight: 600;
+	font-weight: 700;
 	text-decoration: none;
-	transition: opacity 0.18s ease, transform 0.18s ease;
-	letter-spacing: 0.02em;
+	transition: opacity 0.18s, transform 0.18s;
+	letter-spacing: 0.03em;
 }
-
 .btn:hover {
 	opacity: 0.85;
-	transform: translateY(-1px);
+	transform: translateY(-2px);
 	text-decoration: none;
 }
+.btn--amazon  { background: #ff9900; color: #fff; }
+.btn--rakuten { background: #bf0000; color: #fff; }
+.btn--green   { background: var(--green); color: #fff; }
 
-.btn--amazon {
-	background: #ff9900;
-	color: #fff;
-}
-
-.btn--rakuten {
-	background: #bf0000;
-	color: #fff;
-}
-
-.btn--green {
-	background: var(--accent);
-	color: #fff;
-}
-
-/* Markdownから直接HTMLで使う場合用 */
 .product-box {
 	display: flex;
 	gap: 1.2em;
-	background: #fff;
-	border: 1px solid rgba(230, 235, 225, 1);
-	border-radius: 14px;
+	background: var(--white);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
 	padding: 1.4em;
 	margin: 2em 0;
-	box-shadow: 0 2px 8px rgba(74, 124, 89, 0.08);
+	box-shadow: var(--shadow-sm);
 	align-items: flex-start;
 	flex-wrap: wrap;
 }
+.product-box__image { width: 110px; flex-shrink: 0; }
+.product-box__image img { width: 100%; border-radius: 8px; object-fit: contain; }
+.product-box__body { flex: 1; min-width: 200px; }
+.product-box__title { font-weight: 700; font-size: 1em; margin: 0 0 0.4em; }
+.product-box__desc  { font-size: 0.875em; color: var(--text-muted); margin: 0 0 0.6em; }
+.product-box__price { font-weight: 700; color: var(--green-dark); margin: 0 0 0.8em; }
+.product-box__buttons { display: flex; flex-wrap: wrap; gap: 0.6em; }
 
-.product-box__image {
-	width: 110px;
-	flex-shrink: 0;
+/* ── レスポンシブ ─────────────── */
+@media (max-width: 720px) {
+	body  { font-size: 15px; }
+	main  { padding: 1.5em 1em 3em; }
 }
-
-.product-box__image img {
-	width: 100%;
-	border-radius: 8px;
-	object-fit: contain;
-}
-
-.product-box__body {
-	flex: 1;
-	min-width: 200px;
-}
-
-.product-box__title {
-	font-weight: 700;
-	font-size: 1em;
-	margin: 0 0 0.4em;
-	color: rgb(40, 44, 38);
-}
-
-.product-box__desc {
-	font-size: 0.875em;
-	color: rgb(110, 120, 105);
-	margin: 0 0 0.6em;
-}
-
-.product-box__price {
-	font-weight: 700;
-	color: #2e5239;
-	margin: 0 0 0.8em;
-}
-
-.product-box__buttons {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.6em;
-}
-
-/* ---------------------------------------- */
 
 .sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
+	border: 0; padding: 0; margin: 0;
 	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
+	height: 1px; width: 1px; overflow: hidden;
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	white-space: nowrap;

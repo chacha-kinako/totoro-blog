@@ -16,89 +16,187 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				max-width: 720px;
+			/* ヘッダーバナー */
+			.blog-hero {
+				background: linear-gradient(135deg, #2d5a3d 0%, #4a7a5a 50%, #6a9a72 100%);
+				border-radius: 20px;
+				padding: 2.5em 2em;
+				margin-bottom: 2.5em;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
 			}
-			.page-title {
-				font-size: 1.4em;
-				color: var(--accent-dark);
-				margin-bottom: 2em;
-				font-weight: 600;
-				letter-spacing: 0.02em;
+			.blog-hero::before {
+				content: '🌳　🍃　🌰　🍂　🌿　🌱　🍃　🌳';
+				position: absolute;
+				top: 0.5em;
+				left: 0;
+				right: 0;
+				font-size: 1.1em;
+				opacity: 0.25;
+				letter-spacing: 0.5em;
+				white-space: nowrap;
+				overflow: hidden;
 			}
-			ul {
-				display: flex;
-				flex-direction: column;
-				gap: 1.2rem;
+			.blog-hero::after {
+				content: '🌿　🌰　🍃　🌳　🍂　🌱　🍃　🌰';
+				position: absolute;
+				bottom: 0.5em;
+				left: 0;
+				right: 0;
+				font-size: 1.1em;
+				opacity: 0.25;
+				letter-spacing: 0.5em;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			.blog-hero__title {
+				color: #fff;
+				font-size: 1.6em;
+				font-weight: 800;
+				margin: 0 0 0.3em;
+				text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+			}
+			.blog-hero__desc {
+				color: rgba(255,255,255,0.85);
+				font-size: 0.9em;
+				margin: 0;
+			}
+
+			/* グリッド */
+			.post-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.4rem;
 				list-style: none;
 				margin: 0;
 				padding: 0;
 			}
-			ul li a {
-				display: block;
+
+			/* カード */
+			.post-card {
 				background: #fff;
-				border-radius: 14px;
-				padding: 1.4em 1.6em;
-				box-shadow: var(--box-shadow);
-				text-decoration: none;
-				transition: transform 0.2s ease, box-shadow 0.2s ease;
-				border: 1px solid rgba(var(--gray-light), 1);
+				border-radius: 16px;
+				border: 1px solid var(--border);
+				box-shadow: var(--shadow-sm);
+				transition: transform 0.22s ease, box-shadow 0.22s ease;
+				overflow: hidden;
 			}
-			ul li a:hover {
-				transform: translateY(-3px);
-				box-shadow:
-					0 6px 16px rgba(74, 124, 89, 0.12),
-					0 16px 32px rgba(74, 124, 89, 0.08);
-				text-decoration: none;
+			.post-card:hover {
+				transform: translateY(-5px);
+				box-shadow: var(--shadow-hover);
 			}
-			.title {
-				margin: 0 0 0.4em;
-				color: rgb(var(--black));
-				font-size: 1.05em;
+			.post-card a {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+				height: 100%;
+			}
+
+			/* カード上部のカラーバー */
+			.post-card__bar {
+				height: 6px;
+				background: linear-gradient(90deg, var(--green) 0%, var(--acorn) 100%);
+			}
+
+			.post-card__body {
+				padding: 1.3em 1.4em 1.4em;
+			}
+
+			.post-card__date {
+				font-size: 0.78em;
+				color: var(--green-light);
+				font-weight: 600;
+				margin-bottom: 0.5em;
+				display: flex;
+				align-items: center;
+				gap: 0.3em;
+			}
+			.post-card__date::before {
+				content: '🌱';
+				font-size: 0.9em;
+			}
+
+			.post-card__title {
+				font-size: 0.97em;
 				font-weight: 700;
-				line-height: 1.4;
-			}
-			.description {
+				color: var(--text);
+				line-height: 1.45;
 				margin: 0 0 0.6em;
-				color: rgb(var(--gray));
-				font-size: 0.88em;
-				line-height: 1.6;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
 			}
-			.date {
-				margin: 0;
-				color: var(--accent-light);
+
+			.post-card__desc {
 				font-size: 0.82em;
+				color: var(--text-muted);
+				line-height: 1.6;
+				margin: 0;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
 			}
-			@media (max-width: 720px) {
-				ul li a {
-					padding: 1.1em 1.2em;
-				}
+
+			/* セクションタイトル */
+			.section-label {
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
+				font-size: 1em;
+				font-weight: 700;
+				color: var(--green-dark);
+				margin-bottom: 1.2em;
+			}
+			.section-label::before { content: '🍂'; }
+			.section-label::after  {
+				content: '';
+				flex: 1;
+				height: 2px;
+				background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+				border-radius: 2px;
+			}
+
+			@media (max-width: 600px) {
+				.post-grid { grid-template-columns: 1fr; }
+				.blog-hero { padding: 2em 1.2em; }
+				.blog-hero__title { font-size: 1.2em; }
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<p class="page-title">🌿 記事一覧</p>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<h4 class="title">{post.data.title}</h4>
-									{post.data.description && (
-										<p class="description">{post.data.description}</p>
-									)}
-									<p class="date">
+			<!-- ヘッダーバナー -->
+			<div class="blog-hero">
+				<p class="blog-hero__title">🌰 トトロとジブリの森から</p>
+				<p class="blog-hero__desc">グッズ・暮らし・お気に入りをのんびり発信中</p>
+			</div>
+
+			<!-- 記事一覧 -->
+			<p class="section-label">記事一覧</p>
+			<ul class="post-grid">
+				{
+					posts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								<div class="post-card__bar" />
+								<div class="post-card__body">
+									<p class="post-card__date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+									<h2 class="post-card__title">{post.data.title}</h2>
+									{post.data.description && (
+										<p class="post-card__desc">{post.data.description}</p>
+									)}
+								</div>
+							</a>
+						</li>
+					))
+				}
+			</ul>
 		</main>
 		<Footer />
 	</body>
