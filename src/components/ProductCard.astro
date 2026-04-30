@@ -1,0 +1,125 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  price?: string;
+  image?: string;
+  amazon?: string;
+  rakuten?: string;
+  label?: string;
+}
+
+const { title, description, price, image, amazon, rakuten, label } = Astro.props;
+---
+
+<div class="product-card">
+  {image && (
+    <div class="product-card__image">
+      <img src={image} alt={title} loading="lazy" />
+    </div>
+  )}
+  <div class="product-card__body">
+    {label && <span class="product-card__label">{label}</span>}
+    <p class="product-card__title">{title}</p>
+    {description && <p class="product-card__desc">{description}</p>}
+    {price && <p class="product-card__price">{price}</p>}
+    <div class="product-card__buttons">
+      {amazon && (
+        <a href={amazon} class="btn btn--amazon" target="_blank" rel="noopener noreferrer nofollow">
+          Amazonで見る
+        </a>
+      )}
+      {rakuten && (
+        <a href={rakuten} class="btn btn--rakuten" target="_blank" rel="noopener noreferrer nofollow">
+          楽天で見る
+        </a>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    display: flex;
+    gap: 1.2em;
+    background: #fff;
+    border: 1px solid rgba(230, 235, 225, 1);
+    border-radius: 14px;
+    padding: 1.4em;
+    margin: 2em 0;
+    box-shadow: 0 2px 8px rgba(74, 124, 89, 0.08);
+    align-items: flex-start;
+  }
+
+  .product-card__image {
+    flex-shrink: 0;
+    width: 110px;
+  }
+
+  .product-card__image img {
+    width: 100%;
+    height: 110px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid rgba(230, 235, 225, 1);
+    background: #f8f9f6;
+  }
+
+  .product-card__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-card__label {
+    display: inline-block;
+    background: rgba(122, 171, 138, 0.15);
+    color: #2e5239;
+    font-size: 0.75em;
+    font-weight: 600;
+    padding: 0.2em 0.7em;
+    border-radius: 20px;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.03em;
+  }
+
+  .product-card__title {
+    font-size: 1em;
+    font-weight: 700;
+    color: rgb(40, 44, 38);
+    margin: 0 0 0.4em;
+    line-height: 1.4;
+  }
+
+  .product-card__desc {
+    font-size: 0.875em;
+    color: rgb(110, 120, 105);
+    margin: 0 0 0.5em;
+    line-height: 1.6;
+  }
+
+  .product-card__price {
+    font-size: 0.95em;
+    font-weight: 700;
+    color: #2e5239;
+    margin: 0 0 0.8em;
+  }
+
+  .product-card__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+  }
+
+  @media (max-width: 560px) {
+    .product-card {
+      flex-direction: column;
+    }
+    .product-card__image {
+      width: 100%;
+    }
+    .product-card__image img {
+      width: 100%;
+      height: 160px;
+    }
+  }
+</style>

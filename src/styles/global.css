@@ -160,6 +160,99 @@ ul li, ol li {
 	}
 }
 
+/* ----------------------------------------
+   アフィリエイト用ボタン・商品ブロック
+---------------------------------------- */
+
+.btn {
+	display: inline-block;
+	padding: 0.55em 1.2em;
+	border-radius: 8px;
+	font-size: 0.875em;
+	font-weight: 600;
+	text-decoration: none;
+	transition: opacity 0.18s ease, transform 0.18s ease;
+	letter-spacing: 0.02em;
+}
+
+.btn:hover {
+	opacity: 0.85;
+	transform: translateY(-1px);
+	text-decoration: none;
+}
+
+.btn--amazon {
+	background: #ff9900;
+	color: #fff;
+}
+
+.btn--rakuten {
+	background: #bf0000;
+	color: #fff;
+}
+
+.btn--green {
+	background: var(--accent);
+	color: #fff;
+}
+
+/* Markdownから直接HTMLで使う場合用 */
+.product-box {
+	display: flex;
+	gap: 1.2em;
+	background: #fff;
+	border: 1px solid rgba(230, 235, 225, 1);
+	border-radius: 14px;
+	padding: 1.4em;
+	margin: 2em 0;
+	box-shadow: 0 2px 8px rgba(74, 124, 89, 0.08);
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.product-box__image {
+	width: 110px;
+	flex-shrink: 0;
+}
+
+.product-box__image img {
+	width: 100%;
+	border-radius: 8px;
+	object-fit: contain;
+}
+
+.product-box__body {
+	flex: 1;
+	min-width: 200px;
+}
+
+.product-box__title {
+	font-weight: 700;
+	font-size: 1em;
+	margin: 0 0 0.4em;
+	color: rgb(40, 44, 38);
+}
+
+.product-box__desc {
+	font-size: 0.875em;
+	color: rgb(110, 120, 105);
+	margin: 0 0 0.6em;
+}
+
+.product-box__price {
+	font-weight: 700;
+	color: #2e5239;
+	margin: 0 0 0.8em;
+}
+
+.product-box__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6em;
+}
+
+/* ---------------------------------------- */
+
 .sr-only {
 	border: 0;
 	padding: 0;
