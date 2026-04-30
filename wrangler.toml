@@ -1,0 +1,6 @@
+name = "totoro-blog"
+compatibility_date = "2026-04-29"
+compatibility_flags = ["global_fetch_strictly_public"]
+
+[assets]
+directory = "./dist"
