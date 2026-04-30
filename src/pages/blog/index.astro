@@ -16,27 +16,61 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			/* ヘッダー帯 */
+			/* ヒーロー写真帯 */
 			.blog-hero {
-				background: linear-gradient(90deg, var(--green-dark) 0%, var(--green) 60%, #6a9a72 100%);
 				width: 100vw;
 				margin-left: calc(50% - 50vw);
-				padding: 2.2em 0;
+				height: 340px;
+				position: relative;
+				overflow: hidden;
 				margin-bottom: 2.5em;
+			}
+			.blog-hero__img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center 30%;
+				display: block;
+				border-radius: 0;
+			}
+			.blog-hero__overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					to bottom,
+					rgba(20, 45, 28, 0.18) 0%,
+					rgba(20, 45, 28, 0.52) 100%
+				);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 				text-align: center;
+				padding: 1em;
 			}
 			.blog-hero__title {
+				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
 				color: #fff;
-				font-size: 1.5em;
-				font-weight: 800;
-				margin: 0 0 0.25em;
-				letter-spacing: 0.04em;
+				font-size: 2.2em;
+				font-weight: 700;
+				margin: 0 0 0.3em;
+				text-shadow:
+					0 2px 12px rgba(20, 60, 30, 0.7),
+					0 0 40px rgba(20, 60, 30, 0.4);
+				letter-spacing: 0.1em;
+				line-height: 1.3;
 			}
 			.blog-hero__desc {
-				color: rgba(255,255,255,0.82);
-				font-size: 0.88em;
+				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				color: rgba(255,255,255,0.92);
+				font-size: 0.95em;
 				margin: 0;
-				letter-spacing: 0.02em;
+				letter-spacing: 0.12em;
+				text-shadow: 0 1px 6px rgba(20, 60, 30, 0.7);
+			}
+			@media (max-width: 600px) {
+				.blog-hero { height: 220px; }
+				.blog-hero__title { font-size: 1.5em; }
 			}
 
 			/* グリッド */
@@ -144,10 +178,13 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<!-- ヘッダー帯 -->
+			<!-- ヒーロー写真帯 -->
 			<div class="blog-hero">
-				<p class="blog-hero__title">トトロとジブリの森から</p>
-				<p class="blog-hero__desc">グッズ・暮らし・お気に入りをのんびり発信中</p>
+				<img class="blog-hero__img" src="/hero-bg.jpg" alt="ジブリグッズでいっぱいのお部屋" />
+				<div class="blog-hero__overlay">
+					<p class="blog-hero__title">トトロとジブリの森から</p>
+					<p class="blog-hero__desc">グッズ・暮らし・お気に入りをのんびり発信中</p>
+				</div>
 			</div>
 
 			<!-- 記事一覧 -->
