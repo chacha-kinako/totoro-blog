@@ -2,7 +2,7 @@
 	--green:        #4a7a5a;
 	--green-dark:   #2d5a3d;
 	--green-light:  #7aaa8a;
-	--green-pale:   #e8f2eb;
+	--green-pale:   #eaf3ed;
 	--acorn:        #b87333;
 	--acorn-light:  #f0e0c8;
 	--cream:        #faf8f2;
@@ -17,19 +17,13 @@
 	--radius:       14px;
 }
 
-* {
-	box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
 	font-family: system-ui, -apple-system, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
 	margin: 0;
 	padding: 0;
 	background-color: var(--cream);
-	background-image:
-		radial-gradient(ellipse at 5% 10%, rgba(122, 170, 138, 0.15) 0%, transparent 45%),
-		radial-gradient(ellipse at 95% 5%,  rgba(184, 115, 51, 0.08) 0%, transparent 40%),
-		radial-gradient(ellipse at 50% 95%, rgba(122, 170, 138, 0.10) 0%, transparent 50%);
 	color: var(--text);
 	font-size: 17px;
 	line-height: 1.85;
@@ -38,7 +32,7 @@ body {
 }
 
 main {
-	width: 860px;
+	width: 880px;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 2.5em 1em 5em;
@@ -56,28 +50,25 @@ h2 { font-size: 1.55em; }
 h3 { font-size: 1.2em; }
 h4 { font-size: 1.05em; }
 
-/* 記事本文のh2に葉っぱアクセント */
+/* 記事本文のh2：左に緑ライン＋薄い背景 */
 .prose h2 {
-	display: flex;
-	align-items: center;
-	gap: 0.5em;
 	margin-top: 2.8em;
 	margin-bottom: 0.8em;
-	padding-bottom: 0.5em;
-	border-bottom: 2px solid var(--green-pale);
+	padding: 0.5em 0.9em;
+	background: var(--green-pale);
+	border-left: 5px solid var(--green);
+	border-radius: 0 8px 8px 0;
+	font-size: 1.3em;
 	color: var(--green-dark);
-}
-.prose h2::before {
-	content: '🌿';
-	font-size: 0.85em;
-	flex-shrink: 0;
 }
 
+/* 記事本文のh3：どんぐり色の下線 */
 .prose h3 {
 	margin-top: 2em;
-	padding-left: 0.8em;
-	border-left: 3px solid var(--acorn);
-	color: var(--green-dark);
+	padding-bottom: 0.3em;
+	border-bottom: 2px solid var(--acorn-light);
+	color: var(--text);
+	font-size: 1.1em;
 }
 
 /* ── テキスト ────────────────── */
@@ -90,10 +81,8 @@ a:hover {
 	color: var(--green-dark);
 	text-decoration: underline;
 }
-
 p { margin-bottom: 1.2em; }
 .prose p { margin-bottom: 1.5em; }
-
 strong, b { font-weight: 700; }
 
 /* ── テーブル ────────────────── */
@@ -102,18 +91,22 @@ table {
 	border-collapse: collapse;
 	font-size: 0.92em;
 	margin: 1.5em 0;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
 }
 table th {
 	background: var(--green-pale);
 	color: var(--green-dark);
-	padding: 0.6em 0.9em;
+	padding: 0.65em 1em;
 	text-align: left;
 	font-weight: 700;
 	border-bottom: 2px solid var(--green-light);
 }
 table td {
-	padding: 0.55em 0.9em;
+	padding: 0.6em 1em;
 	border-bottom: 1px solid var(--border);
+	background: var(--white);
 }
 table tr:last-child td { border-bottom: none; }
 
@@ -121,18 +114,12 @@ table tr:last-child td { border-bottom: none; }
 ul, ol { padding-left: 1.5em; }
 li { margin-bottom: 0.4em; }
 
-.prose ul li::marker { color: var(--green); }
-
 /* ── 画像 ────────────────────── */
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 10px;
-}
+img { max-width: 100%; height: auto; border-radius: 10px; }
 
 /* ── コード ──────────────────── */
 code {
-	padding: 2px 6px;
+	padding: 2px 7px;
 	background: var(--cream-dark);
 	border-radius: 5px;
 	font-size: 0.88em;
@@ -162,22 +149,19 @@ hr {
 	margin: 2.5em 0;
 }
 
-/* ── アフィリエイト用ボタン・商品ブロック ── */
+/* ── アフィリエイト用 ────────── */
 .btn {
 	display: inline-block;
-	padding: 0.55em 1.3em;
+	padding: 0.6em 1.4em;
 	border-radius: 50px;
 	font-size: 0.875em;
 	font-weight: 700;
 	text-decoration: none;
 	transition: opacity 0.18s, transform 0.18s;
 	letter-spacing: 0.03em;
+	line-height: 1.4;
 }
-.btn:hover {
-	opacity: 0.85;
-	transform: translateY(-2px);
-	text-decoration: none;
-}
+.btn:hover { opacity: 0.85; transform: translateY(-2px); text-decoration: none; }
 .btn--amazon  { background: #ff9900; color: #fff; }
 .btn--rakuten { background: #bf0000; color: #fff; }
 .btn--green   { background: var(--green); color: #fff; }

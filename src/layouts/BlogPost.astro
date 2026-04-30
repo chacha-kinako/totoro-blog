@@ -31,7 +31,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				gap: 0.4em;
 			}
 			.breadcrumb a { color: var(--green); }
-			.breadcrumb::before { content: '🌿'; margin-right: 0.2em; }
+			.breadcrumb::before { content: '›'; margin-right: 0.3em; color: var(--green-light); }
 
 			/* ヒーロー画像 */
 			.hero-image {
@@ -72,7 +72,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				font-weight: 600;
 				margin-bottom: 0.7em;
 			}
-			.article-header__meta::before { content: '🌱'; }
+			.article-header__meta::before { content: none; }
 			.article-header h1 {
 				font-size: 1.65em;
 				line-height: 1.4;
@@ -111,7 +111,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				background: var(--green-pale);
 				border-radius: 12px;
 			}
-			.article-footer::before { content: '🌳　🍃　🌰　🍃　🌳'; display: block; font-size: 1.1em; margin-bottom: 0.3em; letter-spacing: 0.3em; }
+			.article-footer::before { content: none; }
 
 			@media (max-width: 720px) {
 				main { padding: 1em 0.8em 3em; }
