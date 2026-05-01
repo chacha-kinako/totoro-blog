@@ -1,49 +1,454 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const latestPosts = allPosts.slice(0, 3);
+const featuredPosts = allPosts.filter(p => p.data.featured);
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="ja">
+<head>
+	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	<style>
+		/* ── ヒーロータイトルエリア ── */
+		.home-title-area {
+			text-align: center;
+			padding: 2.8em 1em 2em;
+			background: #fff;
+		}
+		.home-title-area__site {
+			font-size: 0.8em;
+			color: var(--green);
+			letter-spacing: 0.15em;
+			margin: 0 0 0.6em;
+			font-weight: 600;
+		}
+		.home-title-area__blog {
+			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-size: 2.4em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.4em;
+			letter-spacing: 0.06em;
+			line-height: 1.3;
+		}
+		.home-title-area__blog span {
+			color: var(--green-dark);
+		}
+		.home-title-area__tagline {
+			font-size: 0.88em;
+			color: var(--text-muted);
+			margin: 0;
+			letter-spacing: 0.05em;
+		}
+
+		/* ── ヒーロー写真 ── */
+		.home-hero {
+			width: 100vw;
+			margin-left: calc(50% - 50vw);
+			height: 300px;
+			overflow: hidden;
+			position: relative;
+		}
+		.home-hero img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center 30%;
+			display: block;
+			border-radius: 0;
+		}
+		.home-hero__badge {
+			position: absolute;
+			bottom: 1.2em;
+			right: 1.4em;
+			background: rgba(255,255,255,0.92);
+			border: 1.5px solid var(--green-light);
+			color: var(--green-dark);
+			font-size: 0.75em;
+			font-weight: 700;
+			padding: 0.35em 0.9em;
+			border-radius: 50px;
+			letter-spacing: 0.05em;
+		}
+
+		/* ── クイックナビ ── */
+		.quick-nav {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 0.7em;
+			padding: 2em 1em;
+			background: #fff;
+			border-bottom: 1px solid var(--border);
+		}
+		.quick-nav__btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.3em;
+			padding: 0.5em 1.2em;
+			border-radius: 50px;
+			font-size: 0.85em;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.18s;
+			border: 1.5px solid var(--green-light);
+			color: var(--green-dark);
+			background: #fff;
+			letter-spacing: 0.03em;
+		}
+		.quick-nav__btn:hover {
+			background: var(--green);
+			color: #fff;
+			border-color: var(--green);
+			text-decoration: none;
+			transform: translateY(-2px);
+		}
+		.quick-nav__btn--fill {
+			background: var(--green);
+			color: #fff;
+			border-color: var(--green);
+		}
+		.quick-nav__btn--fill:hover {
+			background: var(--green-dark);
+			border-color: var(--green-dark);
+		}
+
+		/* ── セクション共通 ── */
+		.home-section {
+			padding: 3em 0;
+		}
+		.home-section--alt {
+			background: var(--green-pale);
+		}
+		.home-section__inner {
+			max-width: 960px;
+			margin: auto;
+			padding: 0 1.5em;
+		}
+		.home-section__heading {
+			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-size: 1.35em;
+			font-weight: 700;
+			color: var(--green-dark);
+			margin: 0 0 1.4em;
+			display: flex;
+			align-items: center;
+			gap: 0.6em;
+		}
+		.home-section__heading::after {
+			content: '';
+			flex: 1;
+			height: 1.5px;
+			background: linear-gradient(90deg, var(--green-light) 0%, transparent 100%);
+		}
+		.home-section__more {
+			text-align: center;
+			margin-top: 1.8em;
+		}
+		.home-section__more a {
+			display: inline-block;
+			padding: 0.55em 1.8em;
+			border: 1.5px solid var(--green);
+			color: var(--green-dark);
+			border-radius: 50px;
+			font-size: 0.85em;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.18s;
+			letter-spacing: 0.05em;
+		}
+		.home-section__more a:hover {
+			background: var(--green);
+			color: #fff;
+			text-decoration: none;
+		}
+
+		/* ── 記事カードグリッド ── */
+		.post-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.2rem;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.post-card {
+			background: #fff;
+			border-radius: 16px;
+			border: 1px solid var(--border);
+			box-shadow: 0 2px 10px rgba(74,122,90,0.07);
+			overflow: hidden;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.post-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 8px 24px rgba(74,122,90,0.13);
+		}
+		.post-card a {
+			display: block;
+			text-decoration: none;
+			color: inherit;
+			height: 100%;
+		}
+
+		/* 写真あり */
+		.post-card__thumb {
+			position: relative;
+			width: 100%;
+			aspect-ratio: 3 / 2;
+			overflow: hidden;
+		}
+		.post-card__thumb img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 0;
+			display: block;
+			transition: transform 0.3s;
+		}
+		.post-card:hover .post-card__thumb img { transform: scale(1.04); }
+		.post-card__thumb-label {
+			position: absolute;
+			bottom: 0.7em;
+			left: 0.8em;
+			background: rgba(255,255,255,0.92);
+			color: var(--green-dark);
+			font-family: 'Kaisei Decol', serif;
+			font-size: 0.82em;
+			font-weight: 700;
+			padding: 0.25em 0.75em;
+			border-radius: 50px;
+			letter-spacing: 0.04em;
+		}
+
+		/* テキストカード上部バー */
+		.post-card__bar {
+			height: 5px;
+			background: linear-gradient(90deg, var(--green) 0%, var(--acorn) 100%);
+		}
+		.post-card__body {
+			padding: 1em 1.1em 1.2em;
+		}
+		.post-card__date {
+			font-size: 0.75em;
+			color: var(--green-light);
+			font-weight: 600;
+			margin-bottom: 0.4em;
+		}
+		.post-card__title {
+			font-size: 0.9em;
+			font-weight: 700;
+			color: var(--text);
+			line-height: 1.5;
+			margin: 0 0 0.4em;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.post-card__desc {
+			font-size: 0.78em;
+			color: var(--text-muted);
+			line-height: 1.55;
+			margin: 0;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		/* ── Aboutティーザー ── */
+		.about-teaser {
+			display: flex;
+			align-items: center;
+			gap: 2em;
+			background: #fff;
+			border-radius: 18px;
+			border: 1px solid var(--border);
+			padding: 2em 2.2em;
+			box-shadow: 0 2px 10px rgba(74,122,90,0.07);
+		}
+		.about-teaser__icon {
+			font-size: 3.5em;
+			flex-shrink: 0;
+			line-height: 1;
+		}
+		.about-teaser__text h3 {
+			font-family: 'Kaisei Decol', serif;
+			font-size: 1.1em;
+			color: var(--green-dark);
+			margin: 0 0 0.4em;
+		}
+		.about-teaser__text p {
+			font-size: 0.88em;
+			color: var(--text-muted);
+			margin: 0 0 0.8em;
+			line-height: 1.7;
+		}
+		.about-teaser__link {
+			font-size: 0.83em;
+			font-weight: 700;
+			color: var(--green);
+			text-decoration: none;
+			border-bottom: 1.5px solid var(--green-light);
+			padding-bottom: 1px;
+			transition: color 0.15s;
+		}
+		.about-teaser__link:hover { color: var(--green-dark); }
+
+		/* ── レスポンシブ ── */
+		@media (max-width: 720px) {
+			.home-title-area__blog { font-size: 1.7em; }
+			.home-hero { height: 200px; }
+			.post-grid { grid-template-columns: 1fr; }
+			.about-teaser { flex-direction: column; gap: 1em; padding: 1.4em; }
+		}
+		@media (min-width: 721px) and (max-width: 960px) {
+			.post-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+	</style>
+</head>
+<body>
+	<Header />
+
+	<!-- ブログタイトル（写真より上） -->
+	<div class="home-title-area">
+		<p class="home-title-area__site">{SITE_TITLE}</p>
+		<h1 class="home-title-area__blog">
+			トトロと<span>暮らす</span>丸窓の家
+		</h1>
+		<p class="home-title-area__tagline">グッズ・暮らし・お気に入りをのんびり発信中</p>
+	</div>
+
+	<!-- ヒーロー写真 -->
+	<div class="home-hero">
+		<img src="/hero-bg.jpg" alt="トトログッズでいっぱいのお部屋" />
+		<span class="home-hero__badge">hinako's room</span>
+	</div>
+
+	<!-- クイックナビ -->
+	<nav class="quick-nav">
+		<a href="/blog" class="quick-nav__btn quick-nav__btn--fill">記事一覧</a>
+		<a href="/#latest" class="quick-nav__btn">最新の記事</a>
+		<a href="/#popular" class="quick-nav__btn">人気の記事</a>
+		<a href="/about" class="quick-nav__btn">プロフィール</a>
+		<a href="/rss.xml" class="quick-nav__btn" target="_blank" rel="noopener">RSSを購読</a>
+	</nav>
+
+	<main>
+		<!-- 最新の記事 -->
+		<section class="home-section" id="latest">
+			<div class="home-section__inner">
+				<h2 class="home-section__heading">最新の記事</h2>
+				<ul class="post-grid">
+					{latestPosts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								{post.data.cardImage ? (
+									<>
+										<div class="post-card__thumb">
+											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+											{post.data.cardText && (
+												<span class="post-card__thumb-label">{post.data.cardText}</span>
+											)}
+										</div>
+										<div class="post-card__body">
+											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+											<h3 class="post-card__title">{post.data.title}</h3>
+										</div>
+									</>
+								) : (
+									<>
+										<div class="post-card__bar" />
+										<div class="post-card__body">
+											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+											<h3 class="post-card__title">{post.data.title}</h3>
+											{post.data.description && (
+												<p class="post-card__desc">{post.data.description}</p>
+											)}
+										</div>
+									</>
+								)}
+							</a>
+						</li>
+					))}
+				</ul>
+				<div class="home-section__more">
+					<a href="/blog">記事をもっと見る →</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- 人気の記事 -->
+		{featuredPosts.length > 0 && (
+			<section class="home-section home-section--alt" id="popular">
+				<div class="home-section__inner">
+					<h2 class="home-section__heading">人気の記事</h2>
+					<ul class="post-grid">
+						{featuredPosts.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									{post.data.cardImage ? (
+										<>
+											<div class="post-card__thumb">
+												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+												{post.data.cardText && (
+													<span class="post-card__thumb-label">{post.data.cardText}</span>
+												)}
+											</div>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</>
+									) : (
+										<>
+											<div class="post-card__bar" />
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									)}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			</section>
+		)}
+
+		<!-- プロフィールティーザー -->
+		<section class="home-section">
+			<div class="home-section__inner">
+				<h2 class="home-section__heading">このブログについて</h2>
+				<div class="about-teaser">
+					<div class="about-teaser__icon">🌰</div>
+					<div class="about-teaser__text">
+						<h3>hinako のトトロライフ</h3>
+						<p>
+							トトロ・ジブリグッズを273個集めた主婦のブログです。
+							グッズのリアルな感想や、ジブリのある暮らしをのんびり発信しています。
+						</p>
+						<a href="/about" class="about-teaser__link">プロフィールを読む →</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</body>
 </html>
