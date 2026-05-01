@@ -117,6 +117,25 @@ li { margin-bottom: 0.4em; }
 /* ── 画像 ────────────────────── */
 img { max-width: 100%; height: auto; border-radius: 10px; }
 
+/* ── 雰囲気フォトグリッド ───── */
+.photo-row {
+	display: flex;
+	gap: 0.5em;
+	margin: 1.2em 0;
+	flex-wrap: nowrap;
+}
+.photo-row img {
+	flex: 1;
+	min-width: 0;
+	width: 0;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 8px;
+}
+@media (max-width: 600px) {
+	.photo-row img { height: 100px; }
+}
+
 /* ── コード ──────────────────── */
 code {
 	padding: 2px 7px;
