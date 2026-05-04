@@ -11,6 +11,16 @@ const allPosts = (await getCollection('blog')).sort(
 );
 const latestPosts = allPosts.slice(0, 3);
 const featuredPosts = allPosts.filter(p => p.data.featured);
+
+const categories = [
+	{ icon: '🪆', name: 'フィギアレビュー',   desc: 'ミニチュアの沼へ',     href: '/blog' },
+	{ icon: '🧸', name: 'ぬいぐるみレビュー', desc: 'もふもふ正直レビュー', href: '/blog' },
+	{ icon: '🍵', name: '陶器レビュー',       desc: '手仕事の温もり',       href: '/blog' },
+	{ icon: '🌟', name: 'ランキングまとめ',   desc: '迷ったらここから',     href: '/blog' },
+	{ icon: '🛍️', name: 'グッズ購入いろは',  desc: '選び方・購入場所',     href: '/blog' },
+	{ icon: '🌿', name: 'ジブリ雑貨',        desc: '暮らしに溶け込む',     href: '/blog' },
+	{ icon: '📖', name: 'お小遣い記録',       desc: 'リアルな収支公開',     href: '/blog' },
+];
 ---
 
 <!doctype html>
@@ -21,30 +31,37 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 		/* ── ヒーロータイトルエリア ── */
 		.home-title-area {
 			text-align: center;
-			padding: 2.8em 1em 2em;
+			padding: 3.2em 1em 2.4em;
 			background: #fff;
 		}
-		.home-title-area__site {
-			font-size: 0.8em;
-			color: var(--green);
-			letter-spacing: 0.15em;
-			margin: 0 0 0.6em;
-			font-weight: 600;
+		.home-title-area__label {
+			display: inline-block;
+			font-size: 0.72em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			margin: 0 0 0.9em;
+			padding: 0.3em 1.1em;
+			border: 1px solid var(--orange-light);
+			border-radius: 50px;
+			background: var(--orange-pale);
 		}
 		.home-title-area__blog {
 			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-			font-size: 2.4em;
+			font-size: 2.3em;
 			font-weight: 700;
 			color: var(--text);
-			margin: 0 0 0.4em;
+			margin: 0 0 0.45em;
 			letter-spacing: 0.06em;
-			line-height: 1.3;
+			line-height: 1.35;
 		}
-		.home-title-area__blog span {
-			color: var(--green-dark);
+		.home-title-area__blog em {
+			font-style: normal;
+			color: var(--orange);
 		}
 		.home-title-area__tagline {
-			font-size: 0.88em;
+			font-size: 0.85em;
 			color: var(--text-muted);
 			margin: 0;
 			letter-spacing: 0.05em;
@@ -64,20 +81,28 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			object-fit: cover;
 			object-position: center 30%;
 			display: block;
-			border-radius: 0;
+		}
+		.home-hero__overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				to bottom,
+				transparent 50%,
+				rgba(61, 48, 40, 0.2) 100%
+			);
 		}
 		.home-hero__badge {
 			position: absolute;
 			bottom: 1.2em;
 			right: 1.4em;
-			background: rgba(255,255,255,0.92);
-			border: 1.5px solid var(--green-light);
-			color: var(--green-dark);
-			font-size: 0.75em;
+			background: rgba(255,255,255,0.93);
+			border: 1px solid var(--beige);
+			color: var(--orange-dark);
+			font-size: 0.72em;
 			font-weight: 700;
-			padding: 0.35em 0.9em;
+			padding: 0.35em 1em;
 			border-radius: 50px;
-			letter-spacing: 0.05em;
+			letter-spacing: 0.08em;
 		}
 
 		/* ── クイックナビ ── */
@@ -85,49 +110,52 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
-			gap: 0.7em;
-			padding: 2em 1em;
+			gap: 0.6em;
+			padding: 1.8em 1em;
 			background: #fff;
-			border-bottom: 1px solid var(--border);
+			border-bottom: 1px solid var(--beige-light);
 		}
 		.quick-nav__btn {
 			display: inline-flex;
 			align-items: center;
-			gap: 0.3em;
-			padding: 0.5em 1.2em;
+			padding: 0.48em 1.1em;
 			border-radius: 50px;
-			font-size: 0.85em;
+			font-size: 0.81em;
 			font-weight: 600;
 			text-decoration: none;
 			transition: all 0.18s;
-			border: 1.5px solid var(--green-light);
-			color: var(--green-dark);
+			border: 1.5px solid var(--beige);
+			color: var(--text-muted);
 			background: #fff;
-			letter-spacing: 0.03em;
+			letter-spacing: 0.02em;
 		}
 		.quick-nav__btn:hover {
-			background: var(--green);
-			color: #fff;
-			border-color: var(--green);
+			background: var(--orange-pale);
+			color: var(--orange-dark);
+			border-color: var(--orange-light);
 			text-decoration: none;
-			transform: translateY(-2px);
+			transform: translateY(-1px);
 		}
 		.quick-nav__btn--fill {
-			background: var(--green);
+			background: var(--orange);
 			color: #fff;
-			border-color: var(--green);
+			border-color: var(--orange);
 		}
 		.quick-nav__btn--fill:hover {
-			background: var(--green-dark);
-			border-color: var(--green-dark);
+			background: var(--orange-dark);
+			border-color: var(--orange-dark);
+			color: #fff;
 		}
 
 		/* ── セクション共通 ── */
 		.home-section {
-			padding: 3em 0;
+			padding: 4em 0;
 		}
 		.home-section--alt {
-			background: var(--green-pale);
+			background: var(--milk-dark);
+		}
+		.home-section--white {
+			background: #fff;
 		}
 		.home-section__inner {
 			max-width: 960px;
@@ -135,41 +163,100 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			padding: 0 1.5em;
 		}
 		.home-section__heading {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3em;
+			margin: 0 0 2em;
+		}
+		.home-section__heading-label {
+			font-size: 0.68em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.22em;
+		}
+		.home-section__heading-text {
 			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
 			font-size: 1.35em;
 			font-weight: 700;
-			color: var(--green-dark);
-			margin: 0 0 1.4em;
-			display: flex;
-			align-items: center;
-			gap: 0.6em;
-		}
-		.home-section__heading::after {
-			content: '';
-			flex: 1;
-			height: 1.5px;
-			background: linear-gradient(90deg, var(--green-light) 0%, transparent 100%);
+			color: var(--text);
+			line-height: 1.3;
+			padding-bottom: 0.55em;
+			border-bottom: 1.5px solid var(--beige-light);
 		}
 		.home-section__more {
 			text-align: center;
-			margin-top: 1.8em;
+			margin-top: 2.2em;
 		}
 		.home-section__more a {
 			display: inline-block;
-			padding: 0.55em 1.8em;
-			border: 1.5px solid var(--green);
-			color: var(--green-dark);
+			padding: 0.6em 2em;
+			border: 1.5px solid var(--orange-light);
+			color: var(--orange-dark);
 			border-radius: 50px;
-			font-size: 0.85em;
+			font-size: 0.82em;
 			font-weight: 600;
 			text-decoration: none;
 			transition: all 0.18s;
-			letter-spacing: 0.05em;
+			letter-spacing: 0.04em;
 		}
 		.home-section__more a:hover {
-			background: var(--green);
+			background: var(--orange);
 			color: #fff;
+			border-color: var(--orange);
 			text-decoration: none;
+		}
+
+		/* ── カテゴリグリッド ── */
+		.category-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 0.85rem;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.category-card {
+			background: var(--milk);
+			border: 1px solid var(--beige-light);
+			border-radius: 14px;
+			overflow: hidden;
+			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+		}
+		.category-card:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-md);
+			border-color: var(--orange-light);
+			background: #fff;
+		}
+		.category-card a {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			padding: 1.4em 0.7em 1.3em;
+			gap: 0.3em;
+			text-decoration: none;
+			color: inherit;
+		}
+		.category-card__icon {
+			font-size: 1.8em;
+			line-height: 1;
+			margin-bottom: 0.15em;
+		}
+		.category-card__name {
+			font-size: 0.77em;
+			font-weight: 700;
+			color: var(--text);
+			line-height: 1.4;
+		}
+		.category-card__desc {
+			font-size: 0.65em;
+			color: var(--text-muted);
+			line-height: 1.35;
+		}
+		.category-card__bar {
+			height: 3px;
+			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
 		}
 
 		/* ── 記事カードグリッド ── */
@@ -184,14 +271,14 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 		.post-card {
 			background: #fff;
 			border-radius: 16px;
-			border: 1px solid var(--border);
-			box-shadow: 0 2px 10px rgba(74,122,90,0.07);
+			border: 1px solid var(--beige-light);
+			box-shadow: var(--shadow-sm);
 			overflow: hidden;
 			transition: transform 0.2s, box-shadow 0.2s;
 		}
 		.post-card:hover {
 			transform: translateY(-4px);
-			box-shadow: 0 8px 24px rgba(74,122,90,0.13);
+			box-shadow: var(--shadow-hover);
 		}
 		.post-card a {
 			display: block;
@@ -199,8 +286,6 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			color: inherit;
 			height: 100%;
 		}
-
-		/* 写真あり */
 		.post-card__thumb {
 			position: relative;
 			width: 100%;
@@ -211,7 +296,6 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			border-radius: 0;
 			display: block;
 			transition: transform 0.3s;
 		}
@@ -220,35 +304,33 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			position: absolute;
 			bottom: 0.7em;
 			left: 0.8em;
-			background: rgba(255,255,255,0.92);
-			color: var(--green-dark);
+			background: rgba(255,255,255,0.93);
+			color: var(--orange-dark);
 			font-family: 'Kaisei Decol', serif;
-			font-size: 0.82em;
+			font-size: 0.79em;
 			font-weight: 700;
-			padding: 0.25em 0.75em;
+			padding: 0.25em 0.8em;
 			border-radius: 50px;
 			letter-spacing: 0.04em;
 		}
-
-		/* テキストカード上部バー */
 		.post-card__bar {
-			height: 5px;
-			background: linear-gradient(90deg, var(--green) 0%, var(--acorn) 100%);
+			height: 4px;
+			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 60%, var(--green-light) 100%);
 		}
 		.post-card__body {
-			padding: 1em 1.1em 1.2em;
+			padding: 1em 1.1em 1.3em;
 		}
 		.post-card__date {
-			font-size: 0.75em;
-			color: var(--green-light);
+			font-size: 0.71em;
+			color: var(--orange-light);
 			font-weight: 600;
 			margin-bottom: 0.4em;
 		}
 		.post-card__title {
-			font-size: 0.9em;
+			font-size: 0.88em;
 			font-weight: 700;
 			color: var(--text);
-			line-height: 1.5;
+			line-height: 1.55;
 			margin: 0 0 0.4em;
 			display: -webkit-box;
 			-webkit-line-clamp: 2;
@@ -256,9 +338,9 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 			overflow: hidden;
 		}
 		.post-card__desc {
-			font-size: 0.78em;
+			font-size: 0.76em;
 			color: var(--text-muted);
-			line-height: 1.55;
+			line-height: 1.6;
 			margin: 0;
 			display: -webkit-box;
 			-webkit-line-clamp: 2;
@@ -270,61 +352,64 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 		.about-teaser {
 			display: flex;
 			align-items: center;
-			gap: 2em;
+			gap: 2.2em;
 			background: #fff;
-			border-radius: 18px;
-			border: 1px solid var(--border);
-			padding: 2em 2.2em;
-			box-shadow: 0 2px 10px rgba(74,122,90,0.07);
+			border-radius: 20px;
+			border: 1px solid var(--beige-light);
+			padding: 2.2em 2.4em;
+			box-shadow: var(--shadow-sm);
 		}
 		.about-teaser__icon {
-			font-size: 3.5em;
+			font-size: 3em;
 			flex-shrink: 0;
 			line-height: 1;
 		}
 		.about-teaser__text h3 {
 			font-family: 'Kaisei Decol', serif;
 			font-size: 1.1em;
-			color: var(--green-dark);
-			margin: 0 0 0.4em;
+			color: var(--orange-dark);
+			margin: 0 0 0.5em;
 		}
 		.about-teaser__text p {
-			font-size: 0.88em;
+			font-size: 0.86em;
 			color: var(--text-muted);
-			margin: 0 0 0.8em;
-			line-height: 1.7;
+			margin: 0 0 0.9em;
+			line-height: 1.75;
 		}
 		.about-teaser__link {
-			font-size: 0.83em;
+			font-size: 0.82em;
 			font-weight: 700;
-			color: var(--green);
+			color: var(--orange);
 			text-decoration: none;
-			border-bottom: 1.5px solid var(--green-light);
+			border-bottom: 1.5px solid var(--orange-light);
 			padding-bottom: 1px;
 			transition: color 0.15s;
 		}
-		.about-teaser__link:hover { color: var(--green-dark); }
+		.about-teaser__link:hover { color: var(--orange-dark); }
 
 		/* ── レスポンシブ ── */
 		@media (max-width: 720px) {
-			.home-title-area__blog { font-size: 1.7em; }
+			.home-title-area__blog { font-size: 1.65em; }
 			.home-hero { height: 200px; }
 			.post-grid { grid-template-columns: 1fr; }
-			.about-teaser { flex-direction: column; gap: 1em; padding: 1.4em; }
+			.category-grid { grid-template-columns: repeat(2, 1fr); }
+			.about-teaser { flex-direction: column; gap: 1em; padding: 1.5em; }
+			.home-section { padding: 2.8em 0; }
 		}
 		@media (min-width: 721px) and (max-width: 960px) {
 			.post-grid { grid-template-columns: repeat(2, 1fr); }
+			.category-grid { grid-template-columns: repeat(3, 1fr); }
 		}
 	</style>
 </head>
 <body>
 	<Header />
 
-	<!-- ブログタイトル（写真より上） -->
+	<!-- ブログタイトルエリア -->
 	<div class="home-title-area">
-		<p class="home-title-area__site">{SITE_TITLE}</p>
+		<p class="home-title-area__label">totoro life blog</p>
 		<h1 class="home-title-area__blog">
-			トトロと<span>暮らす</span>丸窓の家
+			トトロと<em>暮らす</em>丸窓の家
 		</h1>
 		<p class="home-title-area__tagline">グッズ・暮らし・お気に入りをのんびり発信中</p>
 	</div>
@@ -332,6 +417,7 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 	<!-- ヒーロー写真 -->
 	<div class="home-hero">
 		<img src="/hero-bg.jpg" alt="トトログッズでいっぱいのお部屋" />
+		<div class="home-hero__overlay"></div>
 		<span class="home-hero__badge">hinako's room</span>
 	</div>
 
@@ -340,15 +426,41 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 		<a href="/blog" class="quick-nav__btn quick-nav__btn--fill">記事一覧</a>
 		<a href="/#latest" class="quick-nav__btn">最新の記事</a>
 		<a href="/#popular" class="quick-nav__btn">人気の記事</a>
+		<a href="/#categories" class="quick-nav__btn">カテゴリ</a>
 		<a href="/about" class="quick-nav__btn">プロフィール</a>
 		<a href="/rss.xml" class="quick-nav__btn" target="_blank" rel="noopener">RSSを購読</a>
 	</nav>
 
 	<main>
-		<!-- 最新の記事 -->
-		<section class="home-section" id="latest">
+		<!-- カテゴリ一覧 -->
+		<section class="home-section home-section--white" id="categories">
 			<div class="home-section__inner">
-				<h2 class="home-section__heading">最新の記事</h2>
+				<div class="home-section__heading">
+					<span class="home-section__heading-label">CATEGORIES</span>
+					<span class="home-section__heading-text">カテゴリから探す</span>
+				</div>
+				<ul class="category-grid">
+					{categories.map((cat) => (
+						<li class="category-card">
+							<div class="category-card__bar" />
+							<a href={cat.href}>
+								<span class="category-card__icon">{cat.icon}</span>
+								<span class="category-card__name">{cat.name}</span>
+								<span class="category-card__desc">{cat.desc}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+
+		<!-- 最新の記事 -->
+		<section class="home-section home-section--alt" id="latest">
+			<div class="home-section__inner">
+				<div class="home-section__heading">
+					<span class="home-section__heading-label">LATEST POSTS</span>
+					<span class="home-section__heading-text">最新の記事</span>
+				</div>
 				<ul class="post-grid">
 					{latestPosts.map((post) => (
 						<li class="post-card">
@@ -390,9 +502,12 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 
 		<!-- 人気の記事 -->
 		{featuredPosts.length > 0 && (
-			<section class="home-section home-section--alt" id="popular">
+			<section class="home-section home-section--white" id="popular">
 				<div class="home-section__inner">
-					<h2 class="home-section__heading">人気の記事</h2>
+					<div class="home-section__heading">
+						<span class="home-section__heading-label">POPULAR POSTS</span>
+						<span class="home-section__heading-text">人気の記事</span>
+					</div>
 					<ul class="post-grid">
 						{featuredPosts.map((post) => (
 							<li class="post-card">
@@ -431,9 +546,12 @@ const featuredPosts = allPosts.filter(p => p.data.featured);
 		)}
 
 		<!-- プロフィールティーザー -->
-		<section class="home-section">
+		<section class="home-section home-section--alt">
 			<div class="home-section__inner">
-				<h2 class="home-section__heading">このブログについて</h2>
+				<div class="home-section__heading">
+					<span class="home-section__heading-label">ABOUT</span>
+					<span class="home-section__heading-text">このブログについて</span>
+				</div>
 				<div class="about-teaser">
 					<div class="about-teaser__icon">🌰</div>
 					<div class="about-teaser__text">

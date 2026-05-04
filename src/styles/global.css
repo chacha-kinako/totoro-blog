@@ -1,29 +1,49 @@
 :root {
-	--green:        #4a7a5a;
-	--green-dark:   #2d5a3d;
-	--green-light:  #7aaa8a;
-	--green-pale:   #eaf3ed;
-	--acorn:        #b87333;
-	--acorn-light:  #f0e0c8;
-	--cream:        #faf8f2;
-	--cream-dark:   #f2ede0;
-	--border:       #e2d9c8;
-	--text:         #3a3228;
-	--text-muted:   #7a6e62;
-	--white:        #ffffff;
-	--shadow-sm:    0 2px 8px rgba(45, 90, 61, 0.08);
-	--shadow-md:    0 4px 20px rgba(45, 90, 61, 0.12);
-	--shadow-hover: 0 8px 28px rgba(45, 90, 61, 0.16);
+	/* ── メインカラー：くすみオレンジ ── */
+	--orange:        #C4714A;
+	--orange-dark:   #9A5230;
+	--orange-light:  #DBA882;
+	--orange-pale:   #FDF1E8;
+
+	/* ── サブカラー：若葉グリーン ── */
+	--green:         #7BA870;
+	--green-dark:    #4E7A45;
+	--green-light:   #AECBA6;
+	--green-pale:    #EEF5EC;
+
+	/* ── ベースカラー：ミルクホワイト ── */
+	--milk:          #FAF8F4;
+	--milk-dark:     #F0EBE0;
+
+	/* ── 補助カラー：ベージュ ── */
+	--beige:         #E2D4BC;
+	--beige-light:   #EDE8DF;
+
+	/* ── 後方互換エイリアス ── */
+	--acorn:         #C4714A;
+	--acorn-light:   #FDF1E8;
+	--cream:         #FAF8F4;
+	--cream-dark:    #F0EBE0;
+
+	/* ── テキスト ── */
+	--text:          #3D3028;
+	--text-muted:    #8C7B6E;
+	--white:         #ffffff;
+	--border:        #E2D4BC;
+
+	--shadow-sm:    0 2px 8px rgba(180, 100, 50, 0.07);
+	--shadow-md:    0 4px 20px rgba(180, 100, 50, 0.11);
+	--shadow-hover: 0 8px 28px rgba(180, 100, 50, 0.16);
 	--radius:       14px;
 }
 
 * { box-sizing: border-box; }
 
 body {
-	font-family: system-ui, -apple-system, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+	font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', system-ui, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: var(--cream);
+	background-color: var(--milk);
 	color: var(--text);
 	font-size: 17px;
 	line-height: 1.85;
@@ -50,35 +70,35 @@ h2 { font-size: 1.55em; }
 h3 { font-size: 1.2em; }
 h4 { font-size: 1.05em; }
 
-/* 記事本文のh2：左に緑ライン＋薄い背景 */
+/* 記事本文のh2：左にオレンジライン＋薄いベージュ背景 */
 .prose h2 {
 	margin-top: 2.8em;
 	margin-bottom: 0.8em;
 	padding: 0.5em 0.9em;
-	background: var(--green-pale);
-	border-left: 5px solid var(--green);
+	background: var(--orange-pale);
+	border-left: 4px solid var(--orange);
 	border-radius: 0 8px 8px 0;
 	font-size: 1.3em;
-	color: var(--green-dark);
+	color: var(--orange-dark);
 }
 
-/* 記事本文のh3：どんぐり色の下線 */
+/* 記事本文のh3：グリーンの下線 */
 .prose h3 {
 	margin-top: 2em;
 	padding-bottom: 0.3em;
-	border-bottom: 2px solid var(--acorn-light);
+	border-bottom: 2px solid var(--green-light);
 	color: var(--text);
 	font-size: 1.1em;
 }
 
 /* ── テキスト ────────────────── */
 a {
-	color: var(--green);
+	color: var(--orange);
 	text-decoration: none;
 	transition: color 0.15s;
 }
 a:hover {
-	color: var(--green-dark);
+	color: var(--orange-dark);
 	text-decoration: underline;
 }
 p { margin-bottom: 1.2em; }
@@ -96,12 +116,12 @@ table {
 	box-shadow: var(--shadow-sm);
 }
 table th {
-	background: var(--green-pale);
-	color: var(--green-dark);
+	background: var(--beige-light);
+	color: var(--text);
 	padding: 0.65em 1em;
 	text-align: left;
 	font-weight: 700;
-	border-bottom: 2px solid var(--green-light);
+	border-bottom: 2px solid var(--beige);
 }
 table td {
 	padding: 0.6em 1em;
@@ -154,8 +174,8 @@ pre > code { all: unset; font-size: 0.88em; }
 
 /* ── 引用 ────────────────────── */
 blockquote {
-	border-left: 4px solid var(--green-light);
-	background: var(--green-pale);
+	border-left: 4px solid var(--orange-light);
+	background: var(--orange-pale);
 	padding: 0.8em 1.2em;
 	margin: 1.5em 0;
 	border-radius: 0 10px 10px 0;
