@@ -1,0 +1,141 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const categories = [
+	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ',         href: '/blog' },
+	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー',     href: '/blog' },
+	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり',           href: '/blog' },
+	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから',         href: '/blog' },
+	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所',         href: '/blog' },
+	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む',         href: '/blog' },
+	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開',         href: '/blog' },
+	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて',       href: '/blog' },
+	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介',               href: '/blog' },
+	{ icon: '🍳', name: 'キッチン用品レビュー',     desc: 'キッチンで使えるグッズ',   href: '/blog' },
+	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える',       href: '/blog' },
+	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ',             href: '/blog' },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<BaseHead title={`カテゴリ | ${SITE_TITLE}`} description="トトロ・ジブリグッズブログのカテゴリ一覧です。お好みのカテゴリからお探しください。" />
+		<style>
+			.page-heading {
+				padding: 2.2em 1.5em 1.8em;
+				max-width: 960px;
+				margin: 0 auto;
+			}
+			.page-heading__label {
+				font-size: 0.68em;
+				font-weight: 700;
+				color: var(--orange);
+				letter-spacing: 0.22em;
+				display: block;
+				margin-bottom: 0.4em;
+			}
+			.page-heading__title {
+				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-size: 1.6em;
+				font-weight: 700;
+				color: var(--text);
+				margin: 0;
+				line-height: 1.3;
+			}
+
+			.category-grid-wrap {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 0 1.5em 4em;
+			}
+
+			.category-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 0.85rem;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.category-card {
+				background: var(--milk);
+				border: 1px solid var(--beige-light);
+				border-radius: 14px;
+				overflow: hidden;
+				transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+			}
+			.category-card:hover {
+				transform: translateY(-3px);
+				box-shadow: var(--shadow-md);
+				border-color: var(--orange-light);
+				background: #fff;
+			}
+			.category-card a {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				padding: 1.6em 0.8em 1.5em;
+				gap: 0.35em;
+				text-decoration: none;
+				color: inherit;
+			}
+			.category-card__icon {
+				font-size: 2em;
+				line-height: 1;
+				margin-bottom: 0.2em;
+			}
+			.category-card__name {
+				font-size: 0.82em;
+				font-weight: 700;
+				color: var(--text);
+				line-height: 1.4;
+			}
+			.category-card__desc {
+				font-size: 0.68em;
+				color: var(--text-muted);
+				line-height: 1.35;
+			}
+			.category-card__bar {
+				height: 3px;
+				background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
+			}
+
+			@media (max-width: 720px) {
+				.category-grid { grid-template-columns: repeat(2, 1fr); }
+				.page-heading { padding: 1.5em 1em 1.2em; }
+			}
+			@media (min-width: 721px) and (max-width: 960px) {
+				.category-grid { grid-template-columns: repeat(3, 1fr); }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="page-heading">
+				<span class="page-heading__label">CATEGORIES</span>
+				<h1 class="page-heading__title">カテゴリから探す</h1>
+			</div>
+			<div class="category-grid-wrap">
+				<ul class="category-grid">
+					{categories.map((cat) => (
+						<li class="category-card">
+							<div class="category-card__bar" />
+							<a href={cat.href}>
+								<span class="category-card__icon">{cat.icon}</span>
+								<span class="category-card__name">{cat.name}</span>
+								<span class="category-card__desc">{cat.desc}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
