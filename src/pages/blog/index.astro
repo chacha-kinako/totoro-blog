@@ -4,7 +4,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -14,63 +14,29 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`記事一覧 | ${SITE_TITLE}`} description="トトロ・ジブリグッズのレビューや暮らしの記録をまとめた記事一覧です。" />
 		<style>
-			/* ヒーロー写真帯 */
-			.blog-hero {
-				width: 100vw;
-				margin-left: calc(50% - 50vw);
-				height: 340px;
-				position: relative;
-				overflow: hidden;
-				margin-bottom: 2.5em;
+			/* ページ見出し */
+			.page-heading {
+				padding: 2.2em 1.5em 1.8em;
+				max-width: 960px;
+				margin: 0 auto;
 			}
-			.blog-hero__img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				object-position: center 30%;
-				display: block;
-				border-radius: 0;
-			}
-			.blog-hero__overlay {
-				position: absolute;
-				inset: 0;
-				background: linear-gradient(
-					to bottom,
-					rgba(20, 45, 28, 0.18) 0%,
-					rgba(20, 45, 28, 0.52) 100%
-				);
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				text-align: center;
-				padding: 1em;
-			}
-			.blog-hero__title {
-				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-				color: #fff;
-				font-size: 2.2em;
+			.page-heading__label {
+				font-size: 0.68em;
 				font-weight: 700;
-				margin: 0 0 0.3em;
-				text-shadow:
-					0 2px 12px rgba(20, 60, 30, 0.7),
-					0 0 40px rgba(20, 60, 30, 0.4);
-				letter-spacing: 0.1em;
-				line-height: 1.3;
+				color: var(--orange);
+				letter-spacing: 0.22em;
+				display: block;
+				margin-bottom: 0.4em;
 			}
-			.blog-hero__desc {
+			.page-heading__title {
 				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-				color: rgba(255,255,255,0.92);
-				font-size: 0.95em;
+				font-size: 1.6em;
+				font-weight: 700;
+				color: var(--text);
 				margin: 0;
-				letter-spacing: 0.12em;
-				text-shadow: 0 1px 6px rgba(20, 60, 30, 0.7);
-			}
-			@media (max-width: 600px) {
-				.blog-hero { height: 220px; }
-				.blog-hero__title { font-size: 1.5em; }
+				line-height: 1.3;
 			}
 
 			/* グリッド */
@@ -82,12 +48,17 @@ const posts = (await getCollection('blog')).sort(
 				margin: 0;
 				padding: 0;
 			}
+			.post-grid-wrap {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 0 1.5em 4em;
+			}
 
 			/* カード共通 */
 			.post-card {
 				background: #fff;
 				border-radius: 16px;
-				border: 1px solid var(--border);
+				border: 1px solid var(--beige-light);
 				box-shadow: var(--shadow-sm);
 				transition: transform 0.22s ease, box-shadow 0.22s ease;
 				overflow: hidden;
@@ -103,11 +74,7 @@ const posts = (await getCollection('blog')).sort(
 				height: 100%;
 			}
 
-			/* ── 写真カード ── */
-			.post-card--photo a {
-				display: flex;
-				flex-direction: column;
-			}
+			/* 写真ありカード */
 			.post-card__thumb {
 				position: relative;
 				width: 100%;
@@ -120,47 +87,24 @@ const posts = (await getCollection('blog')).sort(
 				height: 100%;
 				object-fit: cover;
 				object-position: center;
-				border-radius: 0;
 				display: block;
 				transition: transform 0.3s ease;
 			}
-			.post-card--photo:hover .post-card__thumb img {
+			.post-card:hover .post-card__thumb img {
 				transform: scale(1.04);
 			}
-			.post-card__thumb-overlay {
-				position: absolute;
-				inset: 0;
-				background: linear-gradient(
-					to bottom,
-					rgba(20, 45, 28, 0.05) 0%,
-					rgba(20, 45, 28, 0.55) 100%
-				);
-				display: flex;
-				align-items: flex-end;
-				padding: 1em 1.1em;
-			}
-			.post-card__eyecatch {
-				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-				color: #fff;
-				font-size: 1.1em;
-				font-weight: 700;
-				line-height: 1.35;
-				letter-spacing: 0.06em;
-				text-shadow: 0 2px 8px rgba(10, 30, 15, 0.7);
-				margin: 0;
-			}
 
-			/* ── テキストカード（写真なし） ── */
+			/* テキストカード */
 			.post-card__bar {
-				height: 6px;
-				background: linear-gradient(90deg, var(--green) 0%, var(--acorn) 100%);
+				height: 4px;
+				background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 60%, var(--green-light) 100%);
 			}
 			.post-card__body {
-				padding: 1.3em 1.4em 1.4em;
+				padding: 1.2em 1.3em 1.5em;
 			}
 			.post-card__date {
 				font-size: 0.78em;
-				color: var(--green-light);
+				color: var(--orange-light);
 				font-weight: 600;
 				margin-bottom: 0.5em;
 			}
@@ -186,99 +130,60 @@ const posts = (await getCollection('blog')).sort(
 				overflow: hidden;
 			}
 
-			/* 写真カード下部のテキストエリア */
-			.post-card__body--photo {
-				padding: 0.9em 1.1em 1.1em;
-				background: #fff;
-			}
-			.post-card__body--photo .post-card__date {
-				margin-bottom: 0.3em;
-			}
-			.post-card__body--photo .post-card__title {
-				font-size: 0.88em;
-				-webkit-line-clamp: 2;
-				margin: 0;
-			}
-
-			/* セクションタイトル */
-			.section-label {
-				display: flex;
-				align-items: center;
-				gap: 0.5em;
-				font-size: 1em;
-				font-weight: 700;
-				color: var(--green-dark);
-				margin-bottom: 1.2em;
-			}
-			.section-label::before { content: ''; }
-			.section-label::after  {
-				content: '';
-				flex: 1;
-				height: 2px;
-				background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
-				border-radius: 2px;
-			}
-
 			@media (max-width: 600px) {
 				.post-grid { grid-template-columns: 1fr; }
-				.blog-hero { padding: 2em 1.2em; }
-				.blog-hero__title { font-size: 1.2em; }
+				.page-heading { padding: 1.5em 1em 1.2em; }
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<!-- ヒーロー写真帯 -->
-			<div class="blog-hero">
-				<img class="blog-hero__img" src="/hero-bg.jpg" alt="ジブリグッズでいっぱいのお部屋" />
-				<div class="blog-hero__overlay">
-					<p class="blog-hero__title">トトロとジブリの森から</p>
-					<p class="blog-hero__desc">グッズ・暮らし・お気に入りをのんびり発信中</p>
-				</div>
+			<div class="page-heading">
+				<span class="page-heading__label">ALL POSTS</span>
+				<h1 class="page-heading__title">記事一覧</h1>
 			</div>
-
-			<!-- 記事一覧 -->
-			<p class="section-label">記事一覧</p>
-			<ul class="post-grid">
-				{
-					posts.map((post) => (
-						<li class={`post-card${post.data.cardImage ? ' post-card--photo' : ''}`}>
-							<a href={`/blog/${post.id}/`}>
-								{post.data.cardImage ? (
-									<>
-										<div class="post-card__thumb">
-											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-											<div class="post-card__thumb-overlay">
-												<p class="post-card__eyecatch">{post.data.cardText ?? post.data.title}</p>
+			<div class="post-grid-wrap">
+				<ul class="post-grid">
+					{
+						posts.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									{post.data.cardImage ? (
+										<>
+											<div class="post-card__thumb">
+												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
 											</div>
-										</div>
-										<div class="post-card__body post-card__body--photo">
-											<p class="post-card__date">
-												<FormattedDate date={post.data.pubDate} />
-											</p>
-											<h2 class="post-card__title">{post.data.title}</h2>
-										</div>
-									</>
-								) : (
-									<>
-										<div class="post-card__bar" />
-										<div class="post-card__body">
-											<p class="post-card__date">
-												<FormattedDate date={post.data.pubDate} />
-											</p>
-											<h2 class="post-card__title">{post.data.title}</h2>
-											{post.data.description && (
-												<p class="post-card__desc">{post.data.description}</p>
-											)}
-										</div>
-									</>
-								)}
-							</a>
-						</li>
-					))
-				}
-			</ul>
+											<div class="post-card__body">
+												<p class="post-card__date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<h2 class="post-card__title">{post.data.title}</h2>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									) : (
+										<>
+											<div class="post-card__bar" />
+											<div class="post-card__body">
+												<p class="post-card__date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<h2 class="post-card__title">{post.data.title}</h2>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									)}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
 		</main>
 		<Footer />
 	</body>
