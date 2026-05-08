@@ -7,12 +7,11 @@ import HeaderLink from './HeaderLink.astro';
 	<div class="site-header__inner">
 		<a href="/" class="site-header__logo">{SITE_TITLE}</a>
 		<nav class="site-header__nav">
-			<HeaderLink href="/">ホーム</HeaderLink>
+			<HeaderLink href="/blog/latest">最新の記事</HeaderLink>
+			<HeaderLink href="/blog/popular">人気の記事</HeaderLink>
 			<HeaderLink href="/blog">記事一覧</HeaderLink>
+			<HeaderLink href="/categories">カテゴリ</HeaderLink>
 			<HeaderLink href="/about">プロフィール</HeaderLink>
-			<a href="/#latest" class="nav-anchor">最新の記事</a>
-			<a href="/#popular" class="nav-anchor">人気の記事</a>
-			<a href="/#categories" class="nav-anchor">カテゴリ</a>
 			<a href="/rss.xml" class="nav-anchor nav-anchor--rss" target="_blank" rel="noopener">RSS</a>
 		</nav>
 	</div>
