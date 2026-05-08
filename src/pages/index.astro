@@ -10,16 +10,22 @@ const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const latestPosts = allPosts.slice(0, 3);
-const featuredPosts = allPosts.filter(p => p.data.featured);
+const featuredPosts = allPosts.filter(p => p.data.featured || p.data.showInPopular).slice(0, 3);
+const listPosts = allPosts.slice(0, 3);
 
 const categories = [
-	{ icon: '🪆', name: 'フィギアレビュー',   desc: 'ミニチュアの沼へ',     href: '/blog' },
-	{ icon: '🧸', name: 'ぬいぐるみレビュー', desc: 'もふもふ正直レビュー', href: '/blog' },
-	{ icon: '🍵', name: '陶器レビュー',       desc: '手仕事の温もり',       href: '/blog' },
-	{ icon: '🌟', name: 'ランキングまとめ',   desc: '迷ったらここから',     href: '/blog' },
-	{ icon: '🛍️', name: 'グッズ購入いろは',  desc: '選び方・購入場所',     href: '/blog' },
-	{ icon: '🌿', name: 'ジブリ雑貨',        desc: '暮らしに溶け込む',     href: '/blog' },
-	{ icon: '📖', name: 'お小遣い記録',       desc: 'リアルな収支公開',     href: '/blog' },
+	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ',         href: '/categories' },
+	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー',     href: '/categories' },
+	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり',           href: '/categories' },
+	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから',         href: '/categories' },
+	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所',         href: '/categories' },
+	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む',         href: '/categories' },
+	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開',         href: '/categories' },
+	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて',       href: '/categories' },
+	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介',               href: '/categories' },
+	{ icon: '🍳', name: 'キッチン用品レビュー',     desc: 'キッチンで使えるグッズ',   href: '/categories' },
+	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える',       href: '/categories' },
+	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ',             href: '/categories' },
 ];
 ---
 
@@ -318,7 +324,7 @@ const categories = [
 			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 60%, var(--green-light) 100%);
 		}
 		.post-card__body {
-			padding: 1em 1.1em 1.3em;
+			padding: 1.2em 1.3em 1.5em;
 		}
 		.post-card__date {
 			font-size: 0.71em;
@@ -333,7 +339,7 @@ const categories = [
 			line-height: 1.55;
 			margin: 0 0 0.4em;
 			display: -webkit-box;
-			-webkit-line-clamp: 2;
+			-webkit-line-clamp: 3;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
@@ -346,6 +352,14 @@ const categories = [
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
+		}
+		.post-card--coming {
+			opacity: 0.55;
+			pointer-events: none;
+		}
+		.post-card--coming .post-card__title {
+			color: var(--text-muted);
+			font-style: italic;
 		}
 
 		/* ── Aboutティーザー ── */
@@ -423,37 +437,15 @@ const categories = [
 
 	<!-- クイックナビ -->
 	<nav class="quick-nav">
-		<a href="/blog" class="quick-nav__btn quick-nav__btn--fill">記事一覧</a>
-		<a href="/#latest" class="quick-nav__btn">最新の記事</a>
-		<a href="/#popular" class="quick-nav__btn">人気の記事</a>
-		<a href="/#categories" class="quick-nav__btn">カテゴリ</a>
+		<a href="/blog/latest" class="quick-nav__btn quick-nav__btn--fill">最新の記事</a>
+		<a href="/blog/popular" class="quick-nav__btn">人気の記事</a>
+		<a href="/blog" class="quick-nav__btn">記事一覧</a>
+		<a href="/categories" class="quick-nav__btn">カテゴリ</a>
 		<a href="/about" class="quick-nav__btn">プロフィール</a>
 		<a href="/rss.xml" class="quick-nav__btn" target="_blank" rel="noopener">RSSを購読</a>
 	</nav>
 
 	<main>
-		<!-- カテゴリ一覧 -->
-		<section class="home-section home-section--white" id="categories">
-			<div class="home-section__inner">
-				<div class="home-section__heading">
-					<span class="home-section__heading-label">CATEGORIES</span>
-					<span class="home-section__heading-text">カテゴリから探す</span>
-				</div>
-				<ul class="category-grid">
-					{categories.map((cat) => (
-						<li class="category-card">
-							<div class="category-card__bar" />
-							<a href={cat.href}>
-								<span class="category-card__icon">{cat.icon}</span>
-								<span class="category-card__name">{cat.name}</span>
-								<span class="category-card__desc">{cat.desc}</span>
-							</a>
-						</li>
-					))}
-				</ul>
-			</div>
-		</section>
-
 		<!-- 最新の記事 -->
 		<section class="home-section home-section--alt" id="latest">
 			<div class="home-section__inner">
@@ -493,6 +485,128 @@ const categories = [
 							</a>
 						</li>
 					))}
+					{Array.from({length: Math.max(0, 3 - latestPosts.length)}).map(() => (
+						<li class="post-card post-card--coming">
+							<div class="post-card__bar" />
+							<div class="post-card__body">
+								<p class="post-card__date">近日公開予定</p>
+								<h3 class="post-card__title">Coming Soon...</h3>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
+							</div>
+						</li>
+					))}
+				</ul>
+				<div class="home-section__more">
+					<a href="/blog/latest">記事をもっと見る →</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- 人気の記事 -->
+		<section class="home-section home-section--white" id="popular">
+			<div class="home-section__inner">
+				<div class="home-section__heading">
+					<span class="home-section__heading-label">POPULAR POSTS</span>
+					<span class="home-section__heading-text">人気の記事</span>
+				</div>
+				<ul class="post-grid">
+					{featuredPosts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								{post.data.cardImage ? (
+									<>
+										<div class="post-card__thumb">
+											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+											{post.data.cardText && (
+												<span class="post-card__thumb-label">{post.data.cardText}</span>
+											)}
+										</div>
+										<div class="post-card__body">
+											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+											<h3 class="post-card__title">{post.data.title}</h3>
+										</div>
+									</>
+								) : (
+									<>
+										<div class="post-card__bar" />
+										<div class="post-card__body">
+											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+											<h3 class="post-card__title">{post.data.title}</h3>
+											{post.data.description && (
+												<p class="post-card__desc">{post.data.description}</p>
+											)}
+										</div>
+									</>
+								)}
+							</a>
+						</li>
+					))}
+					{Array.from({length: Math.max(0, 3 - featuredPosts.length)}).map(() => (
+						<li class="post-card post-card--coming">
+							<div class="post-card__bar" />
+							<div class="post-card__body">
+								<p class="post-card__date">近日公開予定</p>
+								<h3 class="post-card__title">Coming Soon...</h3>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
+							</div>
+						</li>
+					))}
+				</ul>
+				<div class="home-section__more">
+					<a href="/blog/popular">記事をもっと見る →</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- 記事一覧（抜粋） -->
+		<section class="home-section home-section--alt" id="blog-list">
+			<div class="home-section__inner">
+				<div class="home-section__heading">
+					<span class="home-section__heading-label">ALL POSTS</span>
+					<span class="home-section__heading-text">記事一覧</span>
+				</div>
+				<ul class="post-grid">
+					{listPosts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								{post.data.cardImage ? (
+									<>
+										<div class="post-card__thumb">
+											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+											{post.data.cardText && (
+												<span class="post-card__thumb-label">{post.data.cardText}</span>
+											)}
+										</div>
+										<div class="post-card__body">
+											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+											<h3 class="post-card__title">{post.data.title}</h3>
+										</div>
+									</>
+								) : (
+									<>
+										<div class="post-card__bar" />
+										<div class="post-card__body">
+											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+											<h3 class="post-card__title">{post.data.title}</h3>
+											{post.data.description && (
+												<p class="post-card__desc">{post.data.description}</p>
+											)}
+										</div>
+									</>
+								)}
+							</a>
+						</li>
+					))}
+					{Array.from({length: Math.max(0, 3 - listPosts.length)}).map(() => (
+						<li class="post-card post-card--coming">
+							<div class="post-card__bar" />
+							<div class="post-card__body">
+								<p class="post-card__date">近日公開予定</p>
+								<h3 class="post-card__title">Coming Soon...</h3>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
+							</div>
+						</li>
+					))}
 				</ul>
 				<div class="home-section__more">
 					<a href="/blog">記事をもっと見る →</a>
@@ -500,53 +614,33 @@ const categories = [
 			</div>
 		</section>
 
-		<!-- 人気の記事 -->
-		{featuredPosts.length > 0 && (
-			<section class="home-section home-section--white" id="popular">
-				<div class="home-section__inner">
-					<div class="home-section__heading">
-						<span class="home-section__heading-label">POPULAR POSTS</span>
-						<span class="home-section__heading-text">人気の記事</span>
-					</div>
-					<ul class="post-grid">
-						{featuredPosts.map((post) => (
-							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									{post.data.cardImage ? (
-										<>
-											<div class="post-card__thumb">
-												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-												{post.data.cardText && (
-													<span class="post-card__thumb-label">{post.data.cardText}</span>
-												)}
-											</div>
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-											</div>
-										</>
-									) : (
-										<>
-											<div class="post-card__bar" />
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-												{post.data.description && (
-													<p class="post-card__desc">{post.data.description}</p>
-												)}
-											</div>
-										</>
-									)}
-								</a>
-							</li>
-						))}
-					</ul>
+		<!-- カテゴリ一覧 -->
+		<section class="home-section home-section--white" id="categories">
+			<div class="home-section__inner">
+				<div class="home-section__heading">
+					<span class="home-section__heading-label">CATEGORIES</span>
+					<span class="home-section__heading-text">カテゴリから探す</span>
 				</div>
-			</section>
-		)}
+				<ul class="category-grid">
+					{categories.map((cat) => (
+						<li class="category-card">
+							<div class="category-card__bar" />
+							<a href={cat.href}>
+								<span class="category-card__icon">{cat.icon}</span>
+								<span class="category-card__name">{cat.name}</span>
+								<span class="category-card__desc">{cat.desc}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+				<div class="home-section__more">
+					<a href="/categories">カテゴリをすべて見る →</a>
+				</div>
+			</div>
+		</section>
 
 		<!-- プロフィールティーザー -->
-		<section class="home-section home-section--alt">
+		<section class="home-section home-section--alt" id="about">
 			<div class="home-section__inner">
 				<div class="home-section__heading">
 					<span class="home-section__heading-label">ABOUT</span>
