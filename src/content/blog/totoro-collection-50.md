@@ -16,7 +16,7 @@ showInCategories: ['ランキング・まとめ']
 
 ある日、夫とこんな会話に。
 
-> 「トトロの隣にあるリモコン取って！」
+### > 「トトロの隣にあるリモコン取って！」
 >
 > 「え、どのトトロ！？笑」
 
@@ -39,11 +39,7 @@ showInCategories: ['ランキング・まとめ']
 
 集めに集めたトトログッズたちを、畳の上にずらっと大集合させてみました！
 
-
-
 ![](../../assets/images/img_1778244528219_iaekk.webp)
-
-![トトログッズ大集合の写真](/totoro-collection.jpg)
 
 100個以上あるコレクションの中から選び抜いた、お気に入りたちです。こうして並べてみると、改めてトトロの世界に囲まれる幸せを実感します。
 
@@ -51,15 +47,7 @@ showInCategories: ['ランキング・まとめ']
 
 ### 陶器・インテリア系（飾って癒される）
 
-
-
-<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;margin:16px 0">
-<img src="../../assets/images/img_1778245018718_4xjg3.webp" alt="" style="width:100%;border-radius:6px;display:block">
-<img src="../../assets/images/img_1778245018719_a38ul.webp" alt="" style="width:100%;border-radius:6px;display:block">
-</div>
-
 ![](../../assets/images/img_1778244972011_kp1k9.webp)
-![](../../assets/images/img_1778244972013_a1a15.webp)
 
 チープさがなく見応えあり。ジブリの世界に浸れるアイテムです。まず1つ飾るならここからがおすすめ。
 
@@ -74,16 +62,7 @@ showInCategories: ['ランキング・まとめ']
 | どんぐりドッスン（プランター） | 大トトロの名シーンをそのまま再現 |
 | 猫バスにのって（プランター） | 他とは違うタッチでインテリア映えする |
 
-<div class="photo-row">
-  <img src="/totoro-12-ceramic.jpg" alt="中トトロ・小トトロ陶器" />
-  <img src="/section-ceramic-2.jpg" alt="陶器インテリア" />
-  <img src="/totoro-nekobus-ceramic.jpg" alt="ネコバス陶器" />
-  <img src="/section-ceramic-3.jpg" alt="陶器インテリア" />
-</div>
-
 ### ぬいぐるみ・クッション系（癒し全振り）
-
-
 
 ![](../../assets/images/img_1778244584884_qqwoa.webp)
 
@@ -100,12 +79,6 @@ showInCategories: ['ランキング・まとめ']
 | テディベアミュージアム自作（トトロ・ネコバス） | 触り心地も自分好みにできる思い出の作品 |
 | ジブリパークネコバス | パーク限定のレア感あるネコバス |
 | まっくろくろすけ（猫バスルーム） | ネコバスルームにいるあのまっくろくろすけ |
-
-<div class="photo-row">
-  <img src="/section-plush-1.jpg" alt="ぬいぐるみ" />
-  <img src="/totoro-handmade.jpg" alt="自作トトロ・ネコバス" />
-  <img src="/section-plush-2.jpg" alt="ぬいぐるみ" />
-</div>
 
 ### ミニフィギュア・マグネット系（沼ゾーン）
 
@@ -125,14 +98,7 @@ showInCategories: ['ランキング・まとめ']
 | ポーズがいっぱいトトロ①②（コマ・手持ち傘・吠え） | いろんなポーズが楽しめて集めたくなるシリーズ |
 | ポーズがいっぱいネコバス（のび・まるまり） | 表情や動きの違いが楽しいネコバスシリーズ |
 
-<div class="photo-row">
-  <img src="/section-figure-1.jpg" alt="ミニフィギュア" />
-  <img src="/section-figure-2.jpg" alt="ミニフィギュア" />
-</div>
-
 ### 実用・遊び系（生活に溶け込む）
-
-
 
 ![](../../assets/images/img_1778244628317_1korr.webp)
 
@@ -147,15 +113,7 @@ showInCategories: ['ランキング・まとめ']
 | はめるパズル | 子供から大人までみんな楽しめるパズル |
 | トトロマザーズバッグ | 実用性と可愛さを兼ね備えたアイテム |
 
-<div class="photo-row">
-  <img src="/section-utility-1.jpg" alt="実用グッズ" />
-  <img src="/section-utility-2.jpg" alt="実用グッズ" />
-  <img src="/section-utility-3.jpg" alt="実用グッズ" />
-</div>
-
 ### パズル・オブジェ系（飾る楽しさ）
-
-
 
 ![](../../assets/images/img_1778244659125_5m0en.webp)
 
@@ -168,11 +126,6 @@ showInCategories: ['ランキング・まとめ']
 | オカリナトトロ | 落ち着いた雰囲気で空間に馴染むデザイン |
 | 紙製トトロ（イチョウ） | 紙ならではの繊細さが魅力のオブジェ |
 
-<div class="photo-row">
-  <img src="/section-puzzle-1.jpg" alt="パズル・オブジェ" />
-  <img src="/section-puzzle-2.jpg" alt="パズル・オブジェ" />
-</div>
-
 ---
 
 ## その中でも特にお気に入りの10個を紹介します
@@ -182,8 +135,6 @@ showInCategories: ['ランキング・まとめ']
 現在は販売されていないものも多いですが、それも含めてコレクションの魅力だと思っています。
 
 ### ①② 中トトロ＆小トトロ陶器（みーつけた！）
-
-
 
 ![](../../assets/images/img_1778244679685_daudf.webp)
 
@@ -197,11 +148,7 @@ showInCategories: ['ランキング・まとめ']
 
 ### ③ ポーズがいっぱいトトロ「コマ回し」／④ポーズがいっぱいトトロ「傘」
 
-
-
 ![](../../assets/images/img_1778244742786_dxaus.webp)
-
-
 
 ミニフィギュアシリーズで、とにかく表情がかわいいトトロたちです。
 
@@ -215,8 +162,6 @@ showInCategories: ['ランキング・まとめ']
 
 ### ⑤ ジブリの大倉庫パズル
 
-
-
 ![](../../assets/images/img_1778244766706_c73wj.webp)
 
 これはトトロではないのですが…（笑）よく見ると小さくトトロもいるので、今回は仲間入りということで！
@@ -229,8 +174,6 @@ showInCategories: ['ランキング・まとめ']
 
 ### ⑥⑦ 自作トトロ／自作ネコバス
 
-
-
 ![](../../assets/images/img_1778244785670_b7lx2.webp)
 
 これは、伊豆にあるテディベアミュージアムで作ったものです。
@@ -242,8 +185,6 @@ showInCategories: ['ランキング・まとめ']
 ![自作トトロ・自作ネコバス](/totoro-handmade.jpg)
 
 ### ⑧ つみきネコバス
-
-
 
 ![](../../assets/images/img_1778244864089_an3kg.webp)
 
