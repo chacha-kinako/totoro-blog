@@ -2,12 +2,12 @@
 title: '初心者におすすめトトログッズ5選｜初めて買うなら失敗しない選び方も解説'
 description: '初めてトトログッズを買う方向けに、失敗しないおすすめ5選と選び方のポイントをわかりやすく解説します。'
 pubDate: '2026-04-30'
-heroImage: ''
+heroImage: '../../assets/images/img_1778389996522_hz33v.webp'
 cardImage: '/images/img_1778244014781_pe4ma.webp'
-category: 'ランキング・まとめ'
+category: 'おすすめ・まとめ'
 showInLatest: true
 showInPopular: false
-showInCategories: ['ランキング・まとめ']
+showInCategories: ['おすすめ・まとめ']
 ---
 
 ## この記事でわかること
