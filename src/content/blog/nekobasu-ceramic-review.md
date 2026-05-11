@@ -2,7 +2,7 @@
 title: 'ネコバス陶器は高い？実物レビューでわかった"買う価値"と入手難易度'
 description: 'ネコバス陶器の価格は高いのか、実際に購入してわかったクオリティ・入手方法・デメリットをリアルにレビューします。'
 pubDate: '2026-05-04'
-heroImage: '../../assets/IMG_8560.jpg'
+heroImage: ''
 cardImage: '/images/img_1778390169622_els17.webp'
 category: '陶器レビュー'
 showInLatest: true
@@ -10,7 +10,8 @@ showInPopular: true
 showInCategories: ['陶器レビュー']
 ---
 
-<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">- ネコバス陶器は本当に価格に見合う価値があるのか
+<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75"></p></div>
+
 - 実際に手に取って感じたリアルな魅力
 - 購入前に知っておきたいデメリットや注意点
 - 現在の入手方法と入手難易度
@@ -81,8 +82,6 @@ showInCategories: ['陶器レビュー']
 結果的に、「もっと早く買えばよかった」と思える満足度です。
 
 ### 表情が最高すぎる（にゃぁーーーの顔）
-
-
 
 ネコバス陶器の魅力の中でも、まず一番に伝えたいのがこの表情です。
 
@@ -246,7 +245,7 @@ showInCategories: ['陶器レビュー']
 
 ネコバスが好きなら、後悔する買い物になることはまずないと思います。
 
-<div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0" data-block="balloon"><div style="width:52px;height:52px;border-radius:50%;background:#f0ede8;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:2px solid #e2d9cf">🐾</div><div style="background:#f8f6f3;border:1.5px solid #e2d9cf;border-radius:0 18px 18px 18px;padding:12px 18px;flex:1;line-height:1.7">**見つけたときが"買いどき"です。**</div></div>
+<div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0" data-block="balloon"><div style="width:52px;height:52px;border-radius:50%;background:#f0ede8;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:2px solid #e2d9cf">😊</div><div style="background:#f8f6f3;border:1.5px solid #e2d9cf;border-radius:0 18px 18px 18px;padding:12px 18px;flex:1;line-height:1.7">**見つけたときが"買いどき"です。**</div></div>
 
 ---
 
