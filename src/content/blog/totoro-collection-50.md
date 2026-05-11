@@ -4,7 +4,7 @@ description: '100個以上のトトログッズを集めた私が、厳選50ア�
 pubDate: '2026-04-30'
 heroImage: ''
 cardImage: '/totoro-collection.jpg'
-category: ''
+category: 'コレクション'
 showInLatest: false
 showInPopular: true
 showInCategories: ['おすすめ・まとめ', 'コレクション']
