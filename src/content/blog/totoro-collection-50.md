@@ -4,10 +4,10 @@ description: '100個以上のトトログッズを集めた私が、厳選50ア�
 pubDate: '2026-04-30'
 heroImage: ''
 cardImage: '/totoro-collection.jpg'
-category: 'ランキング・まとめ'
-showInLatest: true
+category: ''
+showInLatest: false
 showInPopular: true
-showInCategories: ['ランキング・まとめ']
+showInCategories: ['おすすめ・まとめ', 'コレクション']
 ---
 
 私はトトロが大好きで、小さい頃から少しずつグッズを集めてきました。
@@ -83,10 +83,7 @@ showInCategories: ['ランキング・まとめ']
 
 ### ミニフィギュア・マグネット系（沼ゾーン）
 
-<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;margin:16px 0">
-<img src="../../assets/images/img_1778244915349_61plv.webp" alt="" style="width:100%;border-radius:6px;display:block">
-<img src="../../assets/images/img_1778244915349_ljaeu.webp" alt="" style="width:100%;border-radius:6px;display:block">
-</div>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;margin:16px 0"><img src="../../assets/images/img_1778244915349_61plv.webp" alt="" style="width:100%;border-radius:6px;display:block"><img src="../../assets/images/img_1778244915349_ljaeu.webp" alt="" style="width:100%;border-radius:6px;display:block"></div>
 
 集め出したら止まらない。コンプリート欲を刺激する沼アイテムです。**気づいたら増えてる危険ゾーン。**
 
