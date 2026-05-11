@@ -5,18 +5,18 @@ import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
 const categories = [
-	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ',         href: '/blog' },
-	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー',     href: '/blog' },
-	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり',           href: '/blog' },
-	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから',         href: '/blog' },
-	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所',         href: '/blog' },
-	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む',         href: '/blog' },
-	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開',         href: '/blog' },
-	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて',       href: '/blog' },
-	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介',               href: '/blog' },
-	{ icon: '🍳', name: 'キッチン用品レビュー',     desc: 'キッチンで使えるグッズ',   href: '/blog' },
-	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える',       href: '/blog' },
-	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ',             href: '/blog' },
+	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ' },
+	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー' },
+	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり' },
+	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから' },
+	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所' },
+	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む' },
+	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開' },
+	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて' },
+	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介' },
+	{ icon: '🍳', name: 'キッチン用品レビュー',     desc: 'キッチンで使えるグッズ' },
+	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える' },
+	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ' },
 ];
 ---
 
@@ -126,7 +126,7 @@ const categories = [
 					{categories.map((cat) => (
 						<li class="category-card">
 							<div class="category-card__bar" />
-							<a href={cat.href}>
+							<a href={`/categories/${encodeURIComponent(cat.name)}`}>
 								<span class="category-card__icon">{cat.icon}</span>
 								<span class="category-card__name">{cat.name}</span>
 								<span class="category-card__desc">{cat.desc}</span>
