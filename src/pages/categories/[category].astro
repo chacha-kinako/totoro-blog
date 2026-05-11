@@ -8,18 +8,18 @@ import { SITE_TITLE } from '../../consts';
 
 export async function getStaticPaths() {
 	const categoryList = [
-		{ icon: '🪆', name: 'フィギアレビュー' },
-		{ icon: '🧸', name: 'ぬいぐるみレビュー' },
-		{ icon: '🍵', name: '陶器レビュー' },
-		{ icon: '✨', name: 'おすすめ・まとめ' },
-		{ icon: '🛍️', name: 'グッズ購入いろは' },
-		{ icon: '🏡', name: 'インテリア雑貨レビュー' },
-		{ icon: '📖', name: 'お小遣い記録' },
-		{ icon: '💎', name: 'コレクション' },
-		{ icon: '🎁', name: '今月仲間入りしたグッズ' },
-		{ icon: '🍳', name: 'キッチン用品レビュー' },
-		{ icon: '🏺', name: 'オブジェレビュー' },
-		{ icon: '🎮', name: 'おもちゃレビュー' },
+		{ slug: 'figure',      icon: '🪆', name: 'フィギアレビュー' },
+		{ slug: 'plush',       icon: '🧸', name: 'ぬいぐるみレビュー' },
+		{ slug: 'ceramic',     icon: '🍵', name: '陶器レビュー' },
+		{ slug: 'recommended', icon: '✨', name: 'おすすめ・まとめ' },
+		{ slug: 'shopping',    icon: '🛍️', name: 'グッズ購入いろは' },
+		{ slug: 'interior',    icon: '🏡', name: 'インテリア雑貨レビュー' },
+		{ slug: 'budget',      icon: '📖', name: 'お小遣い記録' },
+		{ slug: 'collection',  icon: '💎', name: 'コレクション' },
+		{ slug: 'monthly',     icon: '🎁', name: '今月仲間入りしたグッズ' },
+		{ slug: 'kitchen',     icon: '🍳', name: 'キッチン用品レビュー' },
+		{ slug: 'objet',       icon: '🏺', name: 'オブジェレビュー' },
+		{ slug: 'toys',        icon: '🎮', name: 'おもちゃレビュー' },
 	];
 
 	const allPosts = await getCollection('blog');
@@ -27,7 +27,6 @@ export async function getStaticPaths() {
 	return categoryList.map((cat) => {
 		const posts = allPosts
 			.filter((p) => {
-				// カテゴリが一致 OR showInCategories に含まれる
 				const inCategory = p.data.category === cat.name;
 				const inShowIn = Array.isArray(p.data.showInCategories)
 					? p.data.showInCategories.includes(cat.name)
@@ -37,7 +36,7 @@ export async function getStaticPaths() {
 			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 		return {
-			params: { category: cat.name },
+			params: { category: cat.slug },
 			props: { categoryName: cat.name, categoryIcon: cat.icon, posts },
 		};
 	});
