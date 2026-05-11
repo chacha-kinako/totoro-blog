@@ -37,7 +37,7 @@ export async function getStaticPaths() {
 			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 		return {
-			params: { category: encodeURIComponent(cat.name) },
+			params: { category: cat.name },
 			props: { categoryName: cat.name, categoryIcon: cat.icon, posts },
 		};
 	});
@@ -186,6 +186,32 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 				font-style: italic;
 			}
 
+			.empty-state {
+				grid-column: 1 / -1;
+				text-align: center;
+				padding: 4em 2em;
+				background: var(--milk);
+				border-radius: 20px;
+				border: 1px dashed var(--beige);
+			}
+			.empty-state__icon {
+				font-size: 3em;
+				margin-bottom: 0.4em;
+				display: block;
+			}
+			.empty-state__text {
+				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-size: 1.15em;
+				color: var(--orange-dark);
+				margin: 0;
+				font-weight: 700;
+			}
+			.empty-state__sub {
+				font-size: 0.82em;
+				color: var(--text-muted);
+				margin: 0.5em 0 0;
+			}
+
 			@media (max-width: 600px) {
 				.post-grid { grid-template-columns: 1fr; }
 				.page-heading { padding: 1.5em 1em 1.2em; }
@@ -204,53 +230,61 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 				)}
 			</div>
 			<div class="post-grid-wrap">
-				<ul class="post-grid">
-					{posts.map((post) => (
-						<li class="post-card">
-							<a href={`/blog/${post.id}/`}>
-								{post.data.cardImage ? (
-									<>
-										<div class="post-card__thumb">
-											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-										</div>
-										<div class="post-card__body">
-											<p class="post-card__date">
-												<FormattedDate date={post.data.pubDate} />
-											</p>
-											<h2 class="post-card__title">{post.data.title}</h2>
-											{post.data.description && (
-												<p class="post-card__desc">{post.data.description}</p>
-											)}
-										</div>
-									</>
-								) : (
-									<>
-										<div class="post-card__bar" />
-										<div class="post-card__body">
-											<p class="post-card__date">
-												<FormattedDate date={post.data.pubDate} />
-											</p>
-											<h2 class="post-card__title">{post.data.title}</h2>
-											{post.data.description && (
-												<p class="post-card__desc">{post.data.description}</p>
-											)}
-										</div>
-									</>
-								)}
-							</a>
-						</li>
-					))}
-					{Array.from({ length: comingSoonCount }).map(() => (
-						<li class="post-card post-card--coming">
-							<div class="post-card__bar" />
-							<div class="post-card__body">
-								<p class="post-card__date">近日公開予定</p>
-								<h2 class="post-card__title">Coming Soon...</h2>
-								<p class="post-card__desc">新しい記事を準備中です🌿</p>
-							</div>
-						</li>
-					))}
-				</ul>
+				{posts.length === 0 ? (
+					<div class="empty-state">
+						<span class="empty-state__icon">🌿</span>
+						<p class="empty-state__text">現在鋭意作成中！もう少しまってね！</p>
+						<p class="empty-state__sub">このカテゴリの記事を準備しています。お楽しみに✨</p>
+					</div>
+				) : (
+					<ul class="post-grid">
+						{posts.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									{post.data.cardImage ? (
+										<>
+											<div class="post-card__thumb">
+												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+											</div>
+											<div class="post-card__body">
+												<p class="post-card__date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<h2 class="post-card__title">{post.data.title}</h2>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									) : (
+										<>
+											<div class="post-card__bar" />
+											<div class="post-card__body">
+												<p class="post-card__date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<h2 class="post-card__title">{post.data.title}</h2>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									)}
+								</a>
+							</li>
+						))}
+						{Array.from({ length: comingSoonCount }).map(() => (
+							<li class="post-card post-card--coming">
+								<div class="post-card__bar" />
+								<div class="post-card__body">
+									<p class="post-card__date">近日公開予定</p>
+									<h2 class="post-card__title">Coming Soon...</h2>
+									<p class="post-card__desc">新しい記事を準備中です🌿</p>
+								</div>
+							</li>
+						))}
+					</ul>
+				)}
 			</div>
 		</main>
 		<Footer />
