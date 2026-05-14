@@ -1,0 +1,210 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead
+		title="プライバシーポリシー・免責事項 | エンジョイ！トトロライフ！"
+		description="エンジョイ！トトロライフ！のプライバシーポリシーおよび免責事項のページです。"
+	/>
+	<style>
+		main {
+			max-width: 740px;
+			margin: auto;
+			padding: 2.5em 1em 5em;
+		}
+		.page-header {
+			background: #fff;
+			border-radius: 18px;
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow-sm);
+			overflow: hidden;
+			margin-bottom: 2em;
+		}
+		.page-header__bar {
+			height: 8px;
+			background: linear-gradient(90deg, var(--green-dark) 0%, var(--green) 50%, var(--acorn) 100%);
+		}
+		.page-header__body {
+			padding: 1.8em 2em;
+		}
+		.page-header h1 {
+			font-size: 1.5em;
+			line-height: 1.4;
+			margin: 0 0 0.5em;
+			color: var(--text);
+		}
+		.page-header__desc {
+			font-size: 0.9em;
+			color: var(--text-muted);
+			margin: 0;
+		}
+
+		.section {
+			background: #fff;
+			border-radius: 18px;
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow-sm);
+			padding: 2em 2.2em;
+			margin-bottom: 1.8em;
+		}
+		.section h2 {
+			font-size: 1.15em;
+			color: var(--green-dark);
+			border-left: 4px solid var(--green);
+			padding-left: 0.75em;
+			margin: 0 0 1em;
+		}
+		.section h3 {
+			font-size: 1em;
+			color: var(--text);
+			margin: 1.5em 0 0.5em;
+			font-weight: 700;
+		}
+		.section p {
+			font-size: 0.93em;
+			line-height: 1.85;
+			color: var(--text);
+			margin: 0 0 0.8em;
+		}
+		.section ul {
+			font-size: 0.93em;
+			line-height: 1.85;
+			color: var(--text);
+			padding-left: 1.4em;
+			margin: 0.3em 0 0.8em;
+		}
+		.section ul li {
+			margin-bottom: 0.3em;
+		}
+		.note {
+			background: var(--cream);
+			border-radius: 10px;
+			border-left: 3px solid var(--green-light);
+			padding: 0.8em 1em;
+			font-size: 0.88em;
+			color: var(--text-muted);
+			margin-top: 0.8em;
+		}
+		.updated {
+			text-align: right;
+			font-size: 0.82em;
+			color: var(--text-muted);
+			margin-top: 2em;
+		}
+
+		@media (max-width: 720px) {
+			main { padding: 1em 0.8em 3em; }
+			.page-header__body { padding: 1.3em 1.2em; }
+			.page-header h1 { font-size: 1.2em; }
+			.section { padding: 1.4em 1.2em; }
+		}
+	</style>
+</head>
+
+<body>
+	<Header />
+	<main>
+		<div class="page-header">
+			<div class="page-header__bar"></div>
+			<div class="page-header__body">
+				<h1>プライバシーポリシー・免責事項</h1>
+				<p class="page-header__desc">
+					「エンジョイ！トトロライフ！」（以下、当サイト）のプライバシーポリシーおよび免責事項です。
+					お読みいただき、ご理解のうえご利用ください。
+				</p>
+			</div>
+		</div>
+
+		<!-- ===== プライバシーポリシー ===== -->
+		<div class="section">
+			<h2>プライバシーポリシー</h2>
+
+			<h3>アクセス解析ツール（Google アナリティクス）について</h3>
+			<p>
+				当サイトでは、アクセス状況を把握するために Google アナリティクスを利用しています。
+				Google アナリティクスは Cookie を使用してデータを収集しますが、
+				収集される情報は匿名であり、個人を特定するものではありません。
+			</p>
+			<p>
+				Cookie の使用はブラウザの設定から無効にすることができます。
+				Google アナリティクスの利用規約・ポリシーについては
+				<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google のプライバシーポリシー</a>
+				をご確認ください。
+			</p>
+
+			<h3>広告（Amazonアソシエイト）について</h3>
+			<p>
+				当サイトは、Amazon.co.jp を宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定された、
+				アフィリエイトプログラム「Amazonアソシエイト」の参加者です。
+				商品リンクをクリックして購入された場合、当サイトに紹介料が発生することがありますが、
+				購入者の方に追加費用は一切かかりません。
+			</p>
+			<p>
+				紹介料の有無に関わらず、掲載する商品はすべて実際に使用・確認したうえで正直な感想を書いています。
+			</p>
+
+			<h3>Cookie（クッキー）について</h3>
+			<p>
+				当サイトでは、Google アナリティクスおよび広告サービスの利用にともなって Cookie を使用しています。
+				Cookie によって収集される情報は、氏名・住所・メールアドレスなどの個人情報は含まれません。
+				ブラウザの設定で Cookie を無効にすることができますが、一部の機能が正常に動作しなくなる場合があります。
+			</p>
+
+			<h3>個人情報の取り扱いについて</h3>
+			<p>
+				お問い合わせの際にいただいた氏名・メールアドレスなどの個人情報は、
+				お問い合わせへの返信のみに使用し、それ以外の目的には使用しません。
+				また、法令に基づく場合を除き、第三者へ提供することはありません。
+			</p>
+			<div class="note">
+				当サイトは個人が運営するブログです。お問い合わせいただいた情報は大切に管理し、
+				不当に外部へ持ち出すことはありません。
+			</div>
+		</div>
+
+		<!-- ===== 免責事項 ===== -->
+		<div class="section">
+			<h2>免責事項</h2>
+
+			<h3>掲載情報の正確性について</h3>
+			<p>
+				当サイトに掲載している商品レビューや価格・仕様などの情報は、
+				執筆時点のものです。商品の仕様変更・販売終了・価格改定などにより、
+				実際の内容と異なる場合があります。
+				最新の情報は各販売店・メーカーの公式サイトにてご確認ください。
+			</p>
+			<p>
+				当サイトの情報を参考にした結果生じたトラブルや損失について、
+				当サイトは一切の責任を負いかねます。
+				購入・利用のご判断はご自身の責任でお願いいたします。
+			</p>
+
+			<h3>リンク先のサイトについて</h3>
+			<p>
+				当サイトから外部サイトへのリンクを掲載していることがありますが、
+				リンク先の内容・サービスについて当サイトは管理・保証するものではありません。
+				リンク先のサイトで生じたいかなるトラブルについても、当サイトは責任を負いません。
+			</p>
+
+			<h3>著作権について</h3>
+			<p>
+				当サイトに掲載している文章・画像の著作権は、引用を除き当サイト管理者に帰属します。
+				無断転載・複製はご遠慮ください。
+				引用する場合は出典を明記していただき、引用の範囲内でご使用ください。
+			</p>
+			<div class="note">
+				当サイトで紹介しているトトロ・ジブリ関連グッズの商品名・デザインなどの著作権は、
+				スタジオジブリおよび各メーカーに帰属します。
+			</div>
+		</div>
+
+		<p class="updated">制定日：2026年5月14日</p>
+	</main>
+	<Footer />
+</body>
+</html>

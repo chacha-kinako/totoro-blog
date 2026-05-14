@@ -3,7 +3,12 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} Your name here. All rights reserved.
+	&copy; {today.getFullYear()} エンジョイ！トトロライフ！ All rights reserved.
+	<div class="footer-links">
+		<a href="/about">プロフィール</a>
+		<span class="sep">|</span>
+		<a href="/privacy">プライバシーポリシー・免責事項</a>
+	</div>
 	<div class="social-links">
 		<a href="https://m.webtoo.ls/@astro" target="_blank">
 			<span class="sr-only">Follow Astro on Mastodon</span>
@@ -58,5 +63,21 @@ const today = new Date();
 	}
 	.social-links a:hover {
 		color: rgb(var(--gray-dark));
+	}
+	.footer-links {
+		margin-top: 0.8em;
+		font-size: 0.82em;
+	}
+	.footer-links a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+	}
+	.footer-links a:hover {
+		color: rgb(var(--gray-dark));
+		text-decoration: underline;
+	}
+	.sep {
+		margin: 0 0.5em;
+		opacity: 0.5;
 	}
 </style>
