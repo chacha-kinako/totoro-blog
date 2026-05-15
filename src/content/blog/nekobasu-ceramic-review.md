@@ -5,7 +5,7 @@ pubDate: '2026-05-04'
 heroImage: ''
 cardImage: '/images/img_1778390169622_els17.webp'
 category: '陶器レビュー'
-showInLatest: true
+showInLatest: false
 showInPopular: true
 showInCategories: ['陶器レビュー']
 ---
