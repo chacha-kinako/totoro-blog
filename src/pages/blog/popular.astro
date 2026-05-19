@@ -1,15 +1,38 @@
 ---
 import { getCollection } from 'astro:content';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
+
+let pageOrder: Record<string, string[]> = {};
+try {
+	const p = join(process.cwd(), 'src/data/page-order.json');
+	if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
+} catch {}
 
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const posts = allPosts.filter(p => p.data.featured || p.data.showInPopular);
+let posts = allPosts.filter(p => p.data.featured || p.data.showInPopular);
+
+if (pageOrder.popular && pageOrder.popular.length > 0) {
+	const order = pageOrder.popular;
+	posts = [...posts].sort((a, b) => {
+		const aSlug = a.id.replace(/\.(md|mdx)$/, '');
+		const bSlug = b.id.replace(/\.(md|mdx)$/, '');
+		const ai = order.indexOf(aSlug);
+		const bi = order.indexOf(bSlug);
+		if (ai === -1 && bi === -1) return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+		if (ai === -1) return 1;
+		if (bi === -1) return -1;
+		return ai - bi;
+	});
+}
 ---
 
 <!doctype html>
@@ -17,10 +40,20 @@ const posts = allPosts.filter(p => p.data.featured || p.data.showInPopular);
 	<head>
 		<BaseHead title={`人気の記事 | ${SITE_TITLE}`} description="とくにおすすめのトトロ・ジブリグッズ記事をまとめました。" />
 		<style>
-			.page-heading {
-				padding: 2.2em 1.5em 1.8em;
-				max-width: 960px;
+			.page-outer {
+				max-width: 1120px;
 				margin: 0 auto;
+				padding: 0 1.5em;
+				display: flex;
+				gap: 2.5em;
+				align-items: flex-start;
+			}
+			.page-main {
+				flex: 1;
+				min-width: 0;
+			}
+			.page-heading {
+				padding: 2.2em 0 1.8em;
 			}
 			.page-heading__label {
 				font-size: 0.68em;
@@ -45,12 +78,7 @@ const posts = allPosts.filter(p => p.data.featured || p.data.showInPopular);
 				gap: 1.2rem;
 				list-style: none;
 				margin: 0;
-				padding: 0;
-			}
-			.post-grid-wrap {
-				max-width: 960px;
-				margin: 0 auto;
-				padding: 0 1.5em 4em;
+				padding: 0 0 4em;
 			}
 
 			.empty-state {
@@ -140,23 +168,26 @@ const posts = allPosts.filter(p => p.data.featured || p.data.showInPopular);
 				overflow: hidden;
 			}
 
+			@media (max-width: 860px) {
+				.page-outer { padding: 0 1em; }
+			}
 			@media (max-width: 720px) {
 				.post-grid { grid-template-columns: 1fr; }
-				.page-heading { padding: 1.5em 1em 1.2em; }
+				.page-heading { padding: 1.5em 0 1.2em; }
 			}
-			@media (min-width: 721px) and (max-width: 960px) {
+			@media (min-width: 721px) and (max-width: 860px) {
 				.post-grid { grid-template-columns: repeat(2, 1fr); }
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<div class="page-heading">
-				<span class="page-heading__label">POPULAR POSTS</span>
-				<h1 class="page-heading__title">人気の記事</h1>
-			</div>
-			<div class="post-grid-wrap">
+		<div class="page-outer">
+			<main class="page-main">
+				<div class="page-heading">
+					<span class="page-heading__label">POPULAR POSTS</span>
+					<h1 class="page-heading__title">人気の記事</h1>
+				</div>
 				{posts.length > 0 ? (
 					<ul class="post-grid">
 						{posts.map((post) => (
@@ -194,8 +225,9 @@ const posts = allPosts.filter(p => p.data.featured || p.data.showInPopular);
 				) : (
 					<p class="empty-state">人気記事を準備中です🌿 もうしばらくお待ちください。</p>
 				)}
-			</div>
-		</main>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
