@@ -4,6 +4,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
@@ -16,10 +17,20 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={`最新の記事 | ${SITE_TITLE}`} description="トトロ・ジブリグッズのレビューや暮らしの記録を最新順に一覧します。" />
 		<style>
-			.page-heading {
-				padding: 2.2em 1.5em 1.8em;
-				max-width: 960px;
+			.page-outer {
+				max-width: 1120px;
 				margin: 0 auto;
+				padding: 0 1.5em;
+				display: flex;
+				gap: 2.5em;
+				align-items: flex-start;
+			}
+			.page-main {
+				flex: 1;
+				min-width: 0;
+			}
+			.page-heading {
+				padding: 2.2em 0 1.8em;
 			}
 			.page-heading__label {
 				font-size: 0.68em;
@@ -44,12 +55,7 @@ const posts = (await getCollection('blog')).sort(
 				gap: 1.2rem;
 				list-style: none;
 				margin: 0;
-				padding: 0;
-			}
-			.post-grid-wrap {
-				max-width: 960px;
-				margin: 0 auto;
-				padding: 0 1.5em 4em;
+				padding: 0 0 4em;
 			}
 
 			.post-card {
@@ -132,23 +138,26 @@ const posts = (await getCollection('blog')).sort(
 				overflow: hidden;
 			}
 
+			@media (max-width: 860px) {
+				.page-outer { padding: 0 1em; }
+			}
 			@media (max-width: 720px) {
 				.post-grid { grid-template-columns: 1fr; }
-				.page-heading { padding: 1.5em 1em 1.2em; }
+				.page-heading { padding: 1.5em 0 1.2em; }
 			}
-			@media (min-width: 721px) and (max-width: 960px) {
+			@media (min-width: 721px) and (max-width: 860px) {
 				.post-grid { grid-template-columns: repeat(2, 1fr); }
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<div class="page-heading">
-				<span class="page-heading__label">LATEST POSTS</span>
-				<h1 class="page-heading__title">最新の記事</h1>
-			</div>
-			<div class="post-grid-wrap">
+		<div class="page-outer">
+			<main class="page-main">
+				<div class="page-heading">
+					<span class="page-heading__label">LATEST POSTS</span>
+					<h1 class="page-heading__title">最新の記事</h1>
+				</div>
 				<ul class="post-grid">
 					{
 						posts.map((post) => (
@@ -184,8 +193,9 @@ const posts = (await getCollection('blog')).sort(
 						))
 					}
 				</ul>
-			</div>
-		</main>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
