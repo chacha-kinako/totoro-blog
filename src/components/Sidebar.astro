@@ -1,0 +1,236 @@
+---
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const latestPosts = allPosts.slice(0, 6);
+const popularPosts = allPosts.filter(p => p.data.showInPopular || p.data.featured).slice(0, 6);
+
+const categories = [
+	{ icon: '🪆', name: 'フィギアレビュー' },
+	{ icon: '🧸', name: 'ぬいぐるみレビュー' },
+	{ icon: '🍵', name: '陶器レビュー' },
+	{ icon: '✨', name: 'おすすめ・まとめ' },
+	{ icon: '🛍️', name: 'グッズ購入いろは' },
+	{ icon: '🏡', name: 'インテリア雑貨レビュー' },
+	{ icon: '📖', name: 'お小遣い記録' },
+	{ icon: '💎', name: 'コレクション' },
+	{ icon: '🎁', name: '今月仲間入りしたグッズ' },
+	{ icon: '🍳', name: 'キッチン用品レビュー' },
+	{ icon: '🏺', name: 'オブジェレビュー' },
+	{ icon: '🎮', name: 'おもちゃレビュー' },
+];
+
+const ghibliWorks = [
+	{ icon: '🌱', name: 'となりのトトロ' },
+	{ icon: '🛁', name: '千と千尋の神隠し' },
+	{ icon: '🐺', name: 'もののけ姫' },
+	{ icon: '🧹', name: '魔女の宅急便' },
+	{ icon: '🏰', name: '天空の城ラピュタ' },
+	{ icon: '🌾', name: '風の谷のナウシカ' },
+	{ icon: '🐟', name: '崖の上のポニョ' },
+	{ icon: '🔥', name: 'ハウルの動く城' },
+];
+---
+
+<aside class="sidebar">
+
+	<div class="sb-section" data-open="true">
+		<button class="sb-header" aria-expanded="true" type="button">
+			<span class="sb-header__title">📰 最新記事</span>
+			<span class="sb-header__arrow">▾</span>
+		</button>
+		<div class="sb-body">
+			<ul class="sb-list">
+				{latestPosts.map(post => (
+					<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
+				))}
+				<li><a href="/blog/latest" class="sb-more">すべて見る →</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="sb-section" data-open="true">
+		<button class="sb-header" aria-expanded="true" type="button">
+			<span class="sb-header__title">⭐ 人気記事</span>
+			<span class="sb-header__arrow">▾</span>
+		</button>
+		<div class="sb-body">
+			<ul class="sb-list">
+				{popularPosts.length > 0 ? popularPosts.map(post => (
+					<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
+				)) : (
+					<li class="sb-empty">準備中です🌿</li>
+				)}
+				{popularPosts.length > 0 && (
+					<li><a href="/blog/popular" class="sb-more">すべて見る →</a></li>
+				)}
+			</ul>
+		</div>
+	</div>
+
+	<div class="sb-section">
+		<button class="sb-header" aria-expanded="false" type="button">
+			<span class="sb-header__title">🎬 作品別</span>
+			<span class="sb-header__arrow">▾</span>
+		</button>
+		<div class="sb-body sb-body--closed">
+			<ul class="sb-list">
+				{ghibliWorks.map(w => (
+					<li><a href={`/categories/${encodeURIComponent(w.name)}`} class="sb-link">{w.icon} {w.name}</a></li>
+				))}
+			</ul>
+		</div>
+	</div>
+
+	<div class="sb-section">
+		<button class="sb-header" aria-expanded="false" type="button">
+			<span class="sb-header__title">📂 カテゴリ別</span>
+			<span class="sb-header__arrow">▾</span>
+		</button>
+		<div class="sb-body sb-body--closed">
+			<ul class="sb-list">
+				{categories.map(cat => (
+					<li><a href={`/categories/${encodeURIComponent(cat.name)}`} class="sb-link">{cat.icon} {cat.name}</a></li>
+				))}
+				<li><a href="/categories" class="sb-more">カテゴリ一覧 →</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="sb-section">
+		<button class="sb-header" aria-expanded="false" type="button">
+			<span class="sb-header__title">📖 図鑑</span>
+			<span class="sb-header__arrow">▾</span>
+		</button>
+		<div class="sb-body sb-body--closed">
+			<ul class="sb-list">
+				<li class="sb-empty">準備中です🌿</li>
+			</ul>
+		</div>
+	</div>
+
+</aside>
+
+<script>
+	document.querySelectorAll('.sidebar .sb-header').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const section = btn.closest('.sb-section');
+			const body = section.querySelector('.sb-body');
+			const isOpen = btn.getAttribute('aria-expanded') === 'true';
+			btn.setAttribute('aria-expanded', String(!isOpen));
+			body.classList.toggle('sb-body--closed', isOpen);
+		});
+	});
+</script>
+
+<style>
+	.sidebar {
+		width: 210px;
+		flex-shrink: 0;
+		position: sticky;
+		top: 72px;
+		max-height: calc(100vh - 80px);
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: var(--beige-light) transparent;
+	}
+
+	.sb-section {
+		border-bottom: 1px solid var(--beige-light);
+		padding: 0 0.1em;
+	}
+	.sb-section:last-child { border-bottom: none; }
+
+	.sb-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		background: none;
+		border: none;
+		padding: 0.75em 0.3em;
+		cursor: pointer;
+		gap: 0.3em;
+		border-radius: 6px;
+		transition: background 0.15s;
+	}
+	.sb-header:hover { background: var(--orange-pale); }
+
+	.sb-header__title {
+		font-size: 0.79em;
+		font-weight: 700;
+		color: var(--text);
+		letter-spacing: 0.02em;
+		text-align: left;
+	}
+	.sb-header__arrow {
+		font-size: 0.8em;
+		color: var(--text-muted);
+		transition: transform 0.22s;
+		flex-shrink: 0;
+	}
+	.sb-header[aria-expanded="false"] .sb-header__arrow {
+		transform: rotate(-90deg);
+	}
+
+	.sb-body {
+		overflow: hidden;
+		max-height: 900px;
+		transition: max-height 0.28s ease, opacity 0.2s;
+		opacity: 1;
+	}
+	.sb-body--closed {
+		max-height: 0;
+		opacity: 0;
+	}
+
+	.sb-list {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0.6em;
+	}
+	.sb-list li { padding: 0; }
+
+	.sb-link {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		font-size: 0.77em;
+		color: var(--text-muted);
+		text-decoration: none;
+		padding: 0.3em 0.4em;
+		border-radius: 4px;
+		line-height: 1.45;
+		transition: color 0.15s, background 0.15s;
+	}
+	.sb-link:hover {
+		color: var(--orange-dark);
+		background: var(--orange-pale);
+		text-decoration: none;
+	}
+
+	.sb-more {
+		display: block;
+		font-size: 0.72em;
+		color: var(--orange);
+		text-decoration: none;
+		padding: 0.3em 0.4em 0.5em;
+		font-weight: 600;
+		margin-top: 0.1em;
+	}
+	.sb-more:hover { text-decoration: underline; color: var(--orange-dark); }
+
+	.sb-empty {
+		display: block;
+		font-size: 0.75em;
+		color: var(--text-muted);
+		padding: 0.3em 0.4em 0.5em;
+	}
+
+	@media (max-width: 860px) {
+		.sidebar { display: none; }
+	}
+</style>
