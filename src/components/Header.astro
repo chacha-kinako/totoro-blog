@@ -1,18 +1,21 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+
+const collectionHref = `/categories/${encodeURIComponent('コレクション')}`;
+const kakeiboHref = `/categories/${encodeURIComponent('お小遣い記録')}`;
 ---
 
 <header class="site-header">
 	<div class="site-header__inner">
 		<a href="/" class="site-header__logo">{SITE_TITLE}</a>
 		<nav class="site-header__nav">
-			<HeaderLink href="/blog/latest">最新の記事</HeaderLink>
-			<HeaderLink href="/blog/popular">人気の記事</HeaderLink>
-			<HeaderLink href="/blog">記事一覧</HeaderLink>
-			<HeaderLink href="/categories">カテゴリ</HeaderLink>
+			<HeaderLink href="/">ホーム</HeaderLink>
+			<HeaderLink href="/zukan">図鑑</HeaderLink>
+			<HeaderLink href="/blog">レビュー</HeaderLink>
+			<HeaderLink href={collectionHref}>コレクション</HeaderLink>
+			<HeaderLink href={kakeiboHref}>お小遣い帳</HeaderLink>
 			<HeaderLink href="/about">プロフィール</HeaderLink>
-			<a href="/rss.xml" class="nav-anchor nav-anchor--rss" target="_blank" rel="noopener">RSS</a>
 		</nav>
 	</div>
 </header>
@@ -27,7 +30,7 @@ import HeaderLink from './HeaderLink.astro';
 		box-shadow: 0 1px 10px rgba(180, 100, 50, 0.07);
 	}
 	.site-header__inner {
-		max-width: 960px;
+		max-width: 1120px;
 		margin: auto;
 		padding: 0 1.5em;
 		display: flex;
@@ -70,16 +73,6 @@ import HeaderLink from './HeaderLink.astro';
 		background: var(--orange-pale);
 		color: var(--orange-dark);
 		text-decoration: none;
-	}
-	.nav-anchor--rss {
-		color: var(--green-dark) !important;
-		border: 1px solid var(--green-light);
-		border-radius: 50px !important;
-		padding: 0.3em 0.75em !important;
-	}
-	.nav-anchor--rss:hover {
-		background: var(--green-pale) !important;
-		color: var(--green-dark) !important;
 	}
 
 	@media (max-width: 680px) {
