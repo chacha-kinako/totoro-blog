@@ -1,30 +1,40 @@
 ---
 import { getCollection } from 'astro:content';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
+
+let pageOrder: Record<string, string[]> = {};
+try {
+	const p = join(process.cwd(), 'src/data/page-order.json');
+	if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
+} catch {}
 
 export async function getStaticPaths() {
 	const categoryList = [
-		{ slug: 'figure',      icon: '🪆', name: 'フィギアレビュー' },
-		{ slug: 'plush',       icon: '🧸', name: 'ぬいぐるみレビュー' },
-		{ slug: 'ceramic',     icon: '🍵', name: '陶器レビュー' },
-		{ slug: 'recommended', icon: '✨', name: 'おすすめ・まとめ' },
-		{ slug: 'shopping',    icon: '🛍️', name: 'グッズ購入いろは' },
-		{ slug: 'interior',    icon: '🏡', name: 'インテリア雑貨レビュー' },
-		{ slug: 'budget',      icon: '📖', name: 'お小遣い記録' },
-		{ slug: 'collection',  icon: '💎', name: 'コレクション' },
-		{ slug: 'monthly',     icon: '🎁', name: '今月仲間入りしたグッズ' },
-		{ slug: 'kitchen',     icon: '🍳', name: 'キッチン用品レビュー' },
-		{ slug: 'objet',       icon: '🏺', name: 'オブジェレビュー' },
-		{ slug: 'toys',        icon: '🎮', name: 'おもちゃレビュー' },
+		{ icon: '🪆', name: 'フィギアレビュー' },
+		{ icon: '🧸', name: 'ぬいぐるみレビュー' },
+		{ icon: '🍵', name: '陶器レビュー' },
+		{ icon: '✨', name: 'おすすめ・まとめ' },
+		{ icon: '🛍️', name: 'グッズ購入いろは' },
+		{ icon: '🏡', name: 'インテリア雑貨レビュー' },
+		{ icon: '📖', name: 'お小遣い記録' },
+		{ icon: '💎', name: 'コレクション' },
+		{ icon: '🎁', name: '今月仲間入りしたグッズ' },
+		{ icon: '🍳', name: 'キッチン用品レビュー' },
+		{ icon: '🏺', name: 'オブジェレビュー' },
+		{ icon: '🎮', name: 'おもちゃレビュー' },
 	];
 
 	const allPosts = await getCollection('blog');
 
 	return categoryList.map((cat) => {
+		const catOrder: string[] = (pageOrder as Record<string, string[]>)[cat.name] || [];
 		const posts = allPosts
 			.filter((p) => {
 				const inCategory = p.data.category === cat.name;
@@ -33,10 +43,23 @@ export async function getStaticPaths() {
 					: false;
 				return inCategory || inShowIn;
 			})
-			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+			.sort((a, b) => {
+				if (catOrder.length > 0) {
+					const aSlug = a.id.replace(/\.(md|mdx)$/, '');
+					const bSlug = b.id.replace(/\.(md|mdx)$/, '');
+					const ai = catOrder.indexOf(aSlug);
+					const bi = catOrder.indexOf(bSlug);
+					if (ai !== -1 || bi !== -1) {
+						if (ai === -1) return 1;
+						if (bi === -1) return -1;
+						return ai - bi;
+					}
+				}
+				return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+			});
 
 		return {
-			params: { category: cat.slug },
+			params: { category: encodeURIComponent(cat.name) },
 			props: { categoryName: cat.name, categoryIcon: cat.icon, posts },
 		};
 	});
@@ -55,10 +78,20 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 			description={`${categoryName}の記事一覧です。トトロ・ジブリグッズのレビューや暮らしの記録をお届けします。`}
 		/>
 		<style>
-			.page-heading {
-				padding: 2.2em 1.5em 1.8em;
-				max-width: 960px;
+			.page-outer {
+				max-width: 1120px;
 				margin: 0 auto;
+				padding: 0 1.5em;
+				display: flex;
+				gap: 2.5em;
+				align-items: flex-start;
+			}
+			.page-main {
+				flex: 1;
+				min-width: 0;
+			}
+			.page-heading {
+				padding: 2.2em 0 1.8em;
 			}
 			.page-heading__label {
 				font-size: 0.68em;
@@ -101,12 +134,7 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 				gap: 1.4rem;
 				list-style: none;
 				margin: 0;
-				padding: 0;
-			}
-			.post-grid-wrap {
-				max-width: 960px;
-				margin: 0 auto;
-				padding: 0 1.5em 4em;
+				padding: 0 0 4em;
 			}
 			.post-card {
 				background: #fff;
@@ -185,107 +213,77 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 				font-style: italic;
 			}
 
-			.empty-state {
-				grid-column: 1 / -1;
-				text-align: center;
-				padding: 4em 2em;
-				background: var(--milk);
-				border-radius: 20px;
-				border: 1px dashed var(--beige);
+			@media (max-width: 860px) {
+				.page-outer { padding: 0 1em; }
 			}
-			.empty-state__icon {
-				font-size: 3em;
-				margin-bottom: 0.4em;
-				display: block;
-			}
-			.empty-state__text {
-				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-				font-size: 1.15em;
-				color: var(--orange-dark);
-				margin: 0;
-				font-weight: 700;
-			}
-			.empty-state__sub {
-				font-size: 0.82em;
-				color: var(--text-muted);
-				margin: 0.5em 0 0;
-			}
-
 			@media (max-width: 600px) {
 				.post-grid { grid-template-columns: 1fr; }
-				.page-heading { padding: 1.5em 1em 1.2em; }
+				.page-heading { padding: 1.5em 0 1.2em; }
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<div class="page-heading">
-				<a href="/categories" class="back-link">← カテゴリ一覧に戻る</a>
-				<span class="page-heading__label">CATEGORY</span>
-				<h1 class="page-heading__title">{categoryIcon} {categoryName}</h1>
-				{posts.length > 0 && (
-					<p class="page-heading__count">{posts.length}件の記事</p>
-				)}
-			</div>
-			<div class="post-grid-wrap">
-				{posts.length === 0 ? (
-					<div class="empty-state">
-						<span class="empty-state__icon">🌿</span>
-						<p class="empty-state__text">現在鋭意作成中！もう少しまってね！</p>
-						<p class="empty-state__sub">このカテゴリの記事を準備しています。お楽しみに✨</p>
-					</div>
-				) : (
-					<ul class="post-grid">
-						{posts.map((post) => (
-							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									{post.data.cardImage ? (
-										<>
-											<div class="post-card__thumb">
-												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-											</div>
-											<div class="post-card__body">
-												<p class="post-card__date">
-													<FormattedDate date={post.data.pubDate} />
-												</p>
-												<h2 class="post-card__title">{post.data.title}</h2>
-												{post.data.description && (
-													<p class="post-card__desc">{post.data.description}</p>
-												)}
-											</div>
-										</>
-									) : (
-										<>
-											<div class="post-card__bar" />
-											<div class="post-card__body">
-												<p class="post-card__date">
-													<FormattedDate date={post.data.pubDate} />
-												</p>
-												<h2 class="post-card__title">{post.data.title}</h2>
-												{post.data.description && (
-													<p class="post-card__desc">{post.data.description}</p>
-												)}
-											</div>
-										</>
-									)}
-								</a>
-							</li>
-						))}
-						{Array.from({ length: comingSoonCount }).map(() => (
-							<li class="post-card post-card--coming">
-								<div class="post-card__bar" />
-								<div class="post-card__body">
-									<p class="post-card__date">近日公開予定</p>
-									<h2 class="post-card__title">Coming Soon...</h2>
-									<p class="post-card__desc">新しい記事を準備中です🌿</p>
-								</div>
-							</li>
-						))}
-					</ul>
-				)}
-			</div>
-		</main>
+		<div class="page-outer">
+			<main class="page-main">
+				<div class="page-heading">
+					<a href="/categories" class="back-link">← カテゴリ一覧に戻る</a>
+					<span class="page-heading__label">CATEGORY</span>
+					<h1 class="page-heading__title">{categoryIcon} {categoryName}</h1>
+					{posts.length > 0 && (
+						<p class="page-heading__count">{posts.length}件の記事</p>
+					)}
+				</div>
+				<ul class="post-grid">
+					{posts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								{post.data.cardImage ? (
+									<>
+										<div class="post-card__thumb">
+											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+										</div>
+										<div class="post-card__body">
+											<p class="post-card__date">
+												<FormattedDate date={post.data.pubDate} />
+											</p>
+											<h2 class="post-card__title">{post.data.title}</h2>
+											{post.data.description && (
+												<p class="post-card__desc">{post.data.description}</p>
+											)}
+										</div>
+									</>
+								) : (
+									<>
+										<div class="post-card__bar" />
+										<div class="post-card__body">
+											<p class="post-card__date">
+												<FormattedDate date={post.data.pubDate} />
+											</p>
+											<h2 class="post-card__title">{post.data.title}</h2>
+											{post.data.description && (
+												<p class="post-card__desc">{post.data.description}</p>
+											)}
+										</div>
+									</>
+								)}
+							</a>
+						</li>
+					))}
+					{Array.from({ length: comingSoonCount }).map(() => (
+						<li class="post-card post-card--coming">
+							<div class="post-card__bar" />
+							<div class="post-card__body">
+								<p class="post-card__date">近日公開予定</p>
+								<h2 class="post-card__title">Coming Soon...</h2>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			</main>
+			<Sidebar />
+		</div>
 		<Footer />
 	</body>
 </html>
