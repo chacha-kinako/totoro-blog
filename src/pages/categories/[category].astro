@@ -9,13 +9,12 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
 
-let pageOrder: Record<string, string[]> = {};
-try {
-	const p = join(process.cwd(), 'src/data/page-order.json');
-	if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
-} catch {}
-
 export async function getStaticPaths() {
+	let pageOrder: Record<string, string[]> = {};
+	try {
+		const p = join(process.cwd(), 'src/data/page-order.json');
+		if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
+	} catch {}
 	const categoryList = [
 		{ icon: '🪆', name: 'フィギアレビュー' },
 		{ icon: '🧸', name: 'ぬいぐるみレビュー' },
@@ -59,7 +58,7 @@ export async function getStaticPaths() {
 			});
 
 		return {
-			params: { category: encodeURIComponent(cat.name) },
+			params: { category: cat.name },
 			props: { categoryName: cat.name, categoryIcon: cat.icon, posts },
 		};
 	});
@@ -275,8 +274,7 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 							<div class="post-card__bar" />
 							<div class="post-card__body">
 								<p class="post-card__date">近日公開予定</p>
-								<h2 class="post-card__title">鋭意作成中です！楽しみに待っててね！</h2>
-								<p class="post-card__desc">新しい記事を準備中です🌿</p>
+								<h2 class="post-card__title">鋭意作成中！もう少しまってね</h2>
 							</div>
 						</li>
 					))}
