@@ -3,59 +3,90 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
+import siteConfig from '../data/site-config.json';
+
+const profile = siteConfig.profile;
 ---
 
 <!doctype html>
 <html lang="ja">
 <head>
-	<BaseHead title={`プロフィール | ${SITE_TITLE}`} description="hinako のプロフィールページです。現在鋭意作成中です。" />
+	<BaseHead title={`プロフィール | ${SITE_TITLE}`} description={`${profile.name} のプロフィールページです。`} />
 	<style>
-		.coming-page {
+		.profile-page {
 			min-height: 60vh;
 			display: flex;
-			align-items: center;
+			align-items: flex-start;
 			justify-content: center;
-			padding: 4em 1.5em;
+			padding: 4em 1.5em 6em;
 		}
-		.coming-box {
+		.profile-card {
 			background: #fff;
 			border: 1px solid var(--beige-light);
 			border-radius: 24px;
-			box-shadow: var(--shadow-sm);
+			box-shadow: var(--shadow-md);
 			padding: 3.2em 2.8em;
-			text-align: center;
-			max-width: 480px;
+			max-width: 560px;
 			width: 100%;
 		}
-		.coming-icon {
-			font-size: 3.5em;
-			display: block;
-			margin-bottom: 0.4em;
-			line-height: 1;
+		.profile-card__bar {
+			height: 6px;
+			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
+			border-radius: 6px 6px 0 0;
+			margin: -3.2em -2.8em 2.4em;
+			border-top-left-radius: 24px;
+			border-top-right-radius: 24px;
 		}
-		.coming-label {
-			font-size: 0.7em;
+		.profile-header {
+			display: flex;
+			align-items: center;
+			gap: 1.4em;
+			margin-bottom: 1.8em;
+		}
+		.profile-icon {
+			font-size: 4em;
+			line-height: 1;
+			flex-shrink: 0;
+		}
+		.profile-name {
+			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-size: 1.6em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.25em;
+			line-height: 1.3;
+		}
+		.profile-tagline {
+			font-size: 0.82em;
+			color: var(--orange);
+			font-weight: 700;
+			letter-spacing: 0.04em;
+			margin: 0;
+			padding: 0.2em 0.8em;
+			background: var(--orange-pale);
+			border-radius: 50px;
+			display: inline-block;
+		}
+		.profile-divider {
+			height: 1px;
+			background: var(--beige-light);
+			margin: 1.6em 0;
+		}
+		.profile-label {
+			font-size: 0.68em;
 			font-weight: 700;
 			color: var(--orange);
 			letter-spacing: 0.22em;
 			display: block;
 			margin-bottom: 0.8em;
 		}
-		.coming-title {
-			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-			font-size: 1.5em;
-			font-weight: 700;
+		.profile-bio {
+			font-size: 0.9em;
 			color: var(--text);
-			margin: 0 0 0.5em;
-			line-height: 1.4;
+			line-height: 1.9;
+			white-space: pre-line;
 		}
-		.coming-text {
-			font-size: 0.88em;
-			color: var(--text-muted);
-			line-height: 1.8;
-			margin: 0 0 1.8em;
-		}
-		.coming-back {
+		.profile-back {
 			display: inline-flex;
 			align-items: center;
 			gap: 0.3em;
@@ -66,27 +97,37 @@ import { SITE_TITLE } from '../consts';
 			border-bottom: 1.5px solid var(--orange-light);
 			padding-bottom: 2px;
 			transition: color 0.15s;
+			margin-top: 2em;
 		}
-		.coming-back:hover { color: var(--orange-dark); text-decoration: none; }
+		.profile-back:hover { color: var(--orange-dark); text-decoration: none; }
 
 		@media (max-width: 600px) {
-			.coming-box { padding: 2.4em 1.5em; }
-			.coming-title { font-size: 1.25em; }
+			.profile-card { padding: 2.4em 1.5em; }
+			.profile-card__bar { margin: -2.4em -1.5em 2em; }
+			.profile-name { font-size: 1.3em; }
+			.profile-header { gap: 1em; }
+			.profile-icon { font-size: 3em; }
+			.profile-page { padding: 2em 1em 4em; }
 		}
 	</style>
 </head>
 <body>
 	<Header />
 	<main>
-		<div class="coming-page">
-			<div class="coming-box">
-				<span class="coming-icon">🌰</span>
-				<span class="coming-label">PROFILE</span>
-				<h1 class="coming-title">プロフィール</h1>
-				<p class="coming-text">
-					鋭意作成中！もう少しまってね
-				</p>
-				<a href="/" class="coming-back">← トップページに戻る</a>
+		<div class="profile-page">
+			<div class="profile-card">
+				<div class="profile-card__bar"></div>
+				<div class="profile-header">
+					<div class="profile-icon">{profile.icon}</div>
+					<div>
+						<h1 class="profile-name">{profile.name}</h1>
+						<span class="profile-tagline">{profile.tagline}</span>
+					</div>
+				</div>
+				<div class="profile-divider"></div>
+				<span class="profile-label">PROFILE</span>
+				<p class="profile-bio">{profile.bio}</p>
+				<a href="/" class="profile-back">← トップページに戻る</a>
 			</div>
 		</div>
 	</main>
