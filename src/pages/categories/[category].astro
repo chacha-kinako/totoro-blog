@@ -16,18 +16,18 @@ export async function getStaticPaths() {
 		if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
 	} catch {}
 	const categoryList = [
-		{ icon: '🪆', name: 'フィギアレビュー' },
-		{ icon: '🧸', name: 'ぬいぐるみレビュー' },
-		{ icon: '🍵', name: '陶器レビュー' },
 		{ icon: '✨', name: 'おすすめ・まとめ' },
-		{ icon: '🛍️', name: 'グッズ購入いろは' },
+		{ icon: '🧸', name: 'ぬいぐるみレビュー' },
+		{ icon: '🪆', name: 'フィギアレビュー' },
+		{ icon: '🍵', name: '陶器レビュー' },
 		{ icon: '🏡', name: 'インテリア雑貨レビュー' },
-		{ icon: '📖', name: 'お小遣い記録' },
-		{ icon: '💎', name: 'コレクション' },
-		{ icon: '🎁', name: '今月仲間入りしたグッズ' },
 		{ icon: '🍳', name: 'キッチン用品レビュー' },
 		{ icon: '🏺', name: 'オブジェレビュー' },
 		{ icon: '🎮', name: 'おもちゃレビュー' },
+		{ icon: '💎', name: 'コレクション' },
+		{ icon: '🎁', name: '今月仲間入りしたグッズ' },
+		{ icon: '📖', name: 'お小遣い記録' },
+		{ icon: '🛍️', name: 'グッズ購入いろは' },
 	];
 
 	const allPosts = await getCollection('blog');
