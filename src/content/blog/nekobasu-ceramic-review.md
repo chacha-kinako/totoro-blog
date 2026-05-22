@@ -3,19 +3,14 @@ title: 'ネコバス陶器は高い？実物レビューでわかった"買う�
 description: 'ネコバス陶器の価格は高いのか、実際に購入してわかったクオリティ・入手方法・デメリットをリアルにレビューします。'
 pubDate: '2026-05-04'
 heroImage: ''
-cardImage: '/images/img_1778390169622_els17.webp'
+cardImage: '/images/img_1779457265296_2k916.webp'
 category: '陶器レビュー'
 showInLatest: false
 showInPopular: true
 showInCategories: ['陶器レビュー']
 ---
 
-<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75"></p></div>
-
-- 実際に手に取って感じたリアルな魅力
-- 購入前に知っておきたいデメリットや注意点
-- 現在の入手方法と入手難易度
-- 「見つけたら買うべきか」の結論</p></div>
+<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">・実際に手に取って感じたリアルな魅力<br>・購入前に知っておきたいデメリットや注意点<br>・現在の入手方法と入手難易度<br>・「見つけたら買うべきか」の結論</p></div>
 
 ネコバスの陶器、見たことありますか？
 
@@ -67,7 +62,9 @@ showInCategories: ['陶器レビュー']
 
 実際にいくつかの陶器を並べてみると、その違いはかなりはっきりしています。
 
-👉 ジブリ陶器を比較した記事はこちら（近日公開予定）
+👉 ジブリ陶器を比較した記事はこちら
+
+<a href="/blog/20260508/" style="display:block;border:1.5px solid #e2d9cf;border-radius:12px;padding:14px 18px;text-decoration:none;color:#333;background:#f8f6f3;margin:16px 0;font-weight:700;font-size:0.95rem;transition:background 0.15s" data-block="internal-link">📄 【実物レビュー】ジブリ陶器おすすめ一覧｜トトロ・ネコバス・ジジ比較【失敗しない選び方】</a>
 
 正直、最初は「さすがに高すぎでは…？」と感じました。
 
