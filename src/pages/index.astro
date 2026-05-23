@@ -4,9 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import Sidebar from '../components/Sidebar.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import siteConfig from '../data/site-config.json';
 
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -16,18 +14,18 @@ const featuredPosts = allPosts.filter(p => p.data.featured || p.data.showInPopul
 const listPosts = allPosts.slice(0, 3);
 
 const categories = [
-	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから' },
-	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー' },
 	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ' },
+	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー' },
 	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり' },
+	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから' },
+	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所' },
 	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む' },
+	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開' },
+	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて' },
+	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介' },
 	{ icon: '🍳', name: 'キッチン用品レビュー',     desc: 'キッチンで使えるグッズ' },
 	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える' },
 	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ' },
-	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて' },
-	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介' },
-	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開' },
-	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所' },
 ];
 ---
 
@@ -364,26 +362,6 @@ const categories = [
 			font-style: italic;
 		}
 
-		/* ── グローバルmain上書き＆2カラムレイアウト ── */
-		main {
-			width: auto;
-			max-width: none;
-			margin: 0;
-			padding: 0;
-		}
-		.home-outer {
-			max-width: 1120px;
-			margin: 0 auto;
-			padding: 0 1.5em;
-			display: flex;
-			gap: 2.5em;
-			align-items: flex-start;
-		}
-		.home-main {
-			flex: 1;
-			min-width: 0;
-		}
-
 		/* ── Aboutティーザー ── */
 		.about-teaser {
 			display: flex;
@@ -424,9 +402,6 @@ const categories = [
 		.about-teaser__link:hover { color: var(--orange-dark); }
 
 		/* ── レスポンシブ ── */
-		@media (max-width: 860px) {
-			.home-outer { padding: 0 1em; }
-		}
 		@media (max-width: 720px) {
 			.home-title-area__blog { font-size: 1.65em; }
 			.home-hero { height: 200px; }
@@ -455,7 +430,7 @@ const categories = [
 
 	<!-- ヒーロー写真 -->
 	<div class="home-hero">
-		<img src="/home.jpg" alt="トトログッズでいっぱいのお部屋" />
+		<img src="/hero-room.jpg" alt="トトログッズでいっぱいのお部屋" />
 		<div class="home-hero__overlay"></div>
 	</div>
 
@@ -469,8 +444,7 @@ const categories = [
 		<a href="/rss.xml" class="quick-nav__btn" target="_blank" rel="noopener">RSSを購読</a>
 	</nav>
 
-	<div class="home-outer">
-	<main class="home-main">
+	<main>
 		<!-- 最新の記事 -->
 		<section class="home-section home-section--alt" id="latest">
 			<div class="home-section__inner">
@@ -515,7 +489,8 @@ const categories = [
 							<div class="post-card__bar" />
 							<div class="post-card__body">
 								<p class="post-card__date">近日公開予定</p>
-								<h3 class="post-card__title">鋭意作成中！もう少しまってね</h3>
+								<h3 class="post-card__title">Coming Soon...</h3>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
 							</div>
 						</li>
 					))}
@@ -570,7 +545,8 @@ const categories = [
 							<div class="post-card__bar" />
 							<div class="post-card__body">
 								<p class="post-card__date">近日公開予定</p>
-								<h3 class="post-card__title">鋭意作成中！もう少しまってね</h3>
+								<h3 class="post-card__title">Coming Soon...</h3>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
 							</div>
 						</li>
 					))}
@@ -625,7 +601,8 @@ const categories = [
 							<div class="post-card__bar" />
 							<div class="post-card__body">
 								<p class="post-card__date">近日公開予定</p>
-								<h3 class="post-card__title">鋭意作成中！もう少しまってね</h3>
+								<h3 class="post-card__title">Coming Soon...</h3>
+								<p class="post-card__desc">新しい記事を準備中です🌿</p>
 							</div>
 						</li>
 					))}
@@ -669,11 +646,12 @@ const categories = [
 					<span class="home-section__heading-text">このブログについて</span>
 				</div>
 				<div class="about-teaser">
-					<div class="about-teaser__icon">{siteConfig.homeAbout.icon}</div>
+					<div class="about-teaser__icon">🌰</div>
 					<div class="about-teaser__text">
-						<h3>{siteConfig.homeAbout.name}</h3>
+						<h3>hinako のトトロライフ</h3>
 						<p>
-							{siteConfig.homeAbout.text}
+							トトロ・ジブリグッズを273個集めた主婦のブログです。
+							グッズのリアルな感想や、ジブリのある暮らしをのんびり発信しています。
 						</p>
 						<a href="/about" class="about-teaser__link">プロフィールを読む →</a>
 					</div>
@@ -681,8 +659,6 @@ const categories = [
 			</div>
 		</section>
 	</main>
-	<Sidebar />
-	</div>
 
 	<Footer />
 </body>
