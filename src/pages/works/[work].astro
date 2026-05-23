@@ -15,18 +15,18 @@ try {
 	if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
 } catch {}
 
-const ghibliWorks = [
-	{ icon: '🌱', name: 'となりのトトロ' },
-	{ icon: '🛁', name: '千と千尋の神隠し' },
-	{ icon: '🐺', name: 'もののけ姫' },
-	{ icon: '🧹', name: '魔女の宅急便' },
-	{ icon: '🏰', name: '天空の城ラピュタ' },
-	{ icon: '🌾', name: '風の谷のナウシカ' },
-	{ icon: '🐟', name: '崖の上のポニョ' },
-	{ icon: '🔥', name: 'ハウルの動く城' },
-];
-
 export async function getStaticPaths() {
+	const ghibliWorks = [
+		{ icon: '🌱', name: 'となりのトトロ' },
+		{ icon: '🛁', name: '千と千尋の神隠し' },
+		{ icon: '🐺', name: 'もののけ姫' },
+		{ icon: '🧹', name: '魔女の宅急便' },
+		{ icon: '🏰', name: '天空の城ラピュタ' },
+		{ icon: '🌾', name: '風の谷のナウシカ' },
+		{ icon: '🐟', name: '崖の上のポニョ' },
+		{ icon: '🔥', name: 'ハウルの動く城' },
+	];
+
 	const allPosts = await getCollection('blog');
 
 	return ghibliWorks.map((work) => {
@@ -293,11 +293,11 @@ const { workName, workIcon, posts } = Astro.props;
 					<div class="coming-soon-wrap">
 						<div class="coming-soon-icon">{workIcon}</div>
 						<h2 class="coming-soon-title">
-							現在鋭意作成中！<br>楽しみに待っててね！
+							現在鋭意作成中！<br />楽しみに待っててね！
 						</h2>
 						<p class="coming-soon-desc">
-							{workName}のグッズ記事を<br>
-							ただいま準備しています🌿<br>
+							{workName}のグッズ記事を<br />
+							ただいま準備しています🌿<br />
 							もうしばらくお待ちください。
 						</p>
 						<div class="coming-soon-deco">
