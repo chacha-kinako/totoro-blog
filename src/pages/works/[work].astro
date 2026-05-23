@@ -1,0 +1,313 @@
+---
+import { getCollection } from 'astro:content';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { SITE_TITLE } from '../../consts';
+
+let pageOrder: Record<string, string[]> = {};
+try {
+	const p = join(process.cwd(), 'src/data/page-order.json');
+	if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
+} catch {}
+
+const ghibliWorks = [
+	{ icon: '🌱', name: 'となりのトトロ' },
+	{ icon: '🛁', name: '千と千尋の神隠し' },
+	{ icon: '🐺', name: 'もののけ姫' },
+	{ icon: '🧹', name: '魔女の宅急便' },
+	{ icon: '🏰', name: '天空の城ラピュタ' },
+	{ icon: '🌾', name: '風の谷のナウシカ' },
+	{ icon: '🐟', name: '崖の上のポニョ' },
+	{ icon: '🔥', name: 'ハウルの動く城' },
+];
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('blog');
+
+	return ghibliWorks.map((work) => {
+		const workOrder: string[] = (pageOrder as Record<string, string[]>)[`work:${work.name}`] || [];
+		const posts = allPosts
+			.filter((p) =>
+				Array.isArray(p.data.showInWorks) ? p.data.showInWorks.includes(work.name) : false
+			)
+			.sort((a, b) => {
+				if (workOrder.length > 0) {
+					const aSlug = a.id.replace(/\.(md|mdx)$/, '');
+					const bSlug = b.id.replace(/\.(md|mdx)$/, '');
+					const ai = workOrder.indexOf(aSlug);
+					const bi = workOrder.indexOf(bSlug);
+					if (ai !== -1 || bi !== -1) {
+						if (ai === -1) return 1;
+						if (bi === -1) return -1;
+						return ai - bi;
+					}
+				}
+				return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+			});
+
+		return {
+			params: { work: encodeURIComponent(work.name) },
+			props: { workName: work.name, workIcon: work.icon, posts },
+		};
+	});
+}
+
+const { workName, workIcon, posts } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<BaseHead
+			title={`${workName} | ${SITE_TITLE}`}
+			description={`${workName}のグッズレビューや紹介記事をまとめています。トトロ・ジブリグッズブログ。`}
+		/>
+		<style>
+			.page-outer {
+				max-width: 1120px;
+				margin: 0 auto;
+				padding: 0 1.5em;
+				display: flex;
+				gap: 2.5em;
+				align-items: flex-start;
+			}
+			.page-main {
+				flex: 1;
+				min-width: 0;
+			}
+			.page-heading {
+				padding: 2.2em 0 1.8em;
+			}
+			.page-heading__label {
+				font-size: 0.68em;
+				font-weight: 700;
+				color: var(--orange);
+				letter-spacing: 0.22em;
+				display: block;
+				margin-bottom: 0.4em;
+			}
+			.page-heading__title {
+				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-size: 1.6em;
+				font-weight: 700;
+				color: var(--text);
+				margin: 0;
+				line-height: 1.3;
+			}
+			.page-heading__count {
+				font-size: 0.78em;
+				color: var(--text-muted);
+				margin-top: 0.4em;
+				font-weight: 400;
+			}
+			.back-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.3em;
+				font-size: 0.82em;
+				color: var(--orange);
+				text-decoration: none;
+				margin-bottom: 1.4em;
+				font-weight: 600;
+				transition: color 0.15s;
+			}
+			.back-link:hover { color: var(--orange-dark); text-decoration: none; }
+
+			.post-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.4rem;
+				list-style: none;
+				margin: 0;
+				padding: 0 0 4em;
+			}
+			.post-card {
+				background: #fff;
+				border-radius: 16px;
+				border: 1px solid var(--beige-light);
+				box-shadow: var(--shadow-sm);
+				transition: transform 0.22s ease, box-shadow 0.22s ease;
+				overflow: hidden;
+			}
+			.post-card:hover {
+				transform: translateY(-5px);
+				box-shadow: var(--shadow-hover);
+			}
+			.post-card a {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+				height: 100%;
+			}
+			.post-card__thumb {
+				position: relative;
+				width: 100%;
+				aspect-ratio: 4 / 3;
+				overflow: hidden;
+				flex-shrink: 0;
+			}
+			.post-card__thumb img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+				display: block;
+				transition: transform 0.3s ease;
+			}
+			.post-card:hover .post-card__thumb img { transform: scale(1.04); }
+			.post-card__bar {
+				height: 4px;
+				background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 60%, var(--green-light) 100%);
+			}
+			.post-card__body {
+				padding: 1.2em 1.3em 1.5em;
+			}
+			.post-card__date {
+				font-size: 0.78em;
+				color: var(--orange-light);
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+			.post-card__title {
+				font-size: 0.97em;
+				font-weight: 700;
+				color: var(--text);
+				line-height: 1.45;
+				margin: 0 0 0.6em;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			.post-card__desc {
+				font-size: 0.82em;
+				color: var(--text-muted);
+				line-height: 1.6;
+				margin: 0;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+
+			/* 鋭意作成中ページ */
+			.coming-soon-wrap {
+				padding: 3em 0 5em;
+				text-align: center;
+			}
+			.coming-soon-icon {
+				font-size: 4em;
+				line-height: 1;
+				margin-bottom: 0.5em;
+			}
+			.coming-soon-title {
+				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-size: 1.3em;
+				font-weight: 700;
+				color: var(--text);
+				margin: 0 0 0.6em;
+				line-height: 1.5;
+			}
+			.coming-soon-desc {
+				font-size: 0.9em;
+				color: var(--text-muted);
+				line-height: 1.8;
+				margin: 0 auto;
+				max-width: 360px;
+			}
+			.coming-soon-deco {
+				margin-top: 2em;
+				display: flex;
+				justify-content: center;
+				gap: 0.6em;
+				font-size: 1.4em;
+				opacity: 0.45;
+			}
+
+			@media (max-width: 860px) {
+				.page-outer { padding: 0 1em; }
+			}
+			@media (max-width: 600px) {
+				.post-grid { grid-template-columns: 1fr; }
+				.page-heading { padding: 1.5em 0 1.2em; }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<div class="page-outer">
+			<main class="page-main">
+				<div class="page-heading">
+					<a href="/works" class="back-link">← 作品一覧に戻る</a>
+					<span class="page-heading__label">WORKS</span>
+					<h1 class="page-heading__title">{workIcon} {workName}</h1>
+					{posts.length > 0 && (
+						<p class="page-heading__count">{posts.length}件の記事</p>
+					)}
+				</div>
+
+				{posts.length > 0 ? (
+					<ul class="post-grid">
+						{posts.map((post) => (
+							<li class="post-card">
+								<a href={`/blog/${post.id}/`}>
+									{post.data.cardImage ? (
+										<>
+											<div class="post-card__thumb">
+												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
+											</div>
+											<div class="post-card__body">
+												<p class="post-card__date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<h2 class="post-card__title">{post.data.title}</h2>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									) : (
+										<>
+											<div class="post-card__bar" />
+											<div class="post-card__body">
+												<p class="post-card__date">
+													<FormattedDate date={post.data.pubDate} />
+												</p>
+												<h2 class="post-card__title">{post.data.title}</h2>
+												{post.data.description && (
+													<p class="post-card__desc">{post.data.description}</p>
+												)}
+											</div>
+										</>
+									)}
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					<div class="coming-soon-wrap">
+						<div class="coming-soon-icon">{workIcon}</div>
+						<h2 class="coming-soon-title">
+							現在鋭意作成中！<br>楽しみに待っててね！
+						</h2>
+						<p class="coming-soon-desc">
+							{workName}のグッズ記事を<br>
+							ただいま準備しています🌿<br>
+							もうしばらくお待ちください。
+						</p>
+						<div class="coming-soon-deco">
+							<span>🌱</span><span>✨</span><span>🌿</span>
+						</div>
+					</div>
+				)}
+			</main>
+			<Sidebar />
+		</div>
+		<Footer />
+	</body>
+</html>
