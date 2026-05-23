@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 			});
 
 		return {
-			params: { work: encodeURIComponent(work.name) },
+			params: { work: work.name },
 			props: { workName: work.name, workIcon: work.icon, posts },
 		};
 	});
