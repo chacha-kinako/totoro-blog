@@ -21,6 +21,7 @@ const blog = defineCollection({
 			showInLatest: z.boolean().optional(),
 			showInPopular: z.boolean().optional(),
 			showInCategories: z.array(z.string()).optional(),
+			showInWorks: z.array(z.string()).optional(),
 		}),
 });
 
