@@ -3,11 +3,12 @@ title: 'トトログッズ厳選50｜実は273個持ってる私の本気コレ�
 description: '100個以上のトトログッズを集めた私が、厳選50アイテムと特にお気に入りの10個を本音レビュー。失敗しない選び方や購入場所も解説します。'
 pubDate: '2026-04-30'
 heroImage: ''
-cardImage: '/totoro-collection.jpg'
+cardImage: '/images/img_1779514292688_5gthg.webp'
 category: 'コレクション'
 showInLatest: false
 showInPopular: true
 showInCategories: ['おすすめ・まとめ', 'コレクション']
+showInWorks: []
 ---
 
 私はトトロが大好きで、小さい頃から少しずつグッズを集めてきました。
