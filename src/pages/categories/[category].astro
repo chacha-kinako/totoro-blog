@@ -9,13 +9,13 @@ import Header from '../../components/Header.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
 
-let pageOrder: Record<string, string[]> = {};
-try {
-	const p = join(process.cwd(), 'src/data/page-order.json');
-	if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
-} catch {}
-
 export async function getStaticPaths() {
+	let pageOrder: Record<string, string[]> = {};
+	try {
+		const p = join(process.cwd(), 'src/data/page-order.json');
+		if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
+	} catch {}
+
 	const categoryList = [
 		{ icon: '🪆', name: 'フィギアレビュー' },
 		{ icon: '🧸', name: 'ぬいぐるみレビュー' },
@@ -59,7 +59,7 @@ export async function getStaticPaths() {
 			});
 
 		return {
-			params: { category: encodeURIComponent(cat.name) },
+			params: { category: cat.name },
 			props: { categoryName: cat.name, categoryIcon: cat.icon, posts },
 		};
 	});
