@@ -11,29 +11,23 @@ showInCategories: ['おすすめ・まとめ', 'コレクション']
 showInWorks: []
 ---
 
+<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">- 100個以上集めた私のコレクションから厳選した50アイテム<br>- その中でも特におすすめしたい厳選10<br>- 失敗しないトトログッズの選び方<br>- どこで買える？購入先と売り切れやすさ</p></div>
+
 私はトトロが大好きで、小さい頃から少しずつグッズを集めてきました。
 
 気づけば棚や部屋のあちこちにトトロが増えていて——
 
 ある日、夫とこんな会話に。
 
-### > 「トトロの隣にあるリモコン取って！」「え、どのトトロ？笑」
+<div style="border-left:5px solid #f39c12;background:#fffbec;padding:14px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-weight:700;color:#856404" data-block="emphasis">&gt; 「トトロの隣にあるリモコン取って！」</div>
 
->
-> 「え、どのトトロ！？笑」
+<div style="border-left:5px solid #f39c12;background:#fffbec;padding:14px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-weight:700;color:#856404" data-block="emphasis">&gt;<br>&gt; 「え、どのトトロ！？笑」</div>
 
 …そこで初めて、**"うちトトロ多すぎでは？"** と気づきました。
 
 思い切って家中のトトロを全部集めてみたところ…まさかの100個越え。自分でもびっくりです。
 
 今回は、そんな我が家のトトロたちをまとめてご紹介します。
-
-**この記事でわかること**
-
-- 100個以上集めた私のコレクションから厳選した50アイテム
-- その中でも特におすすめしたい厳選10
-- 失敗しないトトログッズの選び方
-- どこで買える？購入先と売り切れやすさ
 
 ---
 
@@ -43,9 +37,11 @@ showInWorks: []
 
 ![](../../assets/images/img_1778244528219_iaekk.webp)
 
-100個以上あるコレクションの中から選び抜いた、お気に入りたちです。こうして並べてみると、改めてトトロの世界に囲まれる幸せを実感します。
+100個以上あるコレクションの中から選び抜いた、お気に入りたちです。
+こうして並べてみると、改めてトトロの世界に囲まれる幸せを実感します。
 
-このあと、それぞれのグッズを一言コメントとともにわかりやすく紹介していきます。気になるアイテムを見つけながら、ぜひゆっくり楽しんでいってくださいね！
+このあと、それぞれのグッズを一言コメントとともにわかりやすく紹介していきます。
+気になるアイテムを見つけながら、ぜひゆっくり楽しんでいってくださいね！
 
 ### 陶器・インテリア系（飾って癒される）
 
@@ -267,7 +263,7 @@ showInWorks: []
 
 これからも少しずつ増えていくと思うので、またコレクションが増えたら紹介しますね。
 
-#### ちなみにトトロに限定しないジブリグッズは全部で**273個**ありました（笑）
+<div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0" data-block="balloon"><div style="width:52px;height:52px;border-radius:50%;background:#f0ede8;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:2px solid #e2d9cf">😊</div><div style="background:#f8f6f3;border:1.5px solid #e2d9cf;border-radius:0 18px 18px 18px;padding:12px 18px;flex:1;line-height:1.7">ちなみにトトロに限定しないジブリグッズは全部で**273個**ありました（笑）</div></div>
 
 「ちょっと集めすぎかな？」と思うこともありますが、新しいトトログッズを見るとつい欲しくなってしまって…もう止まらないんですよね（笑）
 
