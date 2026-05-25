@@ -80,7 +80,7 @@ showInWorks: []
 
 ### ミニフィギュア・マグネット系（沼ゾーン）
 
-<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;margin:16px 0"><img src="../../assets/images/img_1778244915349_61plv.webp" alt="" style="width:100%;border-radius:6px;display:block"><img src="../../assets/images/img_1778244915349_ljaeu.webp" alt="" style="width:100%;border-radius:6px;display:block"></div>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;margin:16px 0"><img src="/images/img_1778244915349_61plv.webp" alt="" style="width:100%;border-radius:6px;display:block"><img src="/images/img_1778244915349_ljaeu.webp" alt="" style="width:100%;border-radius:6px;display:block"></div>
 
 集め出したら止まらない。コンプリート欲を刺激する沼アイテムです。**気づいたら増えてる危険ゾーン。**
 
