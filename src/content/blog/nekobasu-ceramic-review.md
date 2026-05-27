@@ -7,7 +7,9 @@ cardImage: '/images/img_1779457265296_2k916.webp'
 category: '陶器レビュー'
 showInLatest: false
 showInPopular: true
+showInReview: true
 showInCategories: ['陶器レビュー']
+showInWorks: ['となりのトトロ']
 ---
 
 <div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">・実際に手に取って感じたリアルな魅力<br>・購入前に知っておきたいデメリットや注意点<br>・現在の入手方法と入手難易度<br>・「見つけたら買うべきか」の結論</p></div>
