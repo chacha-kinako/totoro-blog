@@ -1,0 +1,236 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import zukanDataRaw from '../../data/zukan.json';
+
+type ZukanItem = {
+	id: string;
+	name?: string;
+	comment?: string;
+	image: string;
+	reviewLink: string;
+	affiliateLink: string;
+	room?: string;
+};
+
+export function getStaticPaths() {
+	return [
+		{ params: { room: 'mug' },       props: { roomName: 'マグの部屋',       roomIcon: '☕', filter: 'mug' } },
+		{ params: { room: 'figure' },    props: { roomName: 'フィギュアの部屋',  roomIcon: '🪆', filter: 'figure' } },
+		{ params: { room: 'nuigurumi' }, props: { roomName: 'ぬいぐるみの部屋', roomIcon: '🧸', filter: 'nuigurumi' } },
+		{ params: { room: 'all' },       props: { roomName: '総合部屋',          roomIcon: '🏠', filter: null } },
+	];
+}
+
+const { roomName, roomIcon, filter } = Astro.props;
+
+const allItems: ZukanItem[] = zukanDataRaw as ZukanItem[];
+const items = filter ? allItems.filter((item) => item.room === filter) : allItems;
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`${roomName} | 図鑑 | ${SITE_TITLE}`} description={`${roomName}のコレクション図鑑です。`} />
+	<style>
+		/* ── ページヘッダー ── */
+		.room-header {
+			text-align: center;
+			padding: 2.5em 1em 1.8em;
+			background: #fff;
+		}
+		.room-back {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.3em;
+			font-size: 0.82em;
+			color: var(--orange);
+			text-decoration: none;
+			font-weight: 600;
+			transition: color 0.15s;
+			margin-bottom: 1em;
+		}
+		.room-back:hover { color: var(--orange-dark); text-decoration: none; }
+		.room-header__label {
+			font-size: 0.7em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.22em;
+			display: block;
+			margin-bottom: 0.5em;
+		}
+		.room-header__title {
+			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-size: 1.8em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.35em;
+			line-height: 1.3;
+		}
+		.room-header__desc {
+			font-size: 0.86em;
+			color: var(--text-muted);
+			margin: 0;
+		}
+
+		/* ── グリッド ── */
+		.zukan-wrap {
+			max-width: 1060px;
+			margin: 0 auto;
+			padding: 0 1.5em 5em;
+		}
+		.zukan-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 14px;
+			margin-top: 1.5em;
+		}
+		@media (max-width: 860px) {
+			.zukan-grid { grid-template-columns: repeat(3, 1fr); }
+		}
+		@media (max-width: 560px) {
+			.zukan-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+			.zukan-wrap { padding: 0 1em 4em; }
+		}
+
+		/* ── カード ── */
+		.zukan-card {
+			background: #fff;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: var(--shadow-sm);
+			border: 1px solid var(--beige-light);
+			transition: box-shadow 0.2s, transform 0.2s;
+		}
+		.zukan-card:hover {
+			box-shadow: var(--shadow-hover);
+			transform: translateY(-2px);
+		}
+		.zukan-card__img {
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			overflow: hidden;
+			background: var(--milk-dark);
+		}
+		.zukan-card__img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			transition: transform 0.25s;
+		}
+		.zukan-card:hover .zukan-card__img img { transform: scale(1.04); }
+		.zukan-card__info {
+			padding: 6px 8px 2px;
+		}
+		.zukan-card__name {
+			font-size: 0.75em;
+			font-weight: 700;
+			color: var(--text);
+			line-height: 1.4;
+			margin-bottom: 2px;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.zukan-card__comment {
+			font-size: 0.68em;
+			color: var(--text-muted);
+			line-height: 1.4;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.zukan-card__links {
+			padding: 6px 8px 8px;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+		.zukan-btn {
+			display: block;
+			text-align: center;
+			padding: 7px 6px;
+			border-radius: 6px;
+			font-size: 0.72em;
+			font-weight: 700;
+			text-decoration: none;
+			line-height: 1.3;
+			transition: opacity 0.15s;
+		}
+		.zukan-btn:hover { opacity: 0.8; text-decoration: none; }
+		.zukan-btn--review {
+			background: var(--orange-pale);
+			color: var(--orange-dark);
+			border: 1px solid var(--orange-light);
+		}
+		.zukan-btn--buy {
+			background: var(--green-pale);
+			color: var(--green-dark);
+			border: 1px solid var(--green-light);
+		}
+
+		/* 空の場合 */
+		.zukan-empty {
+			grid-column: 1 / -1;
+			text-align: center;
+			padding: 4em 2em;
+			color: var(--text-muted);
+			font-size: 0.9em;
+			line-height: 2.2;
+		}
+	</style>
+</head>
+<body>
+	<Header />
+	<main>
+		<div class="room-header">
+			<a href="/zukan" class="room-back">← 図鑑TOPに戻る</a>
+			<span class="room-header__label">ZUKAN</span>
+			<h1 class="room-header__title">{roomIcon} {roomName}</h1>
+			<p class="room-header__desc">{items.length > 0 ? `${items.length}点のコレクション` : '準備中です'}</p>
+		</div>
+
+		<div class="zukan-wrap">
+			<div class="zukan-grid">
+				{items.length === 0 && (
+					<div class="zukan-empty">
+						<p>🌱 まだコレクションがありません<br>少しまってね！</p>
+					</div>
+				)}
+				{items.map((item) => (
+					<div class="zukan-card">
+						<div class="zukan-card__img">
+							<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
+						</div>
+						{(item.name || item.comment) && (
+							<div class="zukan-card__info">
+								{item.name && <div class="zukan-card__name">{item.name}</div>}
+								{item.comment && <div class="zukan-card__comment">{item.comment}</div>}
+							</div>
+						)}
+						<div class="zukan-card__links">
+							{item.reviewLink && (
+								<a href={item.reviewLink} class="zukan-btn zukan-btn--review">
+									レビュー記事
+								</a>
+							)}
+							{item.affiliateLink && (
+								<a href={item.affiliateLink} class="zukan-btn zukan-btn--buy"
+								   target="_blank" rel="noopener noreferrer nofollow">
+									購入はこちら
+								</a>
+							)}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</main>
+	<Footer />
+</body>
+</html>

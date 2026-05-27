@@ -2,7 +2,6 @@
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 
-const collectionHref = `/categories/${encodeURIComponent('コレクション')}`;
 const kakeiboHref = `/categories/${encodeURIComponent('お小遣い記録')}`;
 ---
 
@@ -13,9 +12,9 @@ const kakeiboHref = `/categories/${encodeURIComponent('お小遣い記録')}`;
 			<HeaderLink href="/">ホーム</HeaderLink>
 			<HeaderLink href="/zukan">図鑑</HeaderLink>
 			<HeaderLink href="/blog">レビュー</HeaderLink>
-			<HeaderLink href={collectionHref}>コレクション</HeaderLink>
-			<HeaderLink href={kakeiboHref}>お小遣い帳</HeaderLink>
+			<HeaderLink href={kakeiboHref}>お小遣い</HeaderLink>
 			<HeaderLink href="/about">プロフィール</HeaderLink>
+			<HeaderLink href="/contact">お問い合わせ</HeaderLink>
 		</nav>
 	</div>
 </header>

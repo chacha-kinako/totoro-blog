@@ -5,7 +5,8 @@
     "name": "ネコバス陶器",
     "comment": "迫力満点！存在感抜群！",
     "reviewLink": "/blog/nekobasu-ceramic-review",
-    "affiliateLink": ""
+    "affiliateLink": "",
+    "room": "all"
   },
   {
     "id": "card-1779714134593",
@@ -13,6 +14,7 @@
     "name": "トトロ特大ぬいぐるみ",
     "comment": "触り心地意外とゴワゴワ",
     "reviewLink": "/blog/20260506",
-    "affiliateLink": ""
+    "affiliateLink": "",
+    "room": "nuigurumi"
   }
 ]

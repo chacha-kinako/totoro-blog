@@ -11,13 +11,14 @@ const allPosts = (await getCollection('blog')).sort(
 );
 const latestPosts = allPosts.slice(0, 3);
 const featuredPosts = allPosts.filter(p => p.data.featured || p.data.showInPopular).slice(0, 3);
-const listPosts = allPosts.slice(0, 3);
 
-const categories = [
+const allCategories = [
 	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ' },
 	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー' },
 	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり' },
+	{ icon: '☕', name: 'マグレビュー',            desc: 'マグカップのリアルな使用感' },
 	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから' },
+	{ icon: '🌟', name: '総合レビュー',            desc: 'まとめ・比較・シーン別' },
 	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所' },
 	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む' },
 	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開' },
@@ -27,6 +28,14 @@ const categories = [
 	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える' },
 	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ' },
 ];
+
+// 記事が1件以上あるカテゴリのみ表示
+const categories = allCategories.filter(cat =>
+	allPosts.some(p => {
+		const cats: string[] = p.data.showInCategories ?? [];
+		return cats.includes(cat.name) || p.data.category === cat.name;
+	})
+);
 ---
 
 <!doctype html>
@@ -212,59 +221,6 @@ const categories = [
 			text-decoration: none;
 		}
 
-		/* ── カテゴリグリッド ── */
-		.category-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 0.85rem;
-			list-style: none;
-			margin: 0;
-			padding: 0;
-		}
-		.category-card {
-			background: var(--milk);
-			border: 1px solid var(--beige-light);
-			border-radius: 14px;
-			overflow: hidden;
-			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-		}
-		.category-card:hover {
-			transform: translateY(-3px);
-			box-shadow: var(--shadow-md);
-			border-color: var(--orange-light);
-			background: #fff;
-		}
-		.category-card a {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			text-align: center;
-			padding: 1.4em 0.7em 1.3em;
-			gap: 0.3em;
-			text-decoration: none;
-			color: inherit;
-		}
-		.category-card__icon {
-			font-size: 1.8em;
-			line-height: 1;
-			margin-bottom: 0.15em;
-		}
-		.category-card__name {
-			font-size: 0.77em;
-			font-weight: 700;
-			color: var(--text);
-			line-height: 1.4;
-		}
-		.category-card__desc {
-			font-size: 0.65em;
-			color: var(--text-muted);
-			line-height: 1.35;
-		}
-		.category-card__bar {
-			height: 3px;
-			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
-		}
-
 		/* ── 記事カードグリッド ── */
 		.post-grid {
 			display: grid;
@@ -362,7 +318,131 @@ const categories = [
 			font-style: italic;
 		}
 
-		/* ── Aboutティーザー ── */
+		/* ── 図鑑・レビュー入口 ── */
+		.entrance-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1.6rem;
+		}
+		.entrance-card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			background: #fff;
+			border-radius: 22px;
+			border: 1.5px solid var(--beige);
+			box-shadow: var(--shadow-sm);
+			padding: 3em 2em 2.6em;
+			text-decoration: none;
+			color: inherit;
+			transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+			overflow: hidden;
+			position: relative;
+		}
+		.entrance-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
+		}
+		.entrance-card:hover {
+			transform: translateY(-6px);
+			box-shadow: var(--shadow-hover);
+			border-color: var(--orange-light);
+			text-decoration: none;
+		}
+		.entrance-card__icon {
+			font-size: 4.5em;
+			line-height: 1;
+			margin-bottom: 0.3em;
+		}
+		.entrance-card__title {
+			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-size: 1.25em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.45em;
+		}
+		.entrance-card__desc {
+			font-size: 0.82em;
+			color: var(--text-muted);
+			line-height: 1.65;
+			margin: 0 0 1.4em;
+		}
+		.entrance-card__btn {
+			display: inline-block;
+			padding: 0.55em 1.8em;
+			border-radius: 50px;
+			border: 1.5px solid var(--orange-light);
+			color: var(--orange-dark);
+			font-size: 0.82em;
+			font-weight: 700;
+			transition: background 0.18s, color 0.18s;
+		}
+		.entrance-card:hover .entrance-card__btn {
+			background: var(--orange);
+			color: #fff;
+			border-color: var(--orange);
+		}
+
+		/* ── カテゴリグリッド ── */
+		.category-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 0.85rem;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.category-card {
+			background: var(--milk);
+			border: 1px solid var(--beige-light);
+			border-radius: 14px;
+			overflow: hidden;
+			transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+		}
+		.category-card:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-md);
+			border-color: var(--orange-light);
+			background: #fff;
+		}
+		.category-card a {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			padding: 1.4em 0.7em 1.3em;
+			gap: 0.3em;
+			text-decoration: none;
+			color: inherit;
+		}
+		.category-card__icon {
+			font-size: 1.8em;
+			line-height: 1;
+			margin-bottom: 0.15em;
+		}
+		.category-card__name {
+			font-size: 0.77em;
+			font-weight: 700;
+			color: var(--text);
+			line-height: 1.4;
+		}
+		.category-card__desc {
+			font-size: 0.65em;
+			color: var(--text-muted);
+			line-height: 1.35;
+		}
+		.category-card__bar {
+			height: 3px;
+			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
+		}
+
+		/* ── このブログについて ── */
 		.about-teaser {
 			display: flex;
 			align-items: center;
@@ -407,6 +487,7 @@ const categories = [
 			.home-hero { height: 200px; }
 			.post-grid { grid-template-columns: 1fr; }
 			.category-grid { grid-template-columns: repeat(2, 1fr); }
+			.entrance-grid { grid-template-columns: 1fr; gap: 1.1rem; }
 			.about-teaser { flex-direction: column; gap: 1em; padding: 1.5em; }
 			.home-section { padding: 2.8em 0; }
 		}
@@ -436,21 +517,21 @@ const categories = [
 
 	<!-- クイックナビ -->
 	<nav class="quick-nav">
-		<a href="/blog/latest" class="quick-nav__btn quick-nav__btn--fill">最新の記事</a>
-		<a href="/blog/popular" class="quick-nav__btn">人気の記事</a>
-		<a href="/blog" class="quick-nav__btn">記事一覧</a>
-		<a href="/categories" class="quick-nav__btn">カテゴリ</a>
+		<a href="/blog/latest" class="quick-nav__btn quick-nav__btn--fill">最新記事</a>
+		<a href="/blog/popular" class="quick-nav__btn">人気記事</a>
+		<a href="/zukan" class="quick-nav__btn">図鑑入口</a>
+		<a href="/blog" class="quick-nav__btn">レビュー入口</a>
+		<a href="/categories" class="quick-nav__btn">カテゴリ検索</a>
 		<a href="/about" class="quick-nav__btn">プロフィール</a>
-		<a href="/rss.xml" class="quick-nav__btn" target="_blank" rel="noopener">RSSを購読</a>
 	</nav>
 
 	<main>
-		<!-- 最新の記事 -->
+		<!-- 最新記事 -->
 		<section class="home-section home-section--alt" id="latest">
 			<div class="home-section__inner">
 				<div class="home-section__heading">
 					<span class="home-section__heading-label">LATEST POSTS</span>
-					<span class="home-section__heading-text">最新の記事</span>
+					<span class="home-section__heading-text">最新記事</span>
 				</div>
 				<ul class="post-grid">
 					{latestPosts.map((post) => (
@@ -501,12 +582,12 @@ const categories = [
 			</div>
 		</section>
 
-		<!-- 人気の記事 -->
+		<!-- 人気記事 -->
 		<section class="home-section home-section--white" id="popular">
 			<div class="home-section__inner">
 				<div class="home-section__heading">
 					<span class="home-section__heading-label">POPULAR POSTS</span>
-					<span class="home-section__heading-text">人気の記事</span>
+					<span class="home-section__heading-text">人気記事</span>
 				</div>
 				<ul class="post-grid">
 					{featuredPosts.map((post) => (
@@ -557,92 +638,60 @@ const categories = [
 			</div>
 		</section>
 
-		<!-- 記事一覧（抜粋） -->
-		<section class="home-section home-section--alt" id="blog-list">
+		<!-- 図鑑入口 ＆ レビュー入口 -->
+		<section class="home-section home-section--alt" id="entrances">
 			<div class="home-section__inner">
-				<div class="home-section__heading">
-					<span class="home-section__heading-label">ALL POSTS</span>
-					<span class="home-section__heading-text">記事一覧</span>
-				</div>
-				<ul class="post-grid">
-					{listPosts.map((post) => (
-						<li class="post-card">
-							<a href={`/blog/${post.id}/`}>
-								{post.data.cardImage ? (
-									<>
-										<div class="post-card__thumb">
-											<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-											{post.data.cardText && (
-												<span class="post-card__thumb-label">{post.data.cardText}</span>
-											)}
-										</div>
-										<div class="post-card__body">
-											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-											<h3 class="post-card__title">{post.data.title}</h3>
-										</div>
-									</>
-								) : (
-									<>
-										<div class="post-card__bar" />
-										<div class="post-card__body">
-											<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-											<h3 class="post-card__title">{post.data.title}</h3>
-											{post.data.description && (
-												<p class="post-card__desc">{post.data.description}</p>
-											)}
-										</div>
-									</>
-								)}
-							</a>
-						</li>
-					))}
-					{Array.from({length: Math.max(0, 3 - listPosts.length)}).map(() => (
-						<li class="post-card post-card--coming">
-							<div class="post-card__bar" />
-							<div class="post-card__body">
-								<p class="post-card__date">近日公開予定</p>
-								<h3 class="post-card__title">Coming Soon...</h3>
-								<p class="post-card__desc">新しい記事を準備中です🌿</p>
-							</div>
-						</li>
-					))}
-				</ul>
-				<div class="home-section__more">
-					<a href="/blog">記事をもっと見る →</a>
+				<div class="entrance-grid">
+					<a href="/zukan" class="entrance-card">
+						<span class="entrance-card__icon">📚</span>
+						<h2 class="entrance-card__title">図鑑をひらく</h2>
+						<p class="entrance-card__desc">コレクションを眺めて楽しむ場所<br>部屋ごとに分かれた図鑑です</p>
+						<span class="entrance-card__btn">図鑑に入る →</span>
+					</a>
+					<a href="/blog" class="entrance-card">
+						<span class="entrance-card__icon">✏️</span>
+						<h2 class="entrance-card__title">レビューを読む</h2>
+						<p class="entrance-card__desc">実際の使用感・感想を見る場所<br>陶器・マグ・フィギュア・ぬいぐるみ</p>
+						<span class="entrance-card__btn">レビューを見る →</span>
+					</a>
 				</div>
 			</div>
 		</section>
 
-		<!-- カテゴリ一覧 -->
+		<!-- カテゴリ検索 -->
 		<section class="home-section home-section--white" id="categories">
 			<div class="home-section__inner">
 				<div class="home-section__heading">
 					<span class="home-section__heading-label">CATEGORIES</span>
 					<span class="home-section__heading-text">カテゴリから探す</span>
 				</div>
-				<ul class="category-grid">
-					{categories.map((cat) => (
-						<li class="category-card">
-							<div class="category-card__bar" />
-							<a href={`/categories/${encodeURIComponent(cat.name)}`}>
-								<span class="category-card__icon">{cat.icon}</span>
-								<span class="category-card__name">{cat.name}</span>
-								<span class="category-card__desc">{cat.desc}</span>
-							</a>
-						</li>
-					))}
-				</ul>
+				{categories.length > 0 ? (
+					<ul class="category-grid">
+						{categories.map((cat) => (
+							<li class="category-card">
+								<div class="category-card__bar" />
+								<a href={`/categories/${encodeURIComponent(cat.name)}`}>
+									<span class="category-card__icon">{cat.icon}</span>
+									<span class="category-card__name">{cat.name}</span>
+									<span class="category-card__desc">{cat.desc}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					<p style="text-align:center;color:var(--text-muted);font-size:0.88em;">記事を準備中です🌱</p>
+				)}
 				<div class="home-section__more">
 					<a href="/categories">カテゴリをすべて見る →</a>
 				</div>
 			</div>
 		</section>
 
-		<!-- プロフィールティーザー -->
+		<!-- このブログについて -->
 		<section class="home-section home-section--alt" id="about">
 			<div class="home-section__inner">
 				<div class="home-section__heading">
-					<span class="home-section__heading-label">ABOUT</span>
+					<span class="home-section__heading-label">ABOUT THIS BLOG</span>
 					<span class="home-section__heading-text">このブログについて</span>
 				</div>
 				<div class="about-teaser">
@@ -650,7 +699,7 @@ const categories = [
 					<div class="about-teaser__text">
 						<h3>hinako のトトロライフ</h3>
 						<p>
-							トトロ・ジブリグッズを273個集めた主婦のブログです。
+							トトロ・ジブリグッズを273個集めた主婦のブログです。<br>
 							グッズのリアルな感想や、ジブリのある暮らしをのんびり発信しています。
 						</p>
 						<a href="/about" class="about-teaser__link">プロフィールを読む →</a>

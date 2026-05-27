@@ -3,164 +3,167 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
-import zukanData from '../data/zukan.json';
 
-type ZukanItem = {
-	id: string;
-	name?: string;
-	comment?: string;
-	image: string;
-	reviewLink: string;
-	affiliateLink: string;
-};
-
-const items: ZukanItem[] = zukanData as ZukanItem[];
+const rooms = [
+	{
+		slug: 'mug',
+		name: 'マグの部屋',
+		roomIcon: '☕',
+		href: '/zukan/mug',
+		desc: 'マグカップのコレクションを眺める',
+	},
+	{
+		slug: 'figure',
+		name: 'フィギュアの部屋',
+		roomIcon: '🪆',
+		href: '/zukan/figure',
+		desc: 'フィギュアのコレクションを眺める',
+	},
+	{
+		slug: 'nuigurumi',
+		name: 'ぬいぐるみの部屋',
+		roomIcon: '🧸',
+		href: '/zukan/nuigurumi',
+		desc: 'ぬいぐるみのコレクションを眺める',
+	},
+	{
+		slug: 'all',
+		name: '総合部屋',
+		roomIcon: '🏠',
+		href: '/zukan/all',
+		desc: 'ジャンル関係なく全グッズを一覧で',
+	},
+];
 ---
 
 <!doctype html>
 <html lang="ja">
 <head>
-	<BaseHead title={`図鑑 | ${SITE_TITLE}`} description="トトロ・ジブリグッズの図鑑ページ。レビュー記事と購入リンクをまとめました。" />
+	<BaseHead title={`図鑑 | ${SITE_TITLE}`} description="トトロ・ジブリグッズの図鑑。コレクションを眺めて楽しむ場所です。" />
 	<style>
+		/* ── ページヘッダー ── */
 		.zukan-header {
 			text-align: center;
-			padding: 2.5em 0 1.8em;
+			padding: 3em 1em 2.2em;
+			background: #fff;
 		}
-		.zukan-label {
+		.zukan-header__label {
+			display: inline-block;
 			font-size: 0.7em;
 			font-weight: 700;
 			color: var(--orange);
 			letter-spacing: 0.22em;
-			display: block;
-			margin-bottom: 0.5em;
+			margin-bottom: 0.6em;
+			padding: 0.3em 1.1em;
+			border: 1px solid var(--orange-light);
+			border-radius: 50px;
+			background: var(--orange-pale);
 		}
-		.zukan-title {
+		.zukan-header__title {
 			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-			font-size: 1.8em;
+			font-size: 2em;
 			font-weight: 700;
 			color: var(--text);
 			margin: 0 0 0.4em;
 			line-height: 1.3;
 		}
-		.zukan-desc {
+		.zukan-header__desc {
 			font-size: 0.88em;
 			color: var(--text-muted);
 			margin: 0;
-			line-height: 1.7;
+			line-height: 1.8;
 		}
 
-		/* ── グリッド ── */
-		.zukan-grid {
+		/* ── 部屋グリッド ── */
+		.room-section {
+			padding: 3em 0 5em;
+			background: var(--milk);
+		}
+		.room-section__inner {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 0 1.5em;
+		}
+		.room-grid {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 14px;
-			margin: 0.5em 0 4em;
-		}
-		@media (max-width: 640px) {
-			.zukan-grid {
-				grid-template-columns: repeat(2, 1fr);
-				gap: 10px;
-			}
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1.6rem;
 		}
 
-		/* ── カード ── */
-		.zukan-card {
+		/* ── 部屋カード ── */
+		.room-card {
 			background: #fff;
-			border-radius: 12px;
-			overflow: hidden;
+			border-radius: 20px;
+			border: 1.5px solid var(--beige);
 			box-shadow: var(--shadow-sm);
-			border: 1px solid var(--beige-light);
-			transition: box-shadow 0.2s, transform 0.2s;
+			overflow: hidden;
+			transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
 		}
-		.zukan-card:hover {
+		.room-card:hover {
+			transform: translateY(-5px);
 			box-shadow: var(--shadow-hover);
-			transform: translateY(-2px);
+			border-color: var(--orange-light);
 		}
-
-		/* 上部：画像 */
-		.zukan-card__img {
-			width: 100%;
-			aspect-ratio: 1 / 1;
-			overflow: hidden;
-			background: var(--milk-dark);
-		}
-		.zukan-card__img img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			display: block;
-			transition: transform 0.25s;
-		}
-		.zukan-card:hover .zukan-card__img img {
-			transform: scale(1.04);
-		}
-
-		/* 商品名・コメント */
-		.zukan-card__info {
-			padding: 6px 8px 2px;
-		}
-		.zukan-card__name {
-			font-size: 0.75em;
-			font-weight: 700;
-			color: var(--text);
-			line-height: 1.4;
-			margin-bottom: 2px;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-		}
-		.zukan-card__comment {
-			font-size: 0.68em;
-			color: var(--text-muted);
-			line-height: 1.4;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-		}
-
-		/* 下部：ボタン2つ */
-		.zukan-card__links {
-			padding: 6px 8px 8px;
+		.room-card a {
 			display: flex;
 			flex-direction: column;
-			gap: 5px;
-		}
-		.zukan-btn {
-			display: block;
+			align-items: center;
 			text-align: center;
-			padding: 7px 6px;
-			border-radius: 6px;
-			font-size: 0.72em;
+			padding: 2.6em 1.5em 2.2em;
+			text-decoration: none;
+			color: inherit;
+			gap: 0;
+		}
+		.room-card__door {
+			font-size: 2.8em;
+			line-height: 1;
+			margin-bottom: 0.2em;
+		}
+		.room-card__item-icon {
+			font-size: 2em;
+			line-height: 1;
+			margin-bottom: 0.55em;
+		}
+		.room-card__name {
+			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-size: 1.15em;
 			font-weight: 700;
-			text-decoration: none;
+			color: var(--text);
+			margin-bottom: 0.45em;
 			line-height: 1.3;
-			transition: opacity 0.15s;
 		}
-		.zukan-btn:hover {
-			opacity: 0.8;
-			text-decoration: none;
+		.room-card__desc {
+			font-size: 0.78em;
+			color: var(--text-muted);
+			line-height: 1.55;
+			margin-bottom: 1.3em;
 		}
-		.zukan-btn--review {
-			background: var(--orange-pale);
+		.room-card__enter {
+			display: inline-block;
+			padding: 0.5em 1.6em;
+			border-radius: 50px;
+			border: 1.5px solid var(--orange-light);
 			color: var(--orange-dark);
-			border: 1px solid var(--orange-light);
+			font-size: 0.8em;
+			font-weight: 700;
+			transition: background 0.18s, color 0.18s;
 		}
-		.zukan-btn--buy {
-			background: var(--green-pale);
-			color: var(--green-dark);
-			border: 1px solid var(--green-light);
+		.room-card:hover .room-card__enter {
+			background: var(--orange);
+			color: #fff;
+			border-color: var(--orange);
+		}
+		.room-card__bar {
+			height: 4px;
+			width: 100%;
+			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
 		}
 
-		/* 空の場合 */
-		.zukan-empty {
-			grid-column: 1 / -1;
-			text-align: center;
-			padding: 4em 2em;
-			color: var(--text-muted);
-			font-size: 0.9em;
-			line-height: 2;
+		@media (max-width: 600px) {
+			.room-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+			.zukan-header { padding: 2em 1em 1.6em; }
+			.zukan-header__title { font-size: 1.6em; }
+			.room-card a { padding: 2em 1.2em 1.8em; }
 		}
 	</style>
 </head>
@@ -168,44 +171,32 @@ const items: ZukanItem[] = zukanData as ZukanItem[];
 	<Header />
 	<main>
 		<div class="zukan-header">
-			<span class="zukan-label">ZUKAN</span>
-			<h1 class="zukan-title">📖 図鑑</h1>
-			<p class="zukan-desc">トトロ・ジブリグッズのコレクション図鑑<br>レビュー記事と購入リンクをまとめました</p>
+			<span class="zukan-header__label">ZUKAN</span>
+			<h1 class="zukan-header__title">📚 図鑑</h1>
+			<p class="zukan-header__desc">
+				コレクションを眺めて楽しむ場所です<br>
+				部屋を選んでなかを覗いてみてください
+			</p>
 		</div>
 
-		<div class="zukan-grid">
-			{items.length === 0 && (
-				<div class="zukan-empty">
-					<p>🌱 準備中です。もう少しまってね！</p>
-				</div>
-			)}
-			{items.map((item) => (
-				<div class="zukan-card">
-					<div class="zukan-card__img">
-						<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
-					</div>
-					{(item.name || item.comment) && (
-						<div class="zukan-card__info">
-							{item.name && <div class="zukan-card__name">{item.name}</div>}
-							{item.comment && <div class="zukan-card__comment">{item.comment}</div>}
+		<section class="room-section">
+			<div class="room-section__inner">
+				<div class="room-grid">
+					{rooms.map((room) => (
+						<div class="room-card">
+							<div class="room-card__bar" />
+							<a href={room.href}>
+								<span class="room-card__door">🚪</span>
+								<span class="room-card__item-icon">{room.roomIcon}</span>
+								<span class="room-card__name">{room.name}</span>
+								<span class="room-card__desc">{room.desc}</span>
+								<span class="room-card__enter">部屋に入る →</span>
+							</a>
 						</div>
-					)}
-					<div class="zukan-card__links">
-						{item.reviewLink && (
-							<a href={item.reviewLink} class="zukan-btn zukan-btn--review">
-								レビュー記事
-							</a>
-						)}
-						{item.affiliateLink && (
-							<a href={item.affiliateLink} class="zukan-btn zukan-btn--buy"
-							   target="_blank" rel="noopener noreferrer nofollow">
-								購入はこちら
-							</a>
-						)}
-					</div>
+					))}
 				</div>
-			))}
-		</div>
+			</div>
+		</section>
 	</main>
 	<Footer />
 </body>
