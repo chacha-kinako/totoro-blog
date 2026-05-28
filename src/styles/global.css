@@ -58,6 +58,28 @@ main {
 	padding: 2.5em 1em 5em;
 }
 
+/* ── ホームページ 2カラムレイアウト用（上の main ルールを上書き） ── */
+/* index.astro の <main class="page-main"> に適用。flex子要素なので幅・余白不要 */
+.page-main {
+	width: auto !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* ── ヒーロー画像 上下カット永久禁止 ── */
+.home-hero {
+	overflow: visible !important;
+	line-height: 0;
+}
+.home-hero img {
+	width: 100% !important;
+	height: auto !important;
+	display: block !important;
+	object-fit: unset !important;
+	border-radius: 0 !important;
+}
+
 /* ── 見出し ─────────────────── */
 h1, h2, h3, h4, h5, h6 {
 	color: var(--text);
