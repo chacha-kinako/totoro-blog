@@ -8,7 +8,7 @@ category: '陶器'
 showInLatest: false
 showInPopular: true
 showInReview: true
-showInCategories: ['レビュー', '陶器']
+showInCategories: ['陶器レビュー', '陶器']
 showInWorks: ['となりのトトロ']
 ---
 
