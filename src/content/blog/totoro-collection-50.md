@@ -8,7 +8,7 @@ category: 'コレクション'
 showInLatest: false
 showInPopular: true
 showInCategories: ['おすすめ・まとめ', 'コレクション']
-showInWorks: []
+showInWorks: ['となりのトトロ']
 ---
 
 <div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">- 100個以上集めた私のコレクションから厳選した50アイテム<br>- その中でも特におすすめしたい厳選10<br>- 失敗しないトトログッズの選び方<br>- どこで買える？購入先と売り切れやすさ</p></div>
@@ -243,6 +243,7 @@ showInWorks: []
 
 すでに販売終了しているレア商品が見つかることもあります。ただし中古品が中心なので、状態の確認はしっかり行いましょう。
 
+showInReview: false
 ---
 
 ## まとめ
