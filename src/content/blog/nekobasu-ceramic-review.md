@@ -4,11 +4,11 @@ description: 'ネコバス陶器の価格は高いのか、実際に購入して
 pubDate: '2026-05-04'
 heroImage: ''
 cardImage: '/images/img_1779457265296_2k916.webp'
-category: '陶器レビュー'
+category: '陶器'
 showInLatest: false
 showInPopular: true
 showInReview: true
-showInCategories: ['陶器レビュー']
+showInCategories: ['レビュー', '陶器']
 showInWorks: ['となりのトトロ']
 ---
 
