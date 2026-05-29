@@ -7,6 +7,7 @@ cardImage: '/images/img_1779514075894_51k2i.webp'
 category: 'おすすめ・まとめ'
 showInLatest: false
 showInPopular: true
+showInReview: false
 showInCategories: ['おすすめ・まとめ']
 showInWorks: ['となりのトトロ']
 ---
