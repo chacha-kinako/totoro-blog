@@ -17,10 +17,11 @@ type ZukanItem = {
 
 export function getStaticPaths() {
 	return [
-		{ params: { room: 'mug' },       props: { roomName: 'マグの部屋',       roomIcon: '☕', filter: 'mug' } },
-		{ params: { room: 'figure' },    props: { roomName: 'フィギュアの部屋',  roomIcon: '🪆', filter: 'figure' } },
-		{ params: { room: 'nuigurumi' }, props: { roomName: 'ぬいぐるみの部屋', roomIcon: '🧸', filter: 'nuigurumi' } },
-		{ params: { room: 'all' },       props: { roomName: '総合部屋',          roomIcon: '🏠', filter: null } },
+		{ params: { room: 'nuigurumi' }, props: { roomName: 'ぬいぐるみの部屋', roomIcon: '🧸', filter: 'ぬいぐるみの部屋' } },
+		{ params: { room: 'toki' },      props: { roomName: '陶器の部屋',       roomIcon: '🍵', filter: '陶器の部屋' } },
+		{ params: { room: 'figure' },    props: { roomName: 'フィギアの部屋',   roomIcon: '🪆', filter: 'フィギアの部屋' } },
+		{ params: { room: 'shokki' },    props: { roomName: '食器の部屋',       roomIcon: '🍽️', filter: '食器の部屋' } },
+		{ params: { room: 'all' },       props: { roomName: '総合部屋',         roomIcon: '📦', filter: null } },
 	];
 }
 

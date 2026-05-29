@@ -14,29 +14,13 @@ const latestPosts = allPosts.slice(0, 3);
 const featuredPosts = allPosts.filter(p => p.data.featured || p.data.showInPopular).slice(0, 3);
 
 const allCategories = [
-	{ icon: '🪆', name: 'フィギアレビュー',        desc: 'ミニチュアの沼へ' },
-	{ icon: '🧸', name: 'ぬいぐるみレビュー',      desc: 'もふもふ正直レビュー' },
-	{ icon: '🍵', name: '陶器レビュー',            desc: '手仕事の温もり' },
-	{ icon: '☕', name: 'マグレビュー',            desc: 'マグカップのリアルな使用感' },
-	{ icon: '✨', name: 'おすすめ・まとめ',         desc: '迷ったらここから' },
-	{ icon: '🌟', name: '総合レビュー',            desc: 'まとめ・比較・シーン別' },
-	{ icon: '🛍️', name: 'グッズ購入いろは',        desc: '選び方・購入場所' },
-	{ icon: '🏡', name: 'インテリア雑貨レビュー',   desc: '暮らしに溶け込む' },
-	{ icon: '📖', name: 'お小遣い記録',            desc: 'リアルな収支公開' },
-	{ icon: '💎', name: 'コレクション',            desc: 'お気に入りを集めて' },
-	{ icon: '🎁', name: '今月仲間入りしたグッズ',   desc: '新入り紹介' },
-	{ icon: '🍳', name: 'キッチン用品レビュー',     desc: 'キッチンで使えるグッズ' },
-	{ icon: '🏺', name: 'オブジェレビュー',         desc: 'インテリアに映える' },
-	{ icon: '🎮', name: 'おもちゃレビュー',         desc: '遊べるグッズ' },
+	{ icon: '📝', name: 'レビュー',          desc: 'ぬいぐるみ・陶器・フィギア etc.', href: '/blog' },
+	{ icon: '💎', name: '暮らし・コレクション', desc: '暮らしとコレクションの記録',       href: '/categories/暮らし・コレクション' },
+	{ icon: '✨', name: 'おすすめ・まとめ',    desc: '迷ったらここから',               href: '/categories/おすすめ・まとめ' },
+	{ icon: '📖', name: 'お小遣い帳',         desc: 'リアルな収支公開',               href: '/categories/お小遣い帳' },
 ];
 
-// 記事が1件以上あるカテゴリのみ表示
-const categories = allCategories.filter(cat =>
-	allPosts.some(p => {
-		const cats: string[] = p.data.showInCategories ?? [];
-		return cats.includes(cat.name) || p.data.category === cat.name;
-	})
-);
+const categories = allCategories;
 ---
 
 <!doctype html>
@@ -405,6 +389,7 @@ const categories = allCategories.filter(cat =>
 			margin: 0;
 			padding: 0;
 		}
+		/* 4カテゴリ固定なのでPC4列のまま */
 		.category-card {
 			background: var(--milk);
 			border: 1px solid var(--beige-light);
@@ -679,22 +664,18 @@ const categories = allCategories.filter(cat =>
 						<span class="home-section__heading-label">CATEGORIES</span>
 						<span class="home-section__heading-text">カテゴリから探す</span>
 					</div>
-					{categories.length > 0 ? (
-						<ul class="category-grid">
-							{categories.map((cat) => (
-								<li class="category-card">
-									<div class="category-card__bar" />
-									<a href={`/categories/${encodeURIComponent(cat.name)}`}>
-										<span class="category-card__icon">{cat.icon}</span>
-										<span class="category-card__name">{cat.name}</span>
-										<span class="category-card__desc">{cat.desc}</span>
-									</a>
-								</li>
-							))}
-						</ul>
-					) : (
-						<p style="text-align:center;color:var(--text-muted);font-size:0.88em;">記事を準備中です🌱</p>
-					)}
+					<ul class="category-grid">
+						{categories.map((cat) => (
+							<li class="category-card">
+								<div class="category-card__bar" />
+								<a href={cat.href}>
+									<span class="category-card__icon">{cat.icon}</span>
+									<span class="category-card__name">{cat.name}</span>
+									<span class="category-card__desc">{cat.desc}</span>
+								</a>
+							</li>
+						))}
+					</ul>
 					<div class="home-section__more">
 						<a href="/categories">カテゴリをすべて見る →</a>
 					</div>
