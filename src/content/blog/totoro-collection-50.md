@@ -7,7 +7,7 @@ cardImage: '/images/img_1779514292688_5gthg.webp'
 category: 'コレクション'
 showInLatest: false
 showInPopular: true
-showInCategories: ['おすすめ・まとめ', 'コレクション']
+showInCategories: ['コレクション']
 showInWorks: ['となりのトトロ']
 ---
 
