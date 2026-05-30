@@ -7,34 +7,34 @@ import { SITE_TITLE } from '../../consts';
 
 const reviewCategories = [
 	{
-		icon: '🍵',
-		name: '陶器レビュー',
-		desc: '手仕事の温もり、じっくりレビュー',
-		href: `/categories/${encodeURIComponent('陶器レビュー')}`,
-	},
-	{
-		icon: '☕',
-		name: 'マグレビュー',
-		desc: 'マグカップのリアルな使用感',
-		href: `/categories/${encodeURIComponent('マグレビュー')}`,
+		icon: '🧸',
+		name: 'ぬいぐるみ',
+		desc: 'もふもふ、正直レビュー',
+		href: `/categories/${encodeURIComponent('ぬいぐるみ')}`,
 	},
 	{
 		icon: '🪆',
-		name: 'フィギュアレビュー',
+		name: 'フィギア',
 		desc: 'ミニチュアの沼へようこそ',
-		href: `/categories/${encodeURIComponent('フィギアレビュー')}`,
+		href: `/categories/${encodeURIComponent('フィギア')}`,
 	},
 	{
-		icon: '🧸',
-		name: 'ぬいぐるみレビュー',
-		desc: 'もふもふ、正直レビュー',
-		href: `/categories/${encodeURIComponent('ぬいぐるみレビュー')}`,
+		icon: '🍵',
+		name: '陶器',
+		desc: '手仕事の温もり、じっくりレビュー',
+		href: `/categories/${encodeURIComponent('陶器')}`,
 	},
 	{
-		icon: '🌟',
-		name: '総合レビュー',
+		icon: '🍽️',
+		name: '食器',
+		desc: '食卓を彩るジブリグッズ',
+		href: `/categories/${encodeURIComponent('食器')}`,
+	},
+	{
+		icon: '📦',
+		name: '総合',
 		desc: 'まとめ・比較・シーン別おすすめ',
-		href: `/categories/${encodeURIComponent('総合レビュー')}`,
+		href: `/categories/${encodeURIComponent('総合')}`,
 	},
 ];
 ---
@@ -87,7 +87,7 @@ const reviewCategories = [
 		/* ── カテゴリグリッド ── */
 		.review-grid {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(5, 1fr);
 			gap: 1rem;
 			padding-bottom: 5em;
 		}

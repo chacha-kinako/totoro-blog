@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 		{ icon: '🍽️', name: '食器' },
 		{ icon: '📦', name: '総合' },
 		{ icon: '✨', name: 'おすすめ・まとめ' },
-		{ icon: '💎', name: '暮らし・コレクション' },
+		{ icon: '💎', name: 'コレクション' },
 		{ icon: '🎁', name: '今月の仲間入り' },
 		{ icon: '📖', name: 'お小遣い帳' },
 		{ icon: '🛍️', name: 'グッズ購入のいろは' },
@@ -34,6 +34,7 @@ export async function getStaticPaths() {
 		const catOrder: string[] = (pageOrder as Record<string, string[]>)[cat.name] || [];
 		const posts = allPosts
 			.filter((p) => {
+				if (p.data.category === cat.name) return true;
 				return Array.isArray(p.data.showInCategories)
 					? p.data.showInCategories.includes(cat.name)
 					: false;
@@ -125,7 +126,7 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 
 			.post-grid {
 				display: grid;
-				grid-template-columns: repeat(2, 1fr);
+				grid-template-columns: repeat(3, 1fr);
 				gap: 1.4rem;
 				list-style: none;
 				margin: 0;

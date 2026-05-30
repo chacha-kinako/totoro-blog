@@ -13,14 +13,12 @@ const allPosts = (await getCollection('blog')).sort(
 const latestPosts = allPosts.slice(0, 3);
 const featuredPosts = allPosts.filter(p => p.data.featured || p.data.showInPopular).slice(0, 3);
 
-const allCategories = [
-	{ icon: '📝', name: 'レビュー',          desc: 'ぬいぐるみ・陶器・フィギア etc.', href: '/blog' },
-	{ icon: '💎', name: '暮らし・コレクション', desc: '暮らしとコレクションの記録',       href: '/categories/暮らし・コレクション' },
-	{ icon: '✨', name: 'おすすめ・まとめ',    desc: '迷ったらここから',               href: '/categories/おすすめ・まとめ' },
-	{ icon: '📖', name: 'お小遣い帳',         desc: 'リアルな収支公開',               href: '/categories/お小遣い帳' },
+const homeCategories = [
+	{ icon: '💎', name: 'コレクション',    desc: 'お気に入りを集めて',   href: '/categories/コレクション' },
+	{ icon: '✨', name: 'おすすめ・まとめ', desc: '迷ったらここから',     href: '/categories/おすすめ・まとめ' },
+	{ icon: '🎁', name: '今月の仲間入り',  desc: '新しく迎えたグッズ',   href: '/categories/今月の仲間入り' },
+	{ icon: '📖', name: 'お小遣い帳',      desc: 'リアルな収支公開',     href: '/categories/お小遣い帳' },
 ];
-
-const categories = allCategories;
 ---
 
 <!doctype html>
@@ -665,7 +663,7 @@ const categories = allCategories;
 						<span class="home-section__heading-text">カテゴリから探す</span>
 					</div>
 					<ul class="category-grid">
-						{categories.map((cat) => (
+						{homeCategories.map((cat) => (
 							<li class="category-card">
 								<div class="category-card__bar" />
 								<a href={cat.href}>
