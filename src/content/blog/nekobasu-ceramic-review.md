@@ -7,8 +7,8 @@ cardImage: '/images/img_1779457265296_2k916.webp'
 category: '陶器'
 showInLatest: false
 showInPopular: true
-showInReview: true
-showInCategories: ['陶器']
+showInReview: false
+showInCategories: []
 showInWorks: ['となりのトトロ']
 ---
 
@@ -46,6 +46,8 @@ showInWorks: ['となりのトトロ']
 
 ## ネコバス陶器は高い？実際に使ってわかった結論
 
+![](/images/img_1780320390241_0f5sl.webp)
+
 <div style="border-left:5px solid #f39c12;background:#fffbec;padding:14px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-weight:700;color:#856404" data-block="emphasis">結論から言うと、ネコバス陶器は「高いけど買う価値あり」です。</div>
 
 実際に購入してみて感じたのは、価格以上の満足感とクオリティの高さでした。
@@ -82,6 +84,8 @@ showInWorks: ['となりのトトロ']
 
 ### 表情が最高すぎる（にゃぁーーーの顔）
 
+![](/images/img_1780320200629_11sz3.webp)
+
 ネコバス陶器の魅力の中でも、まず一番に伝えたいのがこの表情です。
 
 あの「にゃぁーーー」と笑っているような顔が、とにかく最高なんです。
@@ -95,6 +99,8 @@ showInWorks: ['となりのトトロ']
 ふと目に入るたびに、ちょっと気分が上がる。そんな存在感があります。
 
 ### 細部の作り込みが異常に細かい
+
+![](/images/img_1780320272432_omf77.webp)
 
 ネコバス陶器は、細部の作り込みが本当に異常なレベルです。
 
@@ -112,6 +118,8 @@ showInWorks: ['となりのトトロ']
 
 ### 足の動きに躍動感がある
 
+![](/images/img_1780320286882_m3bze.webp)
+
 ネコバス陶器の中でも、個人的に一番すごいと感じたのが「足の動き」です。
 
 ただ置いてあるだけなのに、今にも走り出しそうな躍動感があります。
@@ -128,6 +136,8 @@ showInWorks: ['となりのトトロ']
 
 ### 他の陶器と比べても圧倒的な存在感
 
+![](/images/img_1780320373918_75m1l.webp)
+
 ネコバス陶器は、他のジブリ陶器と並べても圧倒的な存在感があります。
 
 まずサイズ感。実際に置いてみると、想像以上にしっかり大きくて、かなり目を引きます。
@@ -143,6 +153,8 @@ showInWorks: ['となりのトトロ']
 正直なところ、結構場所は取ります（笑）でもそれも含めて、この存在感が魅力だと感じています。
 
 ### とにかく重い（いい意味で）
+
+![](/images/img_1780320362196_0z7bz.webp)
 
 ネコバス陶器は、とにかく重いです。
 
@@ -230,6 +242,8 @@ showInWorks: ['となりのトトロ']
 
 ## まとめ｜見つけたら即買いレベルのクオリティ
 
+![](/images/img_1780320402659_3709x.webp)
+
 ネコバス陶器は、決して安い買い物ではありません。
 
 ですが、実際に手に取ってみると、そのクオリティの高さに納得できるアイテムです。
@@ -244,11 +258,12 @@ showInWorks: ['となりのトトロ']
 
 ネコバスが好きなら、後悔する買い物になることはまずないと思います。
 
-<div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0" data-block="balloon"><div style="width:52px;height:52px;border-radius:50%;background:#f0ede8;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;border:2px solid #e2d9cf">😊</div><div style="background:#f8f6f3;border:1.5px solid #e2d9cf;border-radius:0 18px 18px 18px;padding:12px 18px;flex:1;line-height:1.7">**見つけたときが"買いどき"です。**</div></div>
+<div style="border-left:5px solid #f39c12;background:#fffbec;padding:14px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-weight:700;color:#856404" data-block="emphasis">**見つけたときが"買いどき"です。**</div>
+
+![](/images/img_1780320328328_y8k47.webp)
 
 ---
 
-他のジブリ陶器やトトログッズも気になる方は、こちらも参考にしてみてください。
+他のトトログッズも気になる方は、こちらも参考にしてみてください。
 
-- ジブリ陶器の比較記事（近日公開予定）
-- トトログッズ厳選まとめ
+<a href="/blog/totoro-goods-for-beginners/" style="display:block;border:1.5px solid #e2d9cf;border-radius:12px;padding:14px 18px;text-decoration:none;color:#333;background:#f8f6f3;margin:16px 0;font-weight:700;font-size:0.95rem;transition:background 0.15s" data-block="internal-link">📄 初心者におすすめトトログッズ5選｜初めて買うなら失敗しない選び方も解説</a>
