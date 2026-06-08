@@ -1,8 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
-
-const kakeiboHref = `/categories/${encodeURIComponent('お小遣い記録')}`;
 ---
 
 <header class="site-header">
@@ -12,7 +10,7 @@ const kakeiboHref = `/categories/${encodeURIComponent('お小遣い記録')}`;
 			<HeaderLink href="/">ホーム</HeaderLink>
 			<HeaderLink href="/zukan">図鑑</HeaderLink>
 			<HeaderLink href="/blog">レビュー</HeaderLink>
-			<HeaderLink href={kakeiboHref}>お小遣い</HeaderLink>
+			<HeaderLink href="/categories/お小遣い帳">お小遣い</HeaderLink>
 			<HeaderLink href="/about">プロフィール</HeaderLink>
 			<HeaderLink href="/contact">お問い合わせ</HeaderLink>
 		</nav>
@@ -75,8 +73,22 @@ const kakeiboHref = `/categories/${encodeURIComponent('お小遣い記録')}`;
 	}
 
 	@media (max-width: 680px) {
-		.site-header__inner { padding: 0 0.8em; height: 52px; }
+		.site-header__inner {
+			flex-direction: column;
+			height: auto;
+			padding: 0.5em 0.8em 0.4em;
+			gap: 0.15em;
+			align-items: flex-start;
+		}
 		.site-header__logo { font-size: 0.85em; }
-		.site-header__nav a { padding: 0.3em 0.45em; font-size: 0.73em; }
+		.site-header__nav {
+			width: 100%;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			padding-bottom: 0.3em;
+		}
+		.site-header__nav::-webkit-scrollbar { display: none; }
+		.site-header__nav a { padding: 0.25em 0.5em; font-size: 0.75em; }
 	}
 </style>
