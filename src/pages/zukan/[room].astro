@@ -26,9 +26,18 @@ export function getStaticPaths() {
 }
 
 const { roomName, roomIcon, filter } = Astro.props;
+const currentRoom = Astro.params.room;
 
 const allItems: ZukanItem[] = zukanDataRaw as ZukanItem[];
 const items = filter ? allItems.filter((item) => item.room === filter) : allItems;
+
+const rooms = [
+	{ slug: 'all',       name: '総合部屋',         icon: '📦' },
+	{ slug: 'nuigurumi', name: 'ぬいぐるみの部屋', icon: '🧸' },
+	{ slug: 'toki',      name: '陶器の部屋',       icon: '🍵' },
+	{ slug: 'figure',    name: 'フィギアの部屋',   icon: '🪆' },
+	{ slug: 'shokki',    name: '食器の部屋',       icon: '🍽️' },
+];
 ---
 
 <!doctype html>
@@ -76,24 +85,32 @@ const items = filter ? allItems.filter((item) => item.room === filter) : allItem
 			margin: 0;
 		}
 
-		/* ── グリッド ── */
-		.zukan-wrap {
-			max-width: 1060px;
+		/* ── 2カラムレイアウト ── */
+		.zukan-outer {
+			max-width: 1120px;
 			margin: 0 auto;
 			padding: 0 1.5em 5em;
+			display: flex;
+			gap: 2em;
+			align-items: flex-start;
+		}
+
+		/* ── 左：カードエリア ── */
+		.zukan-main {
+			flex: 1;
+			min-width: 0;
 		}
 		.zukan-grid {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(3, 1fr);
 			gap: 14px;
 			margin-top: 1.5em;
 		}
 		@media (max-width: 860px) {
-			.zukan-grid { grid-template-columns: repeat(3, 1fr); }
+			.zukan-grid { grid-template-columns: repeat(2, 1fr); }
 		}
 		@media (max-width: 560px) {
 			.zukan-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-			.zukan-wrap { padding: 0 1em 4em; }
 		}
 
 		/* ── カード ── */
@@ -184,52 +201,147 @@ const items = filter ? allItems.filter((item) => item.room === filter) : allItem
 			font-size: 0.9em;
 			line-height: 2.2;
 		}
+
+		/* ── 右：部屋サイドバー ── */
+		.room-sidebar {
+			width: 170px;
+			flex-shrink: 0;
+			position: sticky;
+			top: 80px;
+		}
+		.room-sidebar__title {
+			font-size: 0.72em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.15em;
+			margin: 0 0 0.8em;
+			padding-bottom: 0.5em;
+			border-bottom: 2px solid var(--orange-light);
+		}
+		.room-door-list {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+		.room-door {
+			display: block;
+			text-decoration: none;
+			background: #fff;
+			border: 1.5px solid var(--beige);
+			border-radius: 12px;
+			padding: 0.75em 0.8em;
+			transition: border-color 0.18s, background 0.18s, transform 0.18s;
+		}
+		.room-door:hover {
+			border-color: var(--orange-light);
+			background: var(--orange-pale);
+			transform: translateX(3px);
+			text-decoration: none;
+		}
+		.room-door--active {
+			border-color: var(--orange);
+			background: var(--orange-pale);
+		}
+		.room-door__icon {
+			font-size: 1.3em;
+			display: block;
+			margin-bottom: 0.2em;
+		}
+		.room-door__name {
+			font-size: 0.73em;
+			font-weight: 700;
+			color: var(--text);
+			line-height: 1.35;
+		}
+		.room-door--active .room-door__name {
+			color: var(--orange-dark);
+		}
+
+		@media (max-width: 860px) {
+			.zukan-outer { flex-direction: column; padding: 0 1em 4em; }
+			.room-sidebar {
+				width: 100%;
+				position: static;
+				order: -1;
+			}
+			.room-door-list {
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+			.room-door {
+				flex: 1 1 calc(50% - 4px);
+				min-width: 120px;
+			}
+		}
 	</style>
 </head>
 <body>
 	<Header />
 	<main>
 		<div class="room-header">
-			<a href="/zukan" class="room-back">← 図鑑TOPに戻る</a>
 			<span class="room-header__label">ZUKAN</span>
 			<h1 class="room-header__title">{roomIcon} {roomName}</h1>
 			<p class="room-header__desc">{items.length > 0 ? `${items.length}点のコレクション` : '準備中です'}</p>
 		</div>
 
-		<div class="zukan-wrap">
-			<div class="zukan-grid">
-				{items.length === 0 && (
-					<div class="zukan-empty">
-						<p>🌱 まだコレクションがありません<br>少しまってね！</p>
-					</div>
-				)}
-				{items.map((item) => (
-					<div class="zukan-card">
-						<div class="zukan-card__img">
-							<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
+		<div class="zukan-outer">
+			<!-- 左：カードグリッド -->
+			<div class="zukan-main">
+				<div class="zukan-grid">
+					{items.length === 0 && (
+						<div class="zukan-empty">
+							<p>🌱 まだコレクションがありません<br>少しまってね！</p>
 						</div>
-						{(item.name || item.comment) && (
-							<div class="zukan-card__info">
-								{item.name && <div class="zukan-card__name">{item.name}</div>}
-								{item.comment && <div class="zukan-card__comment">{item.comment}</div>}
+					)}
+					{items.map((item) => (
+						<div class="zukan-card">
+							<div class="zukan-card__img">
+								<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
 							</div>
-						)}
-						<div class="zukan-card__links">
-							{item.reviewLink && (
-								<a href={item.reviewLink} class="zukan-btn zukan-btn--review">
-									レビュー記事
-								</a>
+							{(item.name || item.comment) && (
+								<div class="zukan-card__info">
+									{item.name && <div class="zukan-card__name">{item.name}</div>}
+									{item.comment && <div class="zukan-card__comment">{item.comment}</div>}
+								</div>
 							)}
-							{item.affiliateLink && (
-								<a href={item.affiliateLink} class="zukan-btn zukan-btn--buy"
-								   target="_blank" rel="noopener noreferrer nofollow">
-									購入はこちら
-								</a>
-							)}
+							<div class="zukan-card__links">
+								{item.reviewLink && (
+									<a href={item.reviewLink} class="zukan-btn zukan-btn--review">
+										レビュー記事
+									</a>
+								)}
+								{item.affiliateLink && (
+									<a href={item.affiliateLink} class="zukan-btn zukan-btn--buy"
+									   target="_blank" rel="noopener noreferrer nofollow">
+										購入はこちら
+									</a>
+								)}
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
+
+			<!-- 右：部屋の扉 -->
+			<aside class="room-sidebar">
+				<p class="room-sidebar__title">🚪 部屋を選ぶ</p>
+				<ul class="room-door-list">
+					{rooms.map((r) => (
+						<li>
+							<a
+								href={`/zukan/${r.slug}`}
+								class={`room-door${currentRoom === r.slug ? ' room-door--active' : ''}`}
+							>
+								<span class="room-door__icon">{r.icon}</span>
+								<span class="room-door__name">{r.name}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</aside>
 		</div>
 	</main>
 	<Footer />
