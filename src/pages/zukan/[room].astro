@@ -32,11 +32,11 @@ const allItems: ZukanItem[] = zukanDataRaw as ZukanItem[];
 const items = filter ? allItems.filter((item) => item.room === filter) : allItems;
 
 const rooms = [
-	{ slug: 'all',       name: '総合部屋',         icon: '📦' },
-	{ slug: 'nuigurumi', name: 'ぬいぐるみの部屋', icon: '🧸' },
-	{ slug: 'toki',      name: '陶器の部屋',       icon: '🍵' },
-	{ slug: 'figure',    name: 'フィギアの部屋',   icon: '🪆' },
-	{ slug: 'shokki',    name: '食器の部屋',       icon: '🍽️' },
+	{ slug: 'all',       name: '全部屋',           icon: '📦', color: '#C4714A', label: 'ALL' },
+	{ slug: 'nuigurumi', name: 'ぬいぐるみ',       icon: '🧸', color: '#8B6E4E', label: 'PLUSH' },
+	{ slug: 'toki',      name: '陶器',             icon: '🍵', color: '#6B8E7A', label: 'CERAMIC' },
+	{ slug: 'figure',    name: 'フィギア',         icon: '🪆', color: '#7B6EA8', label: 'FIGURE' },
+	{ slug: 'shokki',    name: '食器',             icon: '🍽️', color: '#C4714A', label: 'DISHES' },
 ];
 ---
 
@@ -48,21 +48,9 @@ const rooms = [
 		/* ── ページヘッダー ── */
 		.room-header {
 			text-align: center;
-			padding: 2.5em 1em 1.8em;
+			padding: 2.2em 1em 1.5em;
 			background: #fff;
 		}
-		.room-back {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.3em;
-			font-size: 0.82em;
-			color: var(--orange);
-			text-decoration: none;
-			font-weight: 600;
-			transition: color 0.15s;
-			margin-bottom: 1em;
-		}
-		.room-back:hover { color: var(--orange-dark); text-decoration: none; }
 		.room-header__label {
 			font-size: 0.7em;
 			font-weight: 700;
@@ -87,11 +75,11 @@ const rooms = [
 
 		/* ── 2カラムレイアウト ── */
 		.zukan-outer {
-			max-width: 1120px;
+			max-width: 1220px;
 			margin: 0 auto;
-			padding: 0 1.5em 5em;
+			padding: 0 1em 5em;
 			display: flex;
-			gap: 2em;
+			gap: 0;
 			align-items: flex-start;
 		}
 
@@ -99,15 +87,16 @@ const rooms = [
 		.zukan-main {
 			flex: 1;
 			min-width: 0;
+			padding: 0 1em;
 		}
 		.zukan-grid {
 			display: grid;
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(4, 1fr);
 			gap: 14px;
-			margin-top: 1.5em;
+			margin-top: 1.2em;
 		}
-		@media (max-width: 860px) {
-			.zukan-grid { grid-template-columns: repeat(2, 1fr); }
+		@media (max-width: 900px) {
+			.zukan-grid { grid-template-columns: repeat(3, 1fr); }
 		}
 		@media (max-width: 560px) {
 			.zukan-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -191,8 +180,6 @@ const rooms = [
 			color: var(--green-dark);
 			border: 1px solid var(--green-light);
 		}
-
-		/* 空の場合 */
 		.zukan-empty {
 			grid-column: 1 / -1;
 			text-align: center;
@@ -202,21 +189,21 @@ const rooms = [
 			line-height: 2.2;
 		}
 
-		/* ── 右：部屋サイドバー ── */
+		/* ── 右：扉サイドバー ── */
 		.room-sidebar {
-			width: 170px;
+			width: 130px;
 			flex-shrink: 0;
 			position: sticky;
 			top: 80px;
+			padding-top: 1.2em;
 		}
 		.room-sidebar__title {
-			font-size: 0.72em;
+			font-size: 0.64em;
 			font-weight: 700;
-			color: var(--orange);
-			letter-spacing: 0.15em;
-			margin: 0 0 0.8em;
-			padding-bottom: 0.5em;
-			border-bottom: 2px solid var(--orange-light);
+			color: var(--text-muted);
+			letter-spacing: 0.12em;
+			text-align: center;
+			margin: 0 0 0.9em;
 		}
 		.room-door-list {
 			list-style: none;
@@ -224,57 +211,97 @@ const rooms = [
 			padding: 0;
 			display: flex;
 			flex-direction: column;
-			gap: 8px;
+			gap: 10px;
 		}
+
+		/* ── 扉カード本体 ── */
 		.room-door {
 			display: block;
 			text-decoration: none;
-			background: #fff;
-			border: 1.5px solid var(--beige);
-			border-radius: 12px;
-			padding: 0.75em 0.8em;
-			transition: border-color 0.18s, background 0.18s, transform 0.18s;
+			position: relative;
+			width: 100%;
 		}
-		.room-door:hover {
-			border-color: var(--orange-light);
-			background: var(--orange-pale);
-			transform: translateX(3px);
-			text-decoration: none;
-		}
-		.room-door--active {
-			border-color: var(--orange);
-			background: var(--orange-pale);
-		}
-		.room-door__icon {
-			font-size: 1.3em;
+		.room-door:hover { text-decoration: none; }
+
+		/* 扉SVG */
+		.door-svg {
+			width: 100%;
 			display: block;
-			margin-bottom: 0.2em;
+			filter: drop-shadow(0 3px 6px rgba(0,0,0,0.18));
+			transition: filter 0.2s, transform 0.2s;
 		}
-		.room-door__name {
-			font-size: 0.73em;
+		.room-door:hover .door-svg {
+			filter: drop-shadow(0 5px 10px rgba(0,0,0,0.28));
+			transform: translateY(-2px);
+		}
+		.room-door--active .door-svg {
+			filter: drop-shadow(0 4px 8px rgba(196,113,74,0.45));
+		}
+
+		/* プレート（扉の上に重ねる） */
+		.door-plate-wrap {
+			position: absolute;
+			bottom: 22%;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80%;
+			text-align: center;
+			pointer-events: none;
+		}
+		.door-plate {
+			display: inline-block;
+			background: #F5E6C8;
+			border: 2px solid #C8A96E;
+			border-radius: 5px;
+			padding: 3px 6px 4px;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
+			width: 100%;
+		}
+		.door-plate__icon {
+			display: block;
+			font-size: 1.1em;
+			line-height: 1.2;
+		}
+		.door-plate__name {
+			display: block;
+			font-size: 0.52em;
 			font-weight: 700;
-			color: var(--text);
-			line-height: 1.35;
+			color: #5C3D1E;
+			line-height: 1.3;
+			margin-top: 1px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
-		.room-door--active .room-door__name {
+		.room-door--active .door-plate {
+			background: #FFE8CC;
+			border-color: var(--orange);
+		}
+		.room-door--active .door-plate__name {
 			color: var(--orange-dark);
 		}
 
 		@media (max-width: 860px) {
-			.zukan-outer { flex-direction: column; padding: 0 1em 4em; }
+			.zukan-outer { flex-direction: column; padding: 0 0.8em 4em; }
 			.room-sidebar {
 				width: 100%;
 				position: static;
 				order: -1;
+				padding-top: 0.5em;
 			}
 			.room-door-list {
 				flex-direction: row;
 				flex-wrap: wrap;
+				gap: 8px;
 			}
 			.room-door {
-				flex: 1 1 calc(50% - 4px);
-				min-width: 120px;
+				width: calc(20% - 7px);
+				min-width: 70px;
 			}
+			.zukan-main { padding: 0; }
+		}
+		@media (max-width: 560px) {
+			.room-door { width: calc(33.33% - 6px); }
 		}
 	</style>
 </head>
@@ -327,7 +354,7 @@ const rooms = [
 
 			<!-- 右：部屋の扉 -->
 			<aside class="room-sidebar">
-				<p class="room-sidebar__title">🚪 部屋を選ぶ</p>
+				<p class="room-sidebar__title">— 部屋を選ぶ —</p>
 				<ul class="room-door-list">
 					{rooms.map((r) => (
 						<li>
@@ -335,8 +362,43 @@ const rooms = [
 								href={`/zukan/${r.slug}`}
 								class={`room-door${currentRoom === r.slug ? ' room-door--active' : ''}`}
 							>
-								<span class="room-door__icon">{r.icon}</span>
-								<span class="room-door__name">{r.name}</span>
+								<!-- 扉SVG -->
+								<svg class="door-svg" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+									<!-- 壁・枠 -->
+									<rect x="2" y="8" width="86" height="110" rx="4" fill="#D4B896" />
+									<!-- 扉本体 -->
+									<rect x="8" y="14" width="74" height="98" rx="3" fill={r.color} />
+									<!-- 扉の光沢（左上） -->
+									<rect x="8" y="14" width="74" height="98" rx="3" fill="url(#gloss)" opacity="0.18" />
+									<!-- 上パネル -->
+									<rect x="15" y="20" width="60" height="34" rx="3" fill="white" opacity="0.12" />
+									<rect x="15" y="20" width="60" height="34" rx="3" fill="none" stroke="white" stroke-width="1.2" opacity="0.35" />
+									<!-- 下パネル -->
+									<rect x="15" y="60" width="60" height="44" rx="3" fill="white" opacity="0.08" />
+									<rect x="15" y="60" width="60" height="44" rx="3" fill="none" stroke="white" stroke-width="1.2" opacity="0.28" />
+									<!-- ドアノブ -->
+									<circle cx="68" cy="84" r="4" fill="#F5E6C8" stroke="#C8A96E" stroke-width="1" />
+									<circle cx="68" cy="84" r="2" fill="#C8A96E" />
+									<!-- 蝶番 -->
+									<rect x="13" y="26" width="5" height="10" rx="1.5" fill="#C8A96E" opacity="0.9" />
+									<rect x="13" y="74" width="5" height="10" rx="1.5" fill="#C8A96E" opacity="0.9" />
+									<!-- 枠の縁取り -->
+									<rect x="2" y="8" width="86" height="110" rx="4" fill="none" stroke="#A07848" stroke-width="2" />
+									<!-- グラデ定義 -->
+									<defs>
+										<linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1">
+											<stop offset="0%" stop-color="white" stop-opacity="0.4"/>
+											<stop offset="100%" stop-color="white" stop-opacity="0"/>
+										</linearGradient>
+									</defs>
+								</svg>
+								<!-- プレート -->
+								<div class="door-plate-wrap">
+									<div class="door-plate">
+										<span class="door-plate__icon">{r.icon}</span>
+										<span class="door-plate__name">{r.name}</span>
+									</div>
+								</div>
 							</a>
 						</li>
 					))}
