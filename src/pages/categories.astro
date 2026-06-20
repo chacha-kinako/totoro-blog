@@ -11,15 +11,17 @@ const categories = [
 	{ icon: '🎁', name: '今月の仲間入り',    desc: '新しく迎えたグッズ紹介',          href: '/categories/今月の仲間入り' },
 	{ icon: '📖', name: 'お小遣い帳',        desc: 'リアルな収支公開',              href: '/categories/お小遣い帳' },
 	{ icon: '🛍️', name: 'グッズ購入のいろは', desc: '選び方・購入場所ガイド',         href: '/categories/グッズ購入のいろは' },
-	{ icon: '📝', name: 'レビュー',          desc: 'ぬいぐるみ・陶器・フィギアetc.', href: '/blog' },
-	{ icon: '📚', name: '図鑑',             desc: 'コレクションを部屋ごとに眺める',   href: '/zukan' },
+	{ icon: '🪆', name: 'フィギア',          desc: 'フィギアレビュー',               href: '/categories/フィギア' },
+	{ icon: '🍵', name: '陶器',             desc: '陶器レビュー',                   href: '/categories/陶器' },
+	{ icon: '🍽️', name: '食器',             desc: '食器レビュー',                   href: '/categories/食器' },
+	{ icon: '📦', name: '総合',             desc: 'ジャンル混合の記事',              href: '/categories/総合' },
 ];
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
-		<BaseHead title={`カテゴリ | ${SITE_TITLE}`} description="トトロ・ジブリグッズブログのカテゴリ一覧です。お好みのカテゴリからお探しください。" />
+		<BaseHead title={`カテゴリ | ${SITE_TITLE}`} description="ジブリグッズブログのカテゴリ一覧です。お好みのカテゴリからお探しください。" />
 		<style>
 			.page-outer {
 				max-width: 1120px;

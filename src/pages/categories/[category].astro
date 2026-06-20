@@ -16,16 +16,15 @@ export async function getStaticPaths() {
 		if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
 	} catch {}
 	const categoryList = [
-		{ icon: '🧸', name: 'ぬいぐるみ' },
+		{ icon: '💎', name: 'コレクション' },
+		{ icon: '✨', name: 'おすすめ・まとめ' },
+		{ icon: '🎁', name: '今月の仲間入り' },
+		{ icon: '📖', name: 'お小遣い帳' },
+		{ icon: '🛍️', name: 'グッズ購入のいろは' },
 		{ icon: '🪆', name: 'フィギア' },
 		{ icon: '🍵', name: '陶器' },
 		{ icon: '🍽️', name: '食器' },
 		{ icon: '📦', name: '総合' },
-		{ icon: '✨', name: 'おすすめ・まとめ' },
-		{ icon: '💎', name: 'コレクション' },
-		{ icon: '🎁', name: '今月の仲間入り' },
-		{ icon: '📖', name: 'お小遣い帳' },
-		{ icon: '🛍️', name: 'グッズ購入のいろは' },
 	];
 
 	const allPosts = await getCollection('blog');
@@ -71,7 +70,7 @@ const comingSoonCount = Math.max(0, COMING_SOON_MIN - posts.length);
 	<head>
 		<BaseHead
 			title={`${categoryName} | ${SITE_TITLE}`}
-			description={`${categoryName}の記事一覧です。トトロ・ジブリグッズのレビューや暮らしの記録をお届けします。`}
+			description={`${categoryName}の記事一覧です。ジブリグッズのレビューや暮らしの記録をお届けします。`}
 		/>
 		<style>
 			.page-outer {
