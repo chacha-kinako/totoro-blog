@@ -6,6 +6,9 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import siteConfig from '../data/site-config.json';
+
+const homeAbout = siteConfig.homeAbout;
 
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -688,13 +691,12 @@ const homeCategories = [
 						<span class="home-section__heading-text">このブログについて</span>
 					</div>
 					<div class="about-teaser">
-						<div class="about-teaser__icon">🌰</div>
+						<div class="about-teaser__icon">{homeAbout.icon}</div>
 						<div class="about-teaser__text">
-							<h3>hinako のジブリライフ</h3>
-							<p>
-								トトロ・ジブリグッズを273個集めた主婦のブログです。<br>
-								グッズのリアルな感想や、ジブリのある暮らしをのんびり発信しています。
-							</p>
+							<h3>{homeAbout.name}</h3>
+							{homeAbout.text.split('\n').filter((l: string) => l.trim()).map((line: string) => (
+								<p>{line}</p>
+							))}
 							<a href="/about" class="about-teaser__link">プロフィールを読む →</a>
 						</div>
 					</div>
