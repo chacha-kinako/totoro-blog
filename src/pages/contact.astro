@@ -1,0 +1,310 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead
+		title="お問い合わせ | エンジョイ！ジブリライフ！"
+		description="エンジョイ！ジブリライフ！へのお問い合わせはこちらからどうぞ。"
+	/>
+	<style>
+		main {
+			max-width: 640px;
+			margin: auto;
+			padding: 2.5em 1em 5em;
+		}
+
+		/* ── ページヘッダー ── */
+		.page-header {
+			background: #fff;
+			border-radius: 18px;
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow-sm);
+			overflow: hidden;
+			margin-bottom: 2em;
+		}
+		.page-header__bar {
+			height: 8px;
+			background: linear-gradient(90deg, var(--green-dark) 0%, var(--green) 50%, var(--orange) 100%);
+		}
+		.page-header__body {
+			padding: 1.8em 2em;
+		}
+		.page-header h1 {
+			font-size: 1.5em;
+			line-height: 1.4;
+			margin: 0 0 0.5em;
+			color: var(--text);
+		}
+		.page-header__desc {
+			font-size: 0.9em;
+			color: var(--text-muted);
+			margin: 0;
+			line-height: 1.9;
+		}
+
+		/* ── フォームカード ── */
+		.form-card {
+			background: #fff;
+			border-radius: 18px;
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow-sm);
+			padding: 2.2em 2.4em;
+		}
+
+		.form-group {
+			margin-bottom: 1.5em;
+		}
+		.form-label {
+			display: block;
+			font-size: 0.88em;
+			font-weight: 700;
+			color: var(--text);
+			margin-bottom: 0.5em;
+			letter-spacing: 0.02em;
+		}
+		.form-label .optional {
+			font-weight: 400;
+			font-size: 0.88em;
+			color: var(--text-muted);
+			margin-left: 0.5em;
+		}
+		.form-input,
+		.form-textarea {
+			width: 100%;
+			padding: 0.75em 1em;
+			border: 1.5px solid var(--border);
+			border-radius: 11px;
+			background: #fdfaf7;
+			font-family: inherit;
+			font-size: 0.95em;
+			color: var(--text);
+			line-height: 1.7;
+			transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+			outline: none;
+			-webkit-appearance: none;
+			appearance: none;
+			box-sizing: border-box;
+		}
+		.form-input:focus,
+		.form-textarea:focus {
+			border-color: var(--green);
+			box-shadow: 0 0 0 3px rgba(123, 168, 112, 0.2);
+			background: #fff;
+		}
+		.form-input::placeholder,
+		.form-textarea::placeholder {
+			color: #c4b4a0;
+			font-size: 0.9em;
+		}
+		.form-textarea {
+			resize: vertical;
+			min-height: 160px;
+		}
+
+		/* ── 補足文 ── */
+		.form-note {
+			background: var(--milk);
+			border-left: 3px solid var(--green-light);
+			border-radius: 0 10px 10px 0;
+			padding: 0.85em 1.1em;
+			font-size: 0.82em;
+			color: var(--text-muted);
+			line-height: 1.9;
+			margin: 1.6em 0 1.8em;
+		}
+
+		/* ── 送信ボタン ── */
+		.btn-submit {
+			display: block;
+			width: 100%;
+			padding: 0.9em 1em;
+			background: var(--orange);
+			color: #fff;
+			font-family: inherit;
+			font-size: 1em;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			border: none;
+			border-radius: 50px;
+			cursor: pointer;
+			transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+			text-align: center;
+		}
+		.btn-submit:hover {
+			background: var(--orange-dark);
+			transform: translateY(-2px);
+			box-shadow: 0 6px 18px rgba(196, 113, 74, 0.3);
+		}
+		.btn-submit:active {
+			transform: translateY(0);
+			box-shadow: none;
+		}
+		.btn-submit:disabled {
+			background: var(--orange-light);
+			cursor: not-allowed;
+			transform: none;
+			box-shadow: none;
+		}
+
+		/* ── 送信完了メッセージ ── */
+		.success-msg {
+			display: none;
+			text-align: center;
+			padding: 2.5em 1em;
+		}
+		.success-msg.show { display: block; }
+		.success-icon { font-size: 2.8em; margin-bottom: 0.5em; }
+		.success-title {
+			font-size: 1.15em;
+			font-weight: 700;
+			color: var(--green-dark);
+			margin-bottom: 0.6em;
+		}
+		.success-text {
+			font-size: 0.88em;
+			color: var(--text-muted);
+			line-height: 2;
+			margin-bottom: 1.5em;
+		}
+		.success-back {
+			display: inline-block;
+			font-size: 0.85em;
+			color: var(--orange);
+			text-decoration: none;
+			border-bottom: 1px solid var(--orange-light);
+			padding-bottom: 2px;
+			transition: color 0.15s;
+		}
+		.success-back:hover {
+			color: var(--orange-dark);
+			text-decoration: none;
+		}
+
+		@media (max-width: 720px) {
+			main { padding: 1em 0.8em 3em; }
+			.page-header__body { padding: 1.3em 1.2em; }
+			.page-header h1 { font-size: 1.2em; }
+			.form-card { padding: 1.5em 1.2em; }
+		}
+	</style>
+</head>
+
+<body>
+	<Header />
+	<main>
+
+		<!-- ── ページヘッダー ── -->
+		<div class="page-header">
+			<div class="page-header__bar"></div>
+			<div class="page-header__body">
+				<h1>お問い合わせ</h1>
+				<p class="page-header__desc">
+					当ブログへのお問い合わせはこちらからお願いいたします。<br>
+					ご感想やご連絡など、お気軽にどうぞ🌿
+				</p>
+			</div>
+		</div>
+
+		<!-- ── フォームカード ── -->
+		<div class="form-card">
+
+			<!-- 送信完了メッセージ -->
+			<div class="success-msg" id="success-msg">
+				<div class="success-icon">🌿</div>
+				<p class="success-title">送信が完了しました！</p>
+				<p class="success-text">
+					お問い合わせありがとうございます。<br>
+					内容を確認後、数日以内にご返信いたします。
+				</p>
+				<a href="/" class="success-back">← トップへ戻る</a>
+			</div>
+
+			<!--
+				【フォーム送信の設定方法】
+				1. https://formspree.io に無料登録
+				2. 「New Form」でフォームを作成してフォームIDを取得
+				3. 下の action の URL を書き換える
+				   例: action="https://formspree.io/f/abcdefgh"
+			-->
+			<form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+				<div class="form-group">
+					<label class="form-label" for="name">
+						お名前<span class="optional">（ニックネーム可）</span>
+					</label>
+					<input class="form-input" type="text" id="name" name="name"
+						placeholder="山田 はな" required autocomplete="name" />
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="email">メールアドレス</label>
+					<input class="form-input" type="email" id="email" name="email"
+						placeholder="example@mail.com" required autocomplete="email" />
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="subject">
+						件名<span class="optional">（任意）</span>
+					</label>
+					<input class="form-input" type="text" id="subject" name="subject"
+						placeholder="記事の感想・ご質問など" />
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" for="message">お問い合わせ内容</label>
+					<textarea class="form-textarea" id="message" name="message"
+						placeholder="お気軽にどうぞ。" required></textarea>
+				</div>
+
+				<div class="form-note">
+					内容を確認後、数日以内に返信いたします。<br>
+					内容によっては返信できない場合があります。
+				</div>
+
+				<button type="submit" class="btn-submit" id="submit-btn">
+					お問い合わせを送る🌿
+				</button>
+
+			</form>
+		</div>
+
+	</main>
+	<Footer />
+</body>
+
+<script>
+	const form = document.getElementById('contact-form') as HTMLFormElement;
+	const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		submitBtn.textContent = '送信中…';
+		submitBtn.disabled = true;
+
+		try {
+			const res = await fetch(form.action, {
+				method: 'POST',
+				body: new FormData(form),
+				headers: { 'Accept': 'application/json' },
+			});
+
+			if (res.ok) {
+				form.style.display = 'none';
+				document.getElementById('success-msg')?.classList.add('show');
+			} else {
+				submitBtn.textContent = '送信に失敗しました。もう一度お試しください。';
+				submitBtn.disabled = false;
+			}
+		} catch {
+			submitBtn.textContent = '通信エラーが発生しました。再度お試しください。';
+			submitBtn.disabled = false;
+		}
+	});
+</script>
+
+</html>
