@@ -1,44 +1,55 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import CrayonDoor from '../components/CrayonDoor.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
 const rooms = [
 	{
-		slug: 'nuigurumi',
-		name: 'ぬいぐるみの部屋',
-		roomIcon: '🧸',
-		href: '/zukan/nuigurumi',
-		desc: 'ぬいぐるみのコレクションを眺める',
-	},
-	{
-		slug: 'toki',
-		name: '陶器の部屋',
-		roomIcon: '🍵',
-		href: '/zukan/toki',
-		desc: '陶器のコレクションを眺める',
-	},
-	{
 		slug: 'figure',
+		short: 'フィギア',
 		name: 'フィギアの部屋',
-		roomIcon: '🪆',
 		href: '/zukan/figure',
-		desc: 'フィギアのコレクションを眺める',
+		desc: 'フィギュアたちが集合',
+		base: '#D08B3E',
+		dark: '#9C6420',
+	},
+	{
+		slug: 'nuigurumi',
+		short: 'ぬいぐるみ',
+		name: 'ぬいぐるみの部屋',
+		href: '/zukan/nuigurumi',
+		desc: 'ふわふわの仲間たち',
+		base: '#F2A9BC',
+		dark: '#D97A94',
 	},
 	{
 		slug: 'shokki',
+		short: '食器',
 		name: '食器の部屋',
-		roomIcon: '🍽️',
 		href: '/zukan/shokki',
-		desc: '食器のコレクションを眺める',
+		desc: 'マグやお皿など',
+		base: '#64AAE8',
+		dark: '#3B7EC0',
+	},
+	{
+		slug: 'toki',
+		short: '陶器',
+		name: '陶器の部屋',
+		href: '/zukan/toki',
+		desc: '陶器の置物たち',
+		base: '#A5C86B',
+		dark: '#7BA344',
 	},
 	{
 		slug: 'all',
+		short: '総合部屋',
 		name: '総合部屋',
-		roomIcon: '📦',
 		href: '/zukan/all',
-		desc: 'ジャンル関係なく全グッズを一覧で',
+		desc: '全グッズを一覧で',
+		base: '#F5C845',
+		dark: '#D19E1D',
 	},
 ];
 ---
@@ -51,7 +62,7 @@ const rooms = [
 		/* ── ページヘッダー ── */
 		.zukan-header {
 			text-align: center;
-			padding: 3em 1em 2.2em;
+			padding: 2.6em 1em 1.8em;
 			background: #fff;
 		}
 		.zukan-header__label {
@@ -62,12 +73,12 @@ const rooms = [
 			letter-spacing: 0.22em;
 			margin-bottom: 0.6em;
 			padding: 0.3em 1.1em;
-			border: 1px solid var(--orange-light);
-			border-radius: 50px;
+			border: 1.5px solid var(--orange-light);
+			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
 			background: var(--orange-pale);
 		}
 		.zukan-header__title {
-			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
 			font-size: 2em;
 			font-weight: 700;
 			color: var(--text);
@@ -81,78 +92,101 @@ const rooms = [
 			line-height: 1.8;
 		}
 
-		/* ── 部屋グリッド ── */
+		/* ── 検索ボックス ── */
+		.zukan-search {
+			max-width: 480px;
+			margin: 1.4em auto 0;
+			display: flex;
+			gap: 8px;
+			padding: 0 1em;
+		}
+		.zukan-search input {
+			flex: 1;
+			min-width: 0;
+			padding: 0.65em 1.1em;
+			font-size: 16px;
+			font-family: 'Yomogi', 'Hiragino Maru Gothic ProN', sans-serif;
+			color: var(--text);
+			background: #fffdf6;
+			border: 2px solid var(--beige);
+			border-radius: 18px 22px 16px 24px / 22px 16px 24px 18px;
+			outline: none;
+			transition: border-color 0.15s;
+		}
+		.zukan-search input:focus {
+			border-color: var(--orange-light);
+		}
+		.zukan-search button {
+			padding: 0.6em 1.3em;
+			font-size: 0.85em;
+			font-weight: 700;
+			font-family: 'Yomogi', 'Hiragino Maru Gothic ProN', sans-serif;
+			color: #fff;
+			background: var(--orange);
+			border: 2px solid var(--orange-dark);
+			border-radius: 20px 24px 18px 26px / 24px 18px 26px 20px;
+			cursor: pointer;
+			white-space: nowrap;
+			transition: opacity 0.15s;
+		}
+		.zukan-search button:hover {
+			opacity: 0.85;
+		}
+
+		/* ── 扉が並ぶ廊下 ── */
 		.room-section {
-			padding: 3em 0 5em;
+			padding: 2.6em 0 5em;
 			background: var(--milk);
 		}
 		.room-section__inner {
-			max-width: 900px;
+			max-width: 980px;
 			margin: 0 auto;
-			padding: 0 1.5em;
+			padding: 0 1.2em;
 		}
 		.room-grid {
 			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1.6rem;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 1.2rem;
+			align-items: end;
 		}
 
-		/* ── 部屋カード ── */
+		/* ── 扉カード（枠なし・紙の上に扉が並ぶイメージ） ── */
 		.room-card {
-			background: #fff;
-			border-radius: 20px;
-			border: 1.5px solid var(--beige);
-			box-shadow: var(--shadow-sm);
-			overflow: hidden;
-			transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
-		}
-		.room-card:hover {
-			transform: translateY(-5px);
-			box-shadow: var(--shadow-hover);
-			border-color: var(--orange-light);
-		}
-		.room-card a {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			text-align: center;
-			padding: 2.6em 1.5em 2.2em;
 			text-decoration: none;
 			color: inherit;
-			gap: 0;
+			transition: transform 0.2s;
 		}
-		.room-card__door {
-			font-size: 2.8em;
-			line-height: 1;
-			margin-bottom: 0.2em;
+		.room-card:hover {
+			transform: translateY(-6px);
+			text-decoration: none;
 		}
-		.room-card__item-icon {
-			font-size: 2em;
-			line-height: 1;
-			margin-bottom: 0.55em;
+		.room-card :global(.crayon-door) {
+			filter: drop-shadow(0 4px 7px rgba(120, 90, 50, 0.18));
+			transition: filter 0.2s;
 		}
-		.room-card__name {
-			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
-			font-size: 1.15em;
-			font-weight: 700;
-			color: var(--text);
-			margin-bottom: 0.45em;
-			line-height: 1.3;
+		.room-card:hover :global(.crayon-door) {
+			filter: drop-shadow(0 8px 13px rgba(120, 90, 50, 0.28));
 		}
 		.room-card__desc {
-			font-size: 0.78em;
+			font-size: 0.72em;
 			color: var(--text-muted);
-			line-height: 1.55;
-			margin-bottom: 1.3em;
+			line-height: 1.5;
+			margin-top: 0.7em;
 		}
 		.room-card__enter {
 			display: inline-block;
-			padding: 0.5em 1.6em;
-			border-radius: 50px;
+			margin-top: 0.55em;
+			padding: 0.35em 1.2em;
+			border-radius: 30px 34px 28px 36px / 34px 28px 36px 30px;
 			border: 1.5px solid var(--orange-light);
 			color: var(--orange-dark);
-			font-size: 0.8em;
+			font-size: 0.72em;
 			font-weight: 700;
+			font-family: 'Yomogi', 'Hiragino Maru Gothic ProN', sans-serif;
 			transition: background 0.18s, color 0.18s;
 		}
 		.room-card:hover .room-card__enter {
@@ -160,17 +194,22 @@ const rooms = [
 			color: #fff;
 			border-color: var(--orange);
 		}
-		.room-card__bar {
-			height: 4px;
-			width: 100%;
-			background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 50%, var(--green-light) 100%);
-		}
 
-		@media (max-width: 600px) {
-			.room-grid { grid-template-columns: 1fr; gap: 1.1rem; }
-			.zukan-header { padding: 2em 1em 1.6em; }
-			.zukan-header__title { font-size: 1.6em; }
-			.room-card a { padding: 2em 1.2em 1.8em; }
+		/* ── スマホ：扉を2〜3列でコンパクトに ── */
+		@media (max-width: 700px) {
+			.room-grid {
+				grid-template-columns: repeat(3, 1fr);
+				gap: 0.8rem;
+			}
+			.room-card__desc { display: none; }
+			.room-card__enter {
+				margin-top: 0.5em;
+				padding: 0.3em 0.9em;
+				font-size: 0.68em;
+			}
+			.zukan-header { padding: 1.8em 1em 1.4em; }
+			.zukan-header__title { font-size: 1.55em; }
+			.room-section { padding: 1.8em 0 4em; }
 		}
 	</style>
 </head>
@@ -182,24 +221,28 @@ const rooms = [
 			<h1 class="zukan-header__title">📚 図鑑</h1>
 			<p class="zukan-header__desc">
 				コレクションを眺めて楽しむ場所です<br>
-				部屋を選んでなかを覗いてみてください
+				扉を選んでなかを覗いてみてください
 			</p>
+			<form class="zukan-search" action="/zukan/all" method="get">
+				<input
+					type="search"
+					name="q"
+					placeholder="グッズのなまえで探す（例：トトロ）"
+					aria-label="図鑑からグッズを検索"
+				/>
+				<button type="submit">🔍 さがす</button>
+			</form>
 		</div>
 
 		<section class="room-section">
 			<div class="room-section__inner">
 				<div class="room-grid">
 					{rooms.map((room) => (
-						<div class="room-card">
-							<div class="room-card__bar" />
-							<a href={room.href}>
-								<span class="room-card__door">🚪</span>
-								<span class="room-card__item-icon">{room.roomIcon}</span>
-								<span class="room-card__name">{room.name}</span>
-								<span class="room-card__desc">{room.desc}</span>
-								<span class="room-card__enter">部屋に入る →</span>
-							</a>
-						</div>
+						<a class="room-card" href={room.href}>
+							<CrayonDoor slug={`top-${room.slug}`} label={room.short} base={room.base} dark={room.dark} />
+							<span class="room-card__desc">{room.desc}</span>
+							<span class="room-card__enter">部屋に入る →</span>
+						</a>
 					))}
 				</div>
 			</div>

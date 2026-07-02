@@ -39,6 +39,15 @@
 
 * { box-sizing: border-box; }
 
+/* ── スマホの拡大表示・横はみ出し対策 ──
+   横にはみ出す要素があるとスマホで「拡大されたような表示」になるため、
+   ページ全体で横方向のはみ出しを禁止し、文字サイズの自動拡大も無効化する */
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	overflow-x: clip;
+}
+
 body {
 	font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', system-ui, sans-serif;
 	margin: 0;
@@ -49,6 +58,22 @@ body {
 	line-height: 1.85;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
+	overflow-x: clip;
+	max-width: 100vw;
+}
+
+/* 記事内の広い要素（表・広告・埋め込み）は画面からはみ出さず横スクロールに */
+.prose table {
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.prose iframe,
+.prose embed,
+.prose object,
+.prose video {
+	max-width: 100%;
 }
 
 main {
