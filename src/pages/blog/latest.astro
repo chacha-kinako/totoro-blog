@@ -41,7 +41,7 @@ const posts = (await getCollection('blog')).sort(
 				margin-bottom: 0.4em;
 			}
 			.page-heading__title {
-				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-family: var(--font-hand);
 				font-size: 1.6em;
 				font-weight: 700;
 				color: var(--text);
@@ -60,8 +60,8 @@ const posts = (await getCollection('blog')).sort(
 
 			.post-card {
 				background: #fff;
-				border-radius: 16px;
-				border: 1px solid var(--beige-light);
+				border-radius: 20px 16px 22px 14px / 16px 22px 14px 20px;
+				border: 2px solid var(--beige-light);
 				box-shadow: var(--shadow-sm);
 				overflow: hidden;
 				transition: transform 0.2s, box-shadow 0.2s;
@@ -88,6 +88,7 @@ const posts = (await getCollection('blog')).sort(
 				object-fit: cover;
 				display: block;
 				transition: transform 0.3s;
+				filter: url(#crayon-photo);
 			}
 			.post-card:hover .post-card__thumb img { transform: scale(1.04); }
 			.post-card__thumb-label {
@@ -96,7 +97,7 @@ const posts = (await getCollection('blog')).sort(
 				left: 0.8em;
 				background: rgba(255,255,255,0.93);
 				color: var(--orange-dark);
-				font-family: 'Kaisei Decol', serif;
+				font-family: var(--font-hand);
 				font-size: 0.79em;
 				font-weight: 700;
 				padding: 0.25em 0.8em;

@@ -70,7 +70,7 @@ const reviewCategories = [
 			margin-bottom: 0.4em;
 		}
 		.page-heading__title {
-			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-family: var(--font-hand);
 			font-size: 1.6em;
 			font-weight: 700;
 			color: var(--text);
@@ -95,8 +95,8 @@ const reviewCategories = [
 		/* ── カテゴリカード ── */
 		.review-card {
 			background: #fff;
-			border-radius: 18px;
-			border: 1.5px solid var(--beige);
+			border-radius: 22px 18px 24px 16px / 18px 24px 16px 22px;
+			border: 2px solid var(--beige);
 			box-shadow: var(--shadow-sm);
 			overflow: hidden;
 			transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
@@ -121,7 +121,7 @@ const reviewCategories = [
 			margin-bottom: 0.5em;
 		}
 		.review-card__name {
-			font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+			font-family: var(--font-hand);
 			font-size: 0.92em;
 			font-weight: 700;
 			color: var(--text);

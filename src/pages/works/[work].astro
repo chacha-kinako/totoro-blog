@@ -92,7 +92,7 @@ const { workName, workIcon, posts } = Astro.props;
 				margin-bottom: 0.4em;
 			}
 			.page-heading__title {
-				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-family: var(--font-hand);
 				font-size: 1.6em;
 				font-weight: 700;
 				color: var(--text);
@@ -128,8 +128,8 @@ const { workName, workIcon, posts } = Astro.props;
 			}
 			.post-card {
 				background: #fff;
-				border-radius: 16px;
-				border: 1px solid var(--beige-light);
+				border-radius: 20px 16px 22px 14px / 16px 22px 14px 20px;
+				border: 2px solid var(--beige-light);
 				box-shadow: var(--shadow-sm);
 				transition: transform 0.22s ease, box-shadow 0.22s ease;
 				overflow: hidden;
@@ -158,6 +158,7 @@ const { workName, workIcon, posts } = Astro.props;
 				object-position: center;
 				display: block;
 				transition: transform 0.3s ease;
+				filter: url(#crayon-photo);
 			}
 			.post-card:hover .post-card__thumb img { transform: scale(1.04); }
 			.post-card__bar {
@@ -206,7 +207,7 @@ const { workName, workIcon, posts } = Astro.props;
 				margin-bottom: 0.5em;
 			}
 			.coming-soon-title {
-				font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', serif;
+				font-family: var(--font-hand);
 				font-size: 1.3em;
 				font-weight: 700;
 				color: var(--text);
