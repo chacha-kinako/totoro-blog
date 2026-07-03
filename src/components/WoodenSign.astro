@@ -1,6 +1,6 @@
 ---
-// サイドバー用：木製看板コンポーネント
-// 看板ごとに色味を変えて「違う木の板」感を出す
+// サイドバー用：木製看板コンポーネント（クレヨンで描いた明るい木の板）
+// 看板ごとに木の色味を少しずつ変える
 import HandIcon from './HandIcon.astro';
 
 interface Props {
@@ -25,16 +25,16 @@ const {
 	<button class="wsign__head" type="button" aria-expanded={String(open)}>
 		<span class="wsign__nail wsign__nail--l"></span>
 		<span class="wsign__nail wsign__nail--r"></span>
-		<HandIcon name={icon} size={18} class="wsign__icon" />
+		<HandIcon name={icon} size={17} class="wsign__icon" />
 		<span class="wsign__title">{title}</span>
-		<span class="wsign__arrow"><HandIcon name="arrow" size={14} /></span>
+		<span class="wsign__arrow"><HandIcon name="arrow" size={13} /></span>
 	</button>
 	<div class="wsign__body">
 		<div class="wsign__inner">
 			<slot />
 			{moreHref && (
 				<a href={moreHref} class="wsign__more">
-					{moreLabel} <HandIcon name="arrow" size={12} />
+					{moreLabel} <span class="wsign__paw" aria-hidden="true">🐾</span>
 				</a>
 			)}
 		</div>
@@ -55,20 +55,21 @@ const {
 
 <style>
 	.wsign {
-		--plank: var(--wood);
-		--plank-dark: var(--wood-dark);
-		--plank-pale: #F3E7DA;
-		margin-bottom: 0.9em;
+		--plank: #DBB88C;
+		--plank-dark: #8A5F3E;
+		--plank-pale: #FFFDF6;
+		margin-bottom: 1em;
 		border-radius: 14px 18px 12px 20px / 18px 12px 20px 14px;
 		box-shadow: var(--shadow-sm);
 		overflow: hidden;
-		border: 2px solid var(--plank-dark);
+		border: 2.5px solid var(--plank);
+		background: var(--plank-pale);
 	}
-	.wsign--wood    { --plank: #9C7350; --plank-dark: #6B4A30; --plank-pale: #F3E7DA; }
-	.wsign--green   { --plank: #8B9A5E; --plank-dark: #5E6B3D; --plank-pale: #EEF0E1; }
-	.wsign--blue    { --plank: #8FA6B5; --plank-dark: #5F7C8C; --plank-pale: #EBF1F3; }
-	.wsign--mustard { --plank: #D7A23F; --plank-dark: #A6791F; --plank-pale: #FAF0D9; }
-	.wsign--orange  { --plank: #C17456; --plank-dark: #94523A; --plank-pale: #F7E7DB; }
+	.wsign--wood    { --plank: #DBB88C; --plank-dark: #8A5F3E; }
+	.wsign--green   { --plank: #C9CD97; --plank-dark: #6B7A44; }
+	.wsign--blue    { --plank: #B9C8CC; --plank-dark: #5F7C8C; }
+	.wsign--mustard { --plank: #E5C784; --plank-dark: #A6791F; }
+	.wsign--orange  { --plank: #E0B195; --plank-dark: #94523A; }
 
 	.wsign__head {
 		position: relative;
@@ -76,10 +77,17 @@ const {
 		display: flex;
 		align-items: center;
 		gap: 0.5em;
-		padding: 0.75em 0.9em 0.75em 1.6em;
-		background: var(--plank);
-		color: #fff;
+		padding: 0.7em 0.9em 0.7em 1.6em;
+		background-color: var(--plank);
+		/* 木目（クレヨンでこすったような横線） */
+		background-image: repeating-linear-gradient(
+			180deg,
+			rgba(120, 80, 40, 0.09) 0 2px,
+			transparent 2px 9px
+		);
+		color: var(--plank-dark);
 		border: none;
+		border-bottom: 2px solid var(--plank);
 		cursor: pointer;
 		font-family: var(--font-hand);
 	}
@@ -89,23 +97,24 @@ const {
 		width: 6px;
 		height: 6px;
 		border-radius: 50%;
-		background: rgba(255,255,255,0.55);
-		box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+		background: rgba(100, 65, 35, 0.45);
+		box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
 		transform: translateY(-50%);
 	}
 	.wsign__nail--l { left: 8px; }
 	.wsign__nail--r { right: 8px; }
 
-	.wsign__icon { color: #fff; flex-shrink: 0; }
+	.wsign__icon { color: var(--plank-dark); flex-shrink: 0; }
 	.wsign__title {
 		flex: 1;
 		text-align: left;
-		font-size: 0.86em;
+		font-size: 0.88em;
 		font-weight: 700;
-		letter-spacing: 0.02em;
+		letter-spacing: 0.03em;
 	}
 	.wsign__arrow {
-		color: rgba(255,255,255,0.85);
+		color: var(--plank-dark);
+		opacity: 0.7;
 		transition: transform 0.22s;
 		display: flex;
 	}
@@ -119,17 +128,32 @@ const {
 	}
 	.wsign[data-open="true"] .wsign__body { max-height: 900px; }
 
-	.wsign__inner { padding: 0.7em 0.9em 0.9em; }
+	.wsign__inner { padding: 0.8em 0.9em 0.9em; }
 
 	.wsign__more {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.3em;
-		margin-top: 0.4em;
+		gap: 0.35em;
+		margin-top: 0.6em;
+		padding: 0.35em 1.1em;
 		font-size: 0.76em;
 		font-weight: 700;
+		font-family: var(--font-hand);
 		color: var(--plank-dark);
+		background-color: var(--plank);
+		background-image: repeating-linear-gradient(
+			180deg,
+			rgba(120, 80, 40, 0.08) 0 2px,
+			transparent 2px 8px
+		);
+		border-radius: 18px 22px 16px 24px / 22px 16px 24px 18px;
 		text-decoration: none;
+		transition: transform 0.15s, box-shadow 0.15s;
 	}
-	.wsign__more:hover { text-decoration: underline; }
+	.wsign__more:hover {
+		text-decoration: none;
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-sm);
+	}
+	.wsign__paw { font-size: 0.95em; }
 </style>

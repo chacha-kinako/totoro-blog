@@ -52,8 +52,11 @@ const ghibliWorks = [
 
 	<WoodenSign title="人気記事" icon="heart" color="mustard" open moreHref={popularPosts.length > 0 ? '/blog/popular' : undefined}>
 		<ul class="sb-list">
-			{popularPosts.length > 0 ? popularPosts.map(post => (
-				<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
+			{popularPosts.length > 0 ? popularPosts.map((post, i) => (
+				<li class="sb-ranked">
+					<span class={`sb-num sb-num--${(i % 3) + 1}`}>{i + 1}</span>
+					<a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a>
+				</li>
 			)) : (
 				<li class="sb-empty">準備中です🌿</li>
 			)}
@@ -148,6 +151,32 @@ const ghibliWorks = [
 		color: var(--text-muted);
 		padding: 0.3em 0.3em;
 	}
+
+	/* 人気記事の順位バッジ */
+	.sb-ranked {
+		display: flex;
+		gap: 0.45em;
+		align-items: flex-start;
+	}
+	.sb-num {
+		flex-shrink: 0;
+		width: 1.6em;
+		height: 1.6em;
+		margin-top: 0.35em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.68em;
+		font-weight: 700;
+		font-family: var(--font-hand);
+		border-radius: 50%;
+		border: 2px solid;
+		background: #fff;
+	}
+	.sb-num--1 { color: var(--mustard-dark); border-color: var(--mustard); }
+	.sb-num--2 { color: var(--blue-ink); border-color: var(--blue-light); }
+	.sb-num--3 { color: var(--pink-dark); border-color: var(--pink); }
+	.sb-ranked .sb-link { flex: 1; }
 
 	@media (max-width: 860px) {
 		.sidebar { display: none; }

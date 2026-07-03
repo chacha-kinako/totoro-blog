@@ -28,6 +28,21 @@
 	--blue-light:    #C0D1D8;
 	--blue-pale:     #EBF1F3;
 
+	/* ── クレヨンブルー（見出し・リンク・線の色） ── */
+	--blue-ink:      #4A7CB5;
+	--blue-ink-dark: #3A6293;
+	--blue-crayon:   #6FA0D8;
+
+	/* ── やわらかアクセント：ピンク・ラベンダー・ミント ── */
+	--pink:          #E3A0B4;
+	--pink-dark:     #C97B93;
+	--pink-pale:     #F9E9EE;
+	--lavender:      #B7A8D6;
+	--lavender-pale: #F0EBF7;
+	--mint:          #9CC5B0;
+	--mint-pale:     #E9F3ED;
+	--gray-light:    #CFCBC2;
+
 	/* ── ベースカラー：画用紙（旧: milk） ── */
 	--milk:          #FAF5EA;
 	--milk-dark:     #F1E7D2;
@@ -172,12 +187,12 @@ h4 { font-size: 1.05em; }
 
 /* ── テキスト ────────────────── */
 a {
-	color: var(--orange);
+	color: var(--blue-ink);
 	text-decoration: none;
 	transition: color 0.15s;
 }
 a:hover {
-	color: var(--orange-dark);
+	color: var(--blue-ink-dark);
 	text-decoration: underline;
 }
 p { margin-bottom: 1.2em; }

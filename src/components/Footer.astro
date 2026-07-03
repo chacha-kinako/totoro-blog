@@ -25,14 +25,20 @@ const today = new Date();
 					fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round"
 				/>
 			))}
-			<!-- お花 -->
-			{[70, 230, 400, 560, 720].map((x) => (
+			<!-- お花（色とりどり） -->
+			{[
+				[70, '#E3A0B4'],
+				[230, 'var(--mustard)'],
+				[400, '#B7A8D6'],
+				[560, '#E3A0B4'],
+				[720, 'var(--orange-light)'],
+			].map(([x, c]) => (
 				<g transform={`translate(${x} 74)`}>
-					<circle cx="0" cy="-6" r="3" fill="var(--orange-light)" />
-					<circle cx="4" cy="-3" r="3" fill="var(--orange-light)" />
-					<circle cx="-4" cy="-3" r="3" fill="var(--orange-light)" />
-					<circle cx="0" cy="0" r="3" fill="var(--orange-light)" />
-					<circle cx="0" cy="-3" r="2" fill="var(--mustard)" />
+					<circle cx="0" cy="-6" r="3" fill={c} />
+					<circle cx="4" cy="-3" r="3" fill={c} />
+					<circle cx="-4" cy="-3" r="3" fill={c} />
+					<circle cx="0" cy="0" r="3" fill={c} />
+					<circle cx="0" cy="-3" r="2" fill="var(--mustard-light)" />
 				</g>
 			))}
 			<!-- 木（左右） -->
