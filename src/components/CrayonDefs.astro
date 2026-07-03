@@ -17,25 +17,20 @@
 			<feDisplacementMap in="SourceGraphic" in2="n2" scale="1.4" />
 		</filter>
 
-		<!-- 写真にクレヨン・オイルパステル質感を重ねる -->
-		<filter id="crayon-photo" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-			<!-- ざらついた粒状ノイズ（紙にクレヨンをこすった質感） -->
-			<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="grain" />
-			<feColorMatrix in="grain" type="matrix"
-				values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.5 0.5 0.5 0 -0.35" result="grainAlpha" />
-
-			<!-- 輪郭を少しにじませる（線がゆらぐ効果） -->
-			<feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="6" result="wob" />
-			<feDisplacementMap in="SourceGraphic" in2="wob" scale="6" result="wobbled" />
+		<!-- 写真にクレヨン・オイルパステル質感を重ねる（控えめ・写真の情報は保持） -->
+		<filter id="crayon-photo" x="-1.5%" y="-1.5%" width="103%" height="103%" color-interpolation-filters="sRGB">
+			<!-- 輪郭をほんの少しだけにじませる -->
+			<feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="6" result="wob" />
+			<feDisplacementMap in="SourceGraphic" in2="wob" scale="2.6" result="wobbled" />
 
 			<!-- 彩度を少し落として、色鉛筆っぽい発色に -->
-			<feColorMatrix in="wobbled" type="matrix"
-				values="1.05 0 0 0 0  0 1.0 0 0 0.01  0 0 0.95 0 0.02  0 0 0 1 0" result="tinted" />
+			<feColorMatrix in="wobbled" type="saturate" values="0.86" result="tinted" />
 
-			<feMerge>
-				<feMergeNode in="tinted" />
-				<feMergeNode in="grainAlpha" />
-			</feMerge>
+			<!-- ごく薄い紙のざらつき（クレヨンで塗った質感） -->
+			<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" result="grain" />
+			<feColorMatrix in="grain" type="matrix"
+				values="0 0 0 0 0.32  0 0 0 0 0.24  0 0 0 0 0.16  0.1 0.1 0.1 0 -0.08" result="grainSpeckle" />
+			<feComposite in="grainSpeckle" in2="tinted" operator="over" />
 		</filter>
 	</defs>
 </svg>
