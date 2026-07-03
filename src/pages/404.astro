@@ -1,0 +1,91 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Divider from '../components/Divider.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`ページが見つかりません | ${SITE_TITLE}`} description="お探しのページは見つかりませんでした。" />
+</head>
+<body>
+	<Header />
+	<main class="notfound">
+		<div class="notfound__card">
+			<svg class="notfound__door" viewBox="0 0 120 150" style="filter:url(#hand-wobble)" aria-hidden="true">
+				<path d="M12 62C12 15 30 5 60 5s48 10 48 57v83H12Z" fill="var(--orange-pale)" stroke="var(--orange-dark)" stroke-width="3" />
+				<circle cx="42" cy="80" r="3" fill="var(--orange-dark)" />
+				<text x="60" y="70" text-anchor="middle" font-size="34" font-family="var(--font-hand)" fill="var(--orange-dark)">?</text>
+			</svg>
+			<p class="notfound__eyebrow">迷子になっちゃった…</p>
+			<h1 class="notfound__title">このページは見つかりませんでした</h1>
+			<p class="notfound__desc">
+				おうちの中で扉をまちがえてしまったみたい🍃<br />
+				トップページから、あらためて探してみてくださいね。
+			</p>
+			<div class="notfound__actions">
+				<a href="/" class="hand-btn">🏠 トップページへ戻る</a>
+				<a href="/zukan/all" class="hand-btn">📚 図鑑をひらく</a>
+			</div>
+		</div>
+		<Divider variant="cloud" />
+	</main>
+	<Footer />
+</body>
+</html>
+
+<style>
+	.notfound {
+		max-width: 640px;
+		margin: auto;
+		padding: 4em 1.5em 3em;
+		text-align: center;
+	}
+	.notfound__card {
+		background: #fff;
+		border: 2px solid var(--beige);
+		border-radius: 26px 20px 28px 18px / 20px 28px 18px 26px;
+		box-shadow: var(--shadow-md);
+		padding: 2.6em 2em 2.8em;
+	}
+	.notfound__door {
+		width: 110px;
+		height: auto;
+		margin: 0 auto 1.2em;
+		display: block;
+	}
+	.notfound__eyebrow {
+		font-size: 0.78em;
+		font-weight: 700;
+		color: var(--orange);
+		letter-spacing: 0.1em;
+		margin: 0 0 0.4em;
+	}
+	.notfound__title {
+		font-family: var(--font-hand);
+		font-size: 1.4em;
+		color: var(--text);
+		margin: 0 0 0.7em;
+		line-height: 1.4;
+	}
+	.notfound__desc {
+		font-size: 0.9em;
+		color: var(--text-muted);
+		line-height: 1.9;
+		margin: 0 0 1.8em;
+	}
+	.notfound__actions {
+		display: flex;
+		justify-content: center;
+		gap: 0.8em;
+		flex-wrap: wrap;
+	}
+
+	@media (max-width: 600px) {
+		.notfound { padding: 2.4em 1em 2em; }
+		.notfound__card { padding: 2em 1.4em 2.2em; }
+	}
+</style>
