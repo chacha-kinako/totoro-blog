@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import WoodenSign from './WoodenSign.astro';
 
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -32,205 +33,120 @@ const ghibliWorks = [
 ---
 
 <aside class="sidebar">
+	<WoodenSign title="プロフィール" icon="profile" color="orange" moreHref="/about" moreLabel="自己紹介を見る">
+		<a href="/about" class="sb-profile">
+			<span class="sb-profile__avatar">🏠</span>
+			<span class="sb-profile__text">
+				トトロと暮らす丸窓の家から、<br />グッズと日々のことをのんびり発信中。
+			</span>
+		</a>
+	</WoodenSign>
 
-	<div class="sb-section" data-open="true">
-		<button class="sb-header" aria-expanded="true" type="button">
-			<span class="sb-header__title">📰 最新記事</span>
-			<span class="sb-header__arrow">▾</span>
-		</button>
-		<div class="sb-body">
-			<ul class="sb-list">
-				{latestPosts.map(post => (
-					<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
-				))}
-				<li><a href="/blog/latest" class="sb-more">すべて見る →</a></li>
-			</ul>
-		</div>
-	</div>
+	<WoodenSign title="最新記事" icon="article" color="wood" open moreHref="/blog/latest">
+		<ul class="sb-list">
+			{latestPosts.map(post => (
+				<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
+			))}
+		</ul>
+	</WoodenSign>
 
-	<div class="sb-section" data-open="true">
-		<button class="sb-header" aria-expanded="true" type="button">
-			<span class="sb-header__title">⭐ 人気記事</span>
-			<span class="sb-header__arrow">▾</span>
-		</button>
-		<div class="sb-body">
-			<ul class="sb-list">
-				{popularPosts.length > 0 ? popularPosts.map(post => (
-					<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
-				)) : (
-					<li class="sb-empty">準備中です🌿</li>
-				)}
-				{popularPosts.length > 0 && (
-					<li><a href="/blog/popular" class="sb-more">すべて見る →</a></li>
-				)}
-			</ul>
-		</div>
-	</div>
+	<WoodenSign title="人気記事" icon="heart" color="mustard" open moreHref={popularPosts.length > 0 ? '/blog/popular' : undefined}>
+		<ul class="sb-list">
+			{popularPosts.length > 0 ? popularPosts.map(post => (
+				<li><a href={`/blog/${post.id}/`} class="sb-link">{post.data.title}</a></li>
+			)) : (
+				<li class="sb-empty">準備中です🌿</li>
+			)}
+		</ul>
+	</WoodenSign>
 
-	<div class="sb-section">
-		<button class="sb-header" aria-expanded="false" type="button">
-			<span class="sb-header__title">🎬 作品別</span>
-			<span class="sb-header__arrow">▾</span>
-		</button>
-		<div class="sb-body sb-body--closed">
-			<ul class="sb-list">
-				{ghibliWorks.map(w => (
-					<li><a href={`/works/${encodeURIComponent(w.name)}`} class="sb-link">{w.icon} {w.name}</a></li>
-				))}
-				<li><a href="/works" class="sb-more">作品一覧 →</a></li>
-			</ul>
-		</div>
-	</div>
+	<WoodenSign title="作品別" icon="work" color="blue" moreHref="/works">
+		<ul class="sb-list">
+			{ghibliWorks.map(w => (
+				<li><a href={`/works/${encodeURIComponent(w.name)}`} class="sb-link">{w.icon} {w.name}</a></li>
+			))}
+		</ul>
+	</WoodenSign>
 
-	<div class="sb-section">
-		<button class="sb-header" aria-expanded="false" type="button">
-			<span class="sb-header__title">📂 カテゴリ別</span>
-			<span class="sb-header__arrow">▾</span>
-		</button>
-		<div class="sb-body sb-body--closed">
-			<ul class="sb-list">
-				{categories.map(cat => (
-					<li><a href={`/categories/${encodeURIComponent(cat.name)}`} class="sb-link">{cat.icon} {cat.name}</a></li>
-				))}
-				<li><a href="/categories" class="sb-more">カテゴリ一覧 →</a></li>
-			</ul>
-		</div>
-	</div>
+	<WoodenSign title="カテゴリ別" icon="category" color="green" moreHref="/categories">
+		<ul class="sb-list">
+			{categories.map(cat => (
+				<li><a href={`/categories/${encodeURIComponent(cat.name)}`} class="sb-link">{cat.icon} {cat.name}</a></li>
+			))}
+		</ul>
+	</WoodenSign>
 
-	<div class="sb-section">
-		<button class="sb-header" aria-expanded="false" type="button">
-			<span class="sb-header__title">📚 図鑑</span>
-			<span class="sb-header__arrow">▾</span>
-		</button>
-		<div class="sb-body sb-body--closed">
-			<ul class="sb-list">
-				<li><a href="/zukan/nuigurumi" class="sb-link">🧸 ぬいぐるみの部屋</a></li>
-				<li><a href="/zukan/toki" class="sb-link">🍵 陶器の部屋</a></li>
-				<li><a href="/zukan/figure" class="sb-link">🪆 フィギアの部屋</a></li>
-				<li><a href="/zukan/shokki" class="sb-link">🍽️ 食器の部屋</a></li>
-				<li><a href="/zukan/all" class="sb-link">📦 総合部屋</a></li>
-				<li><a href="/zukan/all" class="sb-more">図鑑TOP →</a></li>
-			</ul>
-		</div>
-	</div>
-
+	<WoodenSign title="図鑑" icon="book" color="orange" moreHref="/zukan/all" moreLabel="図鑑TOPへ">
+		<ul class="sb-list">
+			<li><a href="/zukan/nuigurumi" class="sb-link">🧸 ぬいぐるみの部屋</a></li>
+			<li><a href="/zukan/toki" class="sb-link">🍵 陶器の部屋</a></li>
+			<li><a href="/zukan/figure" class="sb-link">🪆 フィギアの部屋</a></li>
+			<li><a href="/zukan/shokki" class="sb-link">🍽️ 食器の部屋</a></li>
+			<li><a href="/zukan/all" class="sb-link">📦 総合部屋</a></li>
+		</ul>
+	</WoodenSign>
 </aside>
-
-<script>
-	document.querySelectorAll('.sidebar .sb-header').forEach(btn => {
-		btn.addEventListener('click', () => {
-			const section = btn.closest('.sb-section');
-			const body = section.querySelector('.sb-body');
-			const isOpen = btn.getAttribute('aria-expanded') === 'true';
-			btn.setAttribute('aria-expanded', String(!isOpen));
-			body.classList.toggle('sb-body--closed', isOpen);
-		});
-	});
-</script>
 
 <style>
 	.sidebar {
-		width: 210px;
+		width: 224px;
 		flex-shrink: 0;
 		position: sticky;
-		top: 72px;
-		max-height: calc(100vh - 80px);
+		top: 78px;
+		max-height: calc(100vh - 90px);
 		overflow-y: auto;
 		scrollbar-width: thin;
-		scrollbar-color: var(--beige-light) transparent;
+		scrollbar-color: var(--beige) transparent;
+		padding: 0.2em 0.2em 1em;
 	}
 
-	.sb-section {
-		border-bottom: 1px solid var(--beige-light);
-		padding: 0 0.1em;
-	}
-	.sb-section:last-child { border-bottom: none; }
-
-	.sb-header {
+	.sb-profile {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		background: none;
-		border: none;
-		padding: 0.75em 0.3em;
-		cursor: pointer;
-		gap: 0.3em;
-		border-radius: 6px;
-		transition: background 0.15s;
-	}
-	.sb-header:hover { background: var(--orange-pale); }
-
-	.sb-header__title {
-		font-size: 0.79em;
-		font-weight: 700;
+		gap: 0.6em;
+		align-items: flex-start;
+		text-decoration: none;
 		color: var(--text);
-		letter-spacing: 0.02em;
-		text-align: left;
 	}
-	.sb-header__arrow {
-		font-size: 0.8em;
-		color: var(--text-muted);
-		transition: transform 0.22s;
+	.sb-profile__avatar {
+		font-size: 1.6em;
 		flex-shrink: 0;
 	}
-	.sb-header[aria-expanded="false"] .sb-header__arrow {
-		transform: rotate(-90deg);
-	}
-
-	.sb-body {
-		overflow: hidden;
-		max-height: 900px;
-		transition: max-height 0.28s ease, opacity 0.2s;
-		opacity: 1;
-	}
-	.sb-body--closed {
-		max-height: 0;
-		opacity: 0;
+	.sb-profile__text {
+		font-size: 0.78em;
+		line-height: 1.6;
 	}
 
 	.sb-list {
 		list-style: none;
 		margin: 0;
-		padding: 0 0 0.6em;
+		padding: 0;
 	}
-	.sb-list li { padding: 0; }
+	.sb-list li { margin: 0; padding: 0; }
 
 	.sb-link {
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
-		font-size: 0.77em;
-		color: var(--text-muted);
+		font-size: 0.78em;
+		color: var(--text);
 		text-decoration: none;
-		padding: 0.3em 0.4em;
-		border-radius: 4px;
-		line-height: 1.45;
+		padding: 0.35em 0.3em;
+		border-radius: 6px;
+		line-height: 1.5;
 		transition: color 0.15s, background 0.15s;
 	}
 	.sb-link:hover {
 		color: var(--orange-dark);
-		background: var(--orange-pale);
+		background: rgba(255,255,255,0.6);
 		text-decoration: none;
 	}
-
-	.sb-more {
-		display: block;
-		font-size: 0.72em;
-		color: var(--orange);
-		text-decoration: none;
-		padding: 0.3em 0.4em 0.5em;
-		font-weight: 600;
-		margin-top: 0.1em;
-	}
-	.sb-more:hover { text-decoration: underline; color: var(--orange-dark); }
 
 	.sb-empty {
 		display: block;
 		font-size: 0.75em;
 		color: var(--text-muted);
-		padding: 0.3em 0.4em 0.5em;
+		padding: 0.3em 0.3em;
 	}
 
 	@media (max-width: 860px) {

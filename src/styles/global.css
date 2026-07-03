@@ -1,58 +1,88 @@
 :root {
-	/* ── メインカラー：くすみオレンジ ── */
-	--orange:        #C4714A;
-	--orange-dark:   #9A5230;
-	--orange-light:  #DBA882;
-	--orange-pale:   #FDF1E8;
+	/* ══════════════════════════════════════════
+	   クレヨンで描かれたジブリのある暮らし
+	   既存の変数名はそのまま・色味だけ世界観に合わせて刷新
+	   ══════════════════════════════════════════ */
 
-	/* ── サブカラー：若葉グリーン ── */
-	--green:         #7BA870;
-	--green-dark:    #4E7A45;
-	--green-light:   #AECBA6;
-	--green-pale:    #EEF5EC;
+	/* ── メインカラー：テラコッタ（旧: orange） ── */
+	--orange:        #C17456;
+	--orange-dark:   #94523A;
+	--orange-light:  #DFA588;
+	--orange-pale:   #F7E7DB;
 
-	/* ── ベースカラー：ミルクホワイト ── */
-	--milk:          #FAF8F4;
-	--milk-dark:     #F0EBE0;
+	/* ── サブカラー：オリーブグリーン（旧: green） ── */
+	--green:         #8B9A5E;
+	--green-dark:    #5E6B3D;
+	--green-light:   #BAC594;
+	--green-pale:    #EEF0E1;
+
+	/* ── アクセント：マスタード ── */
+	--mustard:       #D7A23F;
+	--mustard-dark:  #A6791F;
+	--mustard-light: #EAC77B;
+	--mustard-pale:  #FAF0D9;
+
+	/* ── アクセント：くすみブルー ── */
+	--blue:          #8FA6B5;
+	--blue-dark:     #5F7C8C;
+	--blue-light:    #C0D1D8;
+	--blue-pale:     #EBF1F3;
+
+	/* ── ベースカラー：画用紙（旧: milk） ── */
+	--milk:          #FAF5EA;
+	--milk-dark:     #F1E7D2;
 
 	/* ── 補助カラー：ベージュ ── */
-	--beige:         #E2D4BC;
-	--beige-light:   #EDE8DF;
+	--beige:         #E3D2AE;
+	--beige-light:   #EFE6D3;
+
+	/* ── 木のぬくもり ── */
+	--wood:          #8A5F3E;
+	--wood-dark:     #6B4A30;
+	--wood-light:    #B98F68;
 
 	/* ── 後方互換エイリアス ── */
-	--acorn:         #C4714A;
-	--acorn-light:   #FDF1E8;
-	--cream:         #FAF8F4;
-	--cream-dark:    #F0EBE0;
+	--acorn:         #C17456;
+	--acorn-light:   #F7E7DB;
+	--cream:         #FAF5EA;
+	--cream-dark:    #F1E7D2;
 
 	/* ── テキスト ── */
-	--text:          #3D3028;
-	--text-muted:    #8C7B6E;
-	--white:         #ffffff;
-	--border:        #E2D4BC;
+	--text:          #46362A;
+	--text-muted:    #8D7A67;
+	--white:         #fffdf7;
+	--border:        #E3D2AE;
 
-	--shadow-sm:    0 2px 8px rgba(180, 100, 50, 0.07);
-	--shadow-md:    0 4px 20px rgba(180, 100, 50, 0.11);
-	--shadow-hover: 0 8px 28px rgba(180, 100, 50, 0.16);
-	--radius:       14px;
+	--shadow-sm:    0 2px 8px rgba(120, 80, 40, 0.09);
+	--shadow-md:    0 4px 18px rgba(120, 80, 40, 0.13);
+	--shadow-hover: 0 7px 24px rgba(120, 80, 40, 0.19);
+	--radius:       16px;
+
+	/* ── 手描きフォント ── */
+	--font-hand: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', sans-serif;
+	--font-body: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
 
-/* ── スマホの拡大表示・横はみ出し対策 ──
-   横にはみ出す要素があるとスマホで「拡大されたような表示」になるため、
-   ページ全体で横方向のはみ出しを禁止し、文字サイズの自動拡大も無効化する */
+/* ── スマホの拡大表示・横はみ出し対策 ── */
 html {
 	-webkit-text-size-adjust: 100%;
 	text-size-adjust: 100%;
 	overflow-x: clip;
 }
 
+/* ── 画用紙の背景（控えめな紙質感） ──
+   ドット＋ごく薄い斜めの繊維ノイズで「真っ白禁止」の質感を出す */
 body {
-	font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', system-ui, sans-serif;
+	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
 	background-color: var(--milk);
+	background-image:
+		radial-gradient(rgba(140, 105, 60, 0.07) 1px, transparent 1.2px),
+		repeating-linear-gradient(115deg, rgba(140, 105, 60, 0.035) 0px, transparent 1.5px, transparent 5px);
+	background-size: 22px 22px, 7px 7px;
 	color: var(--text);
 	font-size: 17px;
 	line-height: 1.85;
@@ -84,7 +114,6 @@ main {
 }
 
 /* ── ホームページ 2カラムレイアウト用（上の main ルールを上書き） ── */
-/* index.astro の <main class="page-main"> に適用。flex子要素なので幅・余白不要 */
 .page-main {
 	width: auto !important;
 	max-width: none !important;
@@ -105,37 +134,40 @@ main {
 	border-radius: 0 !important;
 }
 
-/* ── 見出し ─────────────────── */
+/* ── 見出し：本文は読みやすさ優先、手描き感は控えめに ── */
 h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-hand);
 	color: var(--text);
-	line-height: 1.35;
+	line-height: 1.4;
 	font-weight: 700;
 	margin: 0 0 0.6em;
+	letter-spacing: 0.01em;
 }
-h1 { font-size: 2em; }
-h2 { font-size: 1.55em; }
-h3 { font-size: 1.2em; }
+h1 { font-size: 1.95em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.18em; }
 h4 { font-size: 1.05em; }
 
-/* 記事本文のh2：左にオレンジライン＋薄いベージュ背景 */
+/* 記事本文のh2：クレヨンの下線＋薄いテラコッタ背景 */
 .prose h2 {
 	margin-top: 2.8em;
 	margin-bottom: 0.8em;
 	padding: 0.5em 0.9em;
 	background: var(--orange-pale);
 	border-left: 4px solid var(--orange);
-	border-radius: 0 8px 8px 0;
+	border-radius: 4px 14px 4px 14px;
 	font-size: 1.3em;
 	color: var(--orange-dark);
 }
 
-/* 記事本文のh3：グリーンの下線 */
+/* 記事本文のh3：オリーブの手描き下線 */
 .prose h3 {
 	margin-top: 2em;
-	padding-bottom: 0.3em;
-	border-bottom: 2px solid var(--green-light);
+	padding-bottom: 0.35em;
+	border-bottom: 3px solid var(--green-light);
+	border-radius: 0 0 0 6px;
 	color: var(--text);
-	font-size: 1.1em;
+	font-size: 1.12em;
 }
 
 /* ── テキスト ────────────────── */
@@ -152,15 +184,16 @@ p { margin-bottom: 1.2em; }
 .prose p { margin-bottom: 1.5em; }
 strong, b { font-weight: 700; }
 
-/* ── テーブル ────────────────── */
+/* ── テーブル：手描きの罫線風 ── */
 table {
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 0.92em;
 	margin: 1.5em 0;
-	border-radius: 10px;
+	border-radius: 14px;
 	overflow: hidden;
 	box-shadow: var(--shadow-sm);
+	border: 2px solid var(--beige);
 }
 table th {
 	background: var(--beige-light);
@@ -168,6 +201,7 @@ table th {
 	padding: 0.65em 1em;
 	text-align: left;
 	font-weight: 700;
+	font-family: var(--font-hand);
 	border-bottom: 2px solid var(--beige);
 }
 table td {
@@ -182,7 +216,13 @@ ul, ol { padding-left: 1.5em; }
 li { margin-bottom: 0.4em; }
 
 /* ── 画像 ────────────────────── */
-img { max-width: 100%; height: auto; border-radius: 10px; }
+img { max-width: 100%; height: auto; border-radius: 12px; }
+
+/* 本文中の写真にクレヨン質感を重ねる（元の写真情報は保持） */
+.prose img,
+.crayon-photo {
+	filter: url(#crayon-photo);
+}
 
 /* ── 雰囲気フォトグリッド ───── */
 .photo-row {
@@ -197,7 +237,7 @@ img { max-width: 100%; height: auto; border-radius: 10px; }
 	width: 0;
 	height: 150px;
 	object-fit: cover;
-	border-radius: 8px;
+	border-radius: 10px;
 }
 @media (max-width: 600px) {
 	.photo-row img { height: 100px; }
@@ -207,25 +247,25 @@ img { max-width: 100%; height: auto; border-radius: 10px; }
 code {
 	padding: 2px 7px;
 	background: var(--cream-dark);
-	border-radius: 5px;
+	border-radius: 6px;
 	font-size: 0.88em;
 	color: var(--green-dark);
 }
 pre {
 	padding: 1.4em;
-	border-radius: 10px;
+	border-radius: 14px;
 	background: var(--cream-dark);
 	overflow-x: auto;
 }
 pre > code { all: unset; font-size: 0.88em; }
 
-/* ── 引用 ────────────────────── */
+/* ── 引用：クレヨンで囲んだ付箋のイメージ ── */
 blockquote {
 	border-left: 4px solid var(--orange-light);
 	background: var(--orange-pale);
 	padding: 0.8em 1.2em;
 	margin: 1.5em 0;
-	border-radius: 0 10px 10px 0;
+	border-radius: 4px 16px 4px 16px;
 	color: var(--text-muted);
 }
 
@@ -235,29 +275,71 @@ hr {
 	margin: 2.5em 0;
 }
 
-/* ── アフィリエイト用 ────────── */
+/* ── 手描きボタン（木製プレート／手描きラベル風） ──────────── */
 .btn {
-	display: inline-block;
-	padding: 0.6em 1.4em;
-	border-radius: 50px;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	padding: 0.65em 1.5em;
+	border-radius: 30px 34px 26px 36px / 34px 26px 36px 30px;
 	font-size: 0.875em;
 	font-weight: 700;
+	font-family: var(--font-hand);
 	text-decoration: none;
-	transition: opacity 0.18s, transform 0.18s;
-	letter-spacing: 0.03em;
+	border: 2px solid transparent;
+	transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+	letter-spacing: 0.02em;
 	line-height: 1.4;
+	box-shadow: var(--shadow-sm);
 }
-.btn:hover { opacity: 0.85; transform: translateY(-2px); text-decoration: none; }
+.btn:hover {
+	transform: translateY(-3px) scale(1.03);
+	box-shadow: var(--shadow-hover);
+	text-decoration: none;
+	filter: brightness(1.04);
+}
+.btn:active { transform: translateY(-1px) scale(1.0); }
 .btn--amazon  { background: #ff9900; color: #fff; }
 .btn--rakuten { background: #bf0000; color: #fff; }
 .btn--green   { background: var(--green); color: #fff; }
+.btn--wood    {
+	background: var(--wood);
+	color: var(--white);
+	border-color: var(--wood-dark);
+}
+
+/* 手描きの汎用ボタン（サイト内ナビゲーション用の木の板） */
+.hand-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	padding: 0.55em 1.3em;
+	background: var(--white);
+	border: 2px solid var(--beige);
+	border-radius: 22px 26px 20px 28px / 26px 20px 28px 22px;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: 0.85em;
+	color: var(--text);
+	text-decoration: none;
+	box-shadow: var(--shadow-sm);
+	transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.hand-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-hover);
+	border-color: var(--orange-light);
+	color: var(--orange-dark);
+	text-decoration: none;
+}
 
 .product-box {
 	display: flex;
 	gap: 1.2em;
 	background: var(--white);
-	border: 1px solid var(--border);
-	border-radius: var(--radius);
+	border: 2px solid var(--border);
+	border-radius: 18px 22px 16px 24px / 22px 16px 24px 18px;
 	padding: 1.4em;
 	margin: 2em 0;
 	box-shadow: var(--shadow-sm);
@@ -265,12 +347,34 @@ hr {
 	flex-wrap: wrap;
 }
 .product-box__image { width: 110px; flex-shrink: 0; }
-.product-box__image img { width: 100%; border-radius: 8px; object-fit: contain; }
+.product-box__image img { width: 100%; border-radius: 10px; object-fit: contain; }
 .product-box__body { flex: 1; min-width: 200px; }
-.product-box__title { font-weight: 700; font-size: 1em; margin: 0 0 0.4em; }
+.product-box__title { font-weight: 700; font-size: 1em; margin: 0 0 0.4em; font-family: var(--font-hand); }
 .product-box__desc  { font-size: 0.875em; color: var(--text-muted); margin: 0 0 0.6em; }
 .product-box__price { font-weight: 700; color: var(--green-dark); margin: 0 0 0.8em; }
 .product-box__buttons { display: flex; flex-wrap: wrap; gap: 0.6em; }
+
+/* ── 手描きカード（角丸を不揃いに） ── */
+.hand-card {
+	background: var(--white);
+	border: 2px solid var(--border);
+	border-radius: 22px 18px 24px 16px / 18px 24px 16px 22px;
+	box-shadow: var(--shadow-sm);
+}
+
+/* ── 手描き入力欄 ── */
+.hand-input {
+	border: 2px solid var(--beige);
+	border-radius: 16px 20px 14px 22px / 20px 14px 22px 16px;
+	background: var(--white);
+	color: var(--text);
+	padding: 0.6em 1.1em;
+	font-family: var(--font-body);
+	font-size: 16px;
+	outline: none;
+	transition: border-color 0.15s;
+}
+.hand-input:focus { border-color: var(--orange-light); }
 
 /* ── レスポンシブ ─────────────── */
 @media (max-width: 720px) {
@@ -285,4 +389,15 @@ hr {
 	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	white-space: nowrap;
+}
+
+/* ── ふわっと表示・軽いアニメーション ── */
+@media (prefers-reduced-motion: no-preference) {
+	.fade-in-up {
+		animation: fadeInUp 0.5s ease both;
+	}
+	@keyframes fadeInUp {
+		from { opacity: 0; transform: translateY(8px); }
+		to   { opacity: 1; transform: translateY(0); }
+	}
 }

@@ -1,0 +1,135 @@
+---
+// サイドバー用：木製看板コンポーネント
+// 看板ごとに色味を変えて「違う木の板」感を出す
+import HandIcon from './HandIcon.astro';
+
+interface Props {
+	title: string;
+	icon: 'article' | 'heart' | 'work' | 'category' | 'book' | 'profile';
+	color?: 'wood' | 'green' | 'blue' | 'mustard' | 'orange';
+	moreHref?: string;
+	moreLabel?: string;
+	open?: boolean;
+}
+const {
+	title,
+	icon,
+	color = 'wood',
+	moreHref,
+	moreLabel = 'もっと見る',
+	open = false,
+} = Astro.props;
+---
+
+<div class={`wsign wsign--${color}`} data-open={String(open)}>
+	<button class="wsign__head" type="button" aria-expanded={String(open)}>
+		<span class="wsign__nail wsign__nail--l"></span>
+		<span class="wsign__nail wsign__nail--r"></span>
+		<HandIcon name={icon} size={18} class="wsign__icon" />
+		<span class="wsign__title">{title}</span>
+		<span class="wsign__arrow"><HandIcon name="arrow" size={14} /></span>
+	</button>
+	<div class="wsign__body">
+		<div class="wsign__inner">
+			<slot />
+			{moreHref && (
+				<a href={moreHref} class="wsign__more">
+					{moreLabel} <HandIcon name="arrow" size={12} />
+				</a>
+			)}
+		</div>
+	</div>
+</div>
+
+<script>
+	document.querySelectorAll('.wsign__head').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const sign = btn.closest('.wsign');
+			if (!sign) return;
+			const isOpen = sign.getAttribute('data-open') === 'true';
+			sign.setAttribute('data-open', String(!isOpen));
+			btn.setAttribute('aria-expanded', String(!isOpen));
+		});
+	});
+</script>
+
+<style>
+	.wsign {
+		--plank: var(--wood);
+		--plank-dark: var(--wood-dark);
+		--plank-pale: #F3E7DA;
+		margin-bottom: 0.9em;
+		border-radius: 14px 18px 12px 20px / 18px 12px 20px 14px;
+		box-shadow: var(--shadow-sm);
+		overflow: hidden;
+		border: 2px solid var(--plank-dark);
+	}
+	.wsign--wood    { --plank: #9C7350; --plank-dark: #6B4A30; --plank-pale: #F3E7DA; }
+	.wsign--green   { --plank: #8B9A5E; --plank-dark: #5E6B3D; --plank-pale: #EEF0E1; }
+	.wsign--blue    { --plank: #8FA6B5; --plank-dark: #5F7C8C; --plank-pale: #EBF1F3; }
+	.wsign--mustard { --plank: #D7A23F; --plank-dark: #A6791F; --plank-pale: #FAF0D9; }
+	.wsign--orange  { --plank: #C17456; --plank-dark: #94523A; --plank-pale: #F7E7DB; }
+
+	.wsign__head {
+		position: relative;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.75em 0.9em 0.75em 1.6em;
+		background: var(--plank);
+		color: #fff;
+		border: none;
+		cursor: pointer;
+		font-family: var(--font-hand);
+	}
+	.wsign__nail {
+		position: absolute;
+		top: 50%;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: rgba(255,255,255,0.55);
+		box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+		transform: translateY(-50%);
+	}
+	.wsign__nail--l { left: 8px; }
+	.wsign__nail--r { right: 8px; }
+
+	.wsign__icon { color: #fff; flex-shrink: 0; }
+	.wsign__title {
+		flex: 1;
+		text-align: left;
+		font-size: 0.86em;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+	}
+	.wsign__arrow {
+		color: rgba(255,255,255,0.85);
+		transition: transform 0.22s;
+		display: flex;
+	}
+	.wsign[data-open="true"] .wsign__arrow { transform: rotate(90deg); }
+
+	.wsign__body {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.28s ease;
+		background: var(--plank-pale);
+	}
+	.wsign[data-open="true"] .wsign__body { max-height: 900px; }
+
+	.wsign__inner { padding: 0.7em 0.9em 0.9em; }
+
+	.wsign__more {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3em;
+		margin-top: 0.4em;
+		font-size: 0.76em;
+		font-weight: 700;
+		color: var(--plank-dark);
+		text-decoration: none;
+	}
+	.wsign__more:hover { text-decoration: underline; }
+</style>
