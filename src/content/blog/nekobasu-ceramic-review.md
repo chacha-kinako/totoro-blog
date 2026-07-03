@@ -3,7 +3,7 @@ title: 'ネコバス陶器は高い？実物レビューでわかった"買う�
 description: 'ネコバス陶器の価格は高いのか、実際に購入してわかったクオリティ・入手方法・デメリットをリアルにレビューします。'
 pubDate: '2026-05-04'
 heroImage: ''
-cardImage: '/images/img_1779457265296_2k916.webp'
+cardImage: '/images/img_1783091296602_gn3nl.webp'
 category: '陶器'
 showInLatest: false
 showInPopular: true
@@ -12,7 +12,7 @@ showInCategories: []
 showInWorks: ['となりのトトロ']
 ---
 
-<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">・実際に手に取って感じたリアルな魅力<br>・購入前に知っておきたいデメリットや注意点<br>・現在の入手方法と入手難易度<br>・「見つけたら買うべきか」の結論</p></div>
+<div style="background:#f0f9e8;border:2px solid #7cb342;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#3a6a1a;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">・実際に手に取って感じたリアルな魅力<br>・購入前に知っておきたいデメリットや注意点<br>・現在の入手方法と入手難易度<br>・「見つけたら買うべきか」の結論</p></div>
 
 ネコバスの陶器、見たことありますか？
 
@@ -46,7 +46,7 @@ showInWorks: ['となりのトトロ']
 
 ## ネコバス陶器は高い？実際に使ってわかった結論
 
-![](/images/img_1780320390241_0f5sl.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320390241_0f5sl.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 <div style="border-left:5px solid #f39c12;background:#fffbec;padding:14px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-weight:700;color:#856404" data-block="emphasis">結論から言うと、ネコバス陶器は「高いけど買う価値あり」です。</div>
 
@@ -84,7 +84,7 @@ showInWorks: ['となりのトトロ']
 
 ### 表情が最高すぎる（にゃぁーーーの顔）
 
-![](/images/img_1780320200629_11sz3.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320200629_11sz3.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ネコバス陶器の魅力の中でも、まず一番に伝えたいのがこの表情です。
 
@@ -100,7 +100,7 @@ showInWorks: ['となりのトトロ']
 
 ### 細部の作り込みが異常に細かい
 
-![](/images/img_1780320272432_omf77.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320272432_omf77.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ネコバス陶器は、細部の作り込みが本当に異常なレベルです。
 
@@ -118,7 +118,7 @@ showInWorks: ['となりのトトロ']
 
 ### 足の動きに躍動感がある
 
-![](/images/img_1780320286882_m3bze.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320286882_m3bze.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ネコバス陶器の中でも、個人的に一番すごいと感じたのが「足の動き」です。
 
@@ -136,7 +136,7 @@ showInWorks: ['となりのトトロ']
 
 ### 他の陶器と比べても圧倒的な存在感
 
-![](/images/img_1780320373918_75m1l.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320373918_75m1l.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ネコバス陶器は、他のジブリ陶器と並べても圧倒的な存在感があります。
 
@@ -154,7 +154,7 @@ showInWorks: ['となりのトトロ']
 
 ### とにかく重い（いい意味で）
 
-![](/images/img_1780320362196_0z7bz.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320362196_0z7bz.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ネコバス陶器は、とにかく重いです。
 
@@ -242,7 +242,7 @@ showInWorks: ['となりのトトロ']
 
 ## まとめ｜見つけたら即買いレベルのクオリティ
 
-![](/images/img_1780320402659_3709x.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320402659_3709x.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ネコバス陶器は、決して安い買い物ではありません。
 
@@ -260,7 +260,7 @@ showInWorks: ['となりのトトロ']
 
 <div style="border-left:5px solid #f39c12;background:#fffbec;padding:14px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-weight:700;color:#856404" data-block="emphasis">**見つけたときが"買いどき"です。**</div>
 
-![](/images/img_1780320328328_y8k47.webp)
+<figure style="margin:20px auto;"><img src="/images/img_1780320328328_y8k47.webp" alt="" style="width:100%;display:block;border-radius:6px;"></figure>
 
 ---
 
