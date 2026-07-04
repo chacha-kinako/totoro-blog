@@ -12,8 +12,6 @@ showInCategories: []
 showInWorks: ['となりのトトロ']
 ---
 
-<div style="background:#f0f9e8;border:2px solid #7cb342;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#3a6a1a;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">・実際に手に取って感じたリアルな魅力<br>・購入前に知っておきたいデメリットや注意点<br>・現在の入手方法と入手難易度<br>・「見つけたら買うべきか」の結論</p></div>
-
 ネコバスの陶器、見たことありますか？
 
 正直、最初に見たときは「え、これ高すぎない…？」って思いました。
@@ -40,9 +38,15 @@ showInWorks: ['となりのトトロ']
 
 「気になってるけど迷ってる…」という方の参考になれば嬉しいです。
 
+<div style="background:#f0f9e8;border:2px solid #7cb342;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#3a6a1a;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">・実際に手に取って感じたリアルな魅力<br>・購入前に知っておきたいデメリットや注意点<br>・現在の入手方法と入手難易度<br>・「見つけたら買うべきか」の結論</p></div>
+
+<div style="background:#fff;border:2px solid #3498db;border-radius:14px;padding:20px 26px;margin:28px 0;box-shadow:0 2px 8px rgba(52,152,219,0.08)" data-block="toc" data-toc-texts="[&quot;ネコバス陶器は高い？実際に使ってわかった結論&quot;,&quot;ネコバス陶器の魅力を実物レビュー&quot;,&quot;ネコバス陶器のデメリット&quot;,&quot;ネコバス陶器はどこで買える？入手方法まとめ&quot;,&quot;まとめ｜見つけたら即買いレベルのクオリティ&quot;]"><p style="font-weight:700;color:#1a5fa8;margin:0 0 12px;font-size:1.55em;text-align:center;border-bottom:2px solid #3498db;padding-bottom:8px;">もくじ</p><ul style="margin:0;padding-left:0.8em;line-height:2;list-style:none;"><li style="margin:6px 0;"><a href="#h-mr5sodoziju3" style="color:#1a5fa8;text-decoration:none;font-size:0.95em;">▶ ネコバス陶器は高い？実際に使ってわかった結論</a></li><li style="margin:6px 0;"><a href="#h-mr5sodozf9gz" style="color:#1a5fa8;text-decoration:none;font-size:0.95em;">▶ ネコバス陶器の魅力を実物レビュー</a></li><li style="margin:6px 0;"><a href="#h-mr5sodoz5nor" style="color:#1a5fa8;text-decoration:none;font-size:0.95em;">▶ ネコバス陶器のデメリット</a></li><li style="margin:6px 0;"><a href="#h-mr5sodoziivk" style="color:#1a5fa8;text-decoration:none;font-size:0.95em;">▶ ネコバス陶器はどこで買える？入手方法まとめ</a></li><li style="margin:6px 0;"><a href="#h-mr5sodozlvfw" style="color:#1a5fa8;text-decoration:none;font-size:0.95em;">▶ まとめ｜見つけたら即買いレベルのクオリティ</a></li></ul></div>
+
 ---
 
 ---
+
+<a id="h-mr5sodoziju3" style="display:block;height:0;visibility:hidden;margin-top:-70px;padding-top:70px;"></a>
 
 ## ネコバス陶器は高い？実際に使ってわかった結論
 
@@ -55,6 +59,8 @@ showInWorks: ['となりのトトロ']
 その理由を、実物レビューとともに詳しく紹介していきます。
 
 ---
+
+<a id="h-mr5sodozf9gz" style="display:block;height:0;visibility:hidden;margin-top:-70px;padding-top:70px;"></a>
 
 ## ネコバス陶器の魅力を実物レビュー
 
@@ -172,6 +178,8 @@ showInWorks: ['となりのトトロ']
 
 ---
 
+<a id="h-mr5sodoz5nor" style="display:block;height:0;visibility:hidden;margin-top:-70px;padding-top:70px;"></a>
+
 ## ネコバス陶器のデメリット
 
 ### 価格が高い
@@ -203,6 +211,8 @@ showInWorks: ['となりのトトロ']
 「あとで買おう」と思っていると、気づいたときには手に入らなくなっている可能性もあるので注意が必要です。
 
 ---
+
+<a id="h-mr5sodoziivk" style="display:block;height:0;visibility:hidden;margin-top:-70px;padding-top:70px;"></a>
 
 ## ネコバス陶器はどこで買える？入手方法まとめ
 
@@ -239,6 +249,8 @@ showInWorks: ['となりのトトロ']
 見つけたら、一度しっかり検討する価値はあると思います。
 
 ---
+
+<a id="h-mr5sodozlvfw" style="display:block;height:0;visibility:hidden;margin-top:-70px;padding-top:70px;"></a>
 
 ## まとめ｜見つけたら即買いレベルのクオリティ
 
