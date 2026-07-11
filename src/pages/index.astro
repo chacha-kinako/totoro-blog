@@ -27,15 +27,16 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 	<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	<style>
 		/* ── クレヨンヒーロー（外の景色のイラスト・季節で変化） ── */
+		/* ファーストビューでブログ名・TOP画像・3本柱まで見えるようコンパクトに調整 */
 		.crayon-hero {
-			padding: 2.8em 1.5em 1.2em;
+			padding: 1.3em 1.5em 0.5em;
 		}
 		.crayon-hero__inner {
 			max-width: 1020px;
 			margin: 0 auto;
 			display: flex;
 			align-items: center;
-			gap: 2.4em;
+			gap: 1.8em;
 		}
 		.crayon-hero__text {
 			flex: 1;
@@ -43,40 +44,40 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 		}
 		.crayon-hero__label {
 			display: inline-block;
-			font-size: 0.7em;
+			font-size: 0.68em;
 			font-weight: 700;
 			font-family: var(--font-hand);
 			color: var(--blue-ink);
 			letter-spacing: 0.2em;
 			text-transform: uppercase;
-			margin: 0 0 1em;
-			padding: 0.35em 1.2em;
+			margin: 0 0 0.5em;
+			padding: 0.3em 1em;
 			border: 2px solid var(--blue-light);
 			border-radius: 24px 28px 20px 30px / 28px 20px 30px 24px;
 			background: #fff;
 		}
 		.crayon-hero__title {
 			font-family: var(--font-hand);
-			font-size: 2.5em;
+			font-size: 1.7em;
 			font-weight: 700;
 			color: var(--blue-ink);
-			margin: 0 0 0.5em;
+			margin: 0 0 0.3em;
 			letter-spacing: 0.04em;
-			line-height: 1.45;
+			line-height: 1.35;
 		}
 		.crayon-hero__title em {
 			font-style: normal;
 			color: var(--orange);
 		}
 		.crayon-hero__tagline {
-			font-size: 0.92em;
+			font-size: 0.86em;
 			color: var(--text-muted);
 			margin: 0;
-			letter-spacing: 0.04em;
-			line-height: 2.1;
+			letter-spacing: 0.02em;
+			line-height: 1.6;
 		}
 		.crayon-hero__art {
-			width: min(46%, 470px);
+			width: min(30%, 220px);
 			flex-shrink: 0;
 		}
 		.crayon-hero__art svg {
@@ -86,7 +87,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 		}
 		.crayon-hero__photo {
 			max-width: 100%;
-			max-height: 480px;
+			max-height: 200px;
 			width: auto;
 			height: auto;
 			display: block;
@@ -97,14 +98,16 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			object-fit: contain;
 		}
 		@media (max-width: 720px) {
-			.crayon-hero { padding: 1.6em 1em 0.6em; }
+			.crayon-hero { padding: 1em 1em 0.4em; }
 			.crayon-hero__inner {
 				flex-direction: column;
-				gap: 0.8em;
+				gap: 0.6em;
 				text-align: center;
 			}
-			.crayon-hero__title { font-size: 1.75em; }
-			.crayon-hero__art { width: min(90%, 400px); }
+			.crayon-hero__title { font-size: 1.4em; }
+			.crayon-hero__tagline { display: none; }
+			.crayon-hero__art { width: min(55%, 200px); }
+			.crayon-hero__photo { max-height: 140px; }
 		}
 
 		/* ── クイックナビ ── */
@@ -112,8 +115,8 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
-			gap: 0.7em;
-			padding: 1.6em 1em 2em;
+			gap: 0.5em;
+			padding: 0.8em 1em 0.9em;
 			border-bottom: 2px dashed var(--beige);
 		}
 		.quick-nav__btn {
@@ -173,6 +176,10 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 		/* ── セクション共通 ── */
 		.home-section {
 			padding: 3.5em 0;
+		}
+		/* 3本柱セクションはファーストビューに収めたいので上下の余白を詰める */
+		#entrances.home-section {
+			padding: 1.2em 0 2.4em;
 		}
 		.home-section--alt {
 			background: transparent;
@@ -355,7 +362,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			border-radius: 26px 20px 28px 18px / 20px 28px 18px 26px;
 			border: 2px solid var(--beige);
 			box-shadow: var(--shadow-sm);
-			padding: 3em 2em 2.6em;
+			padding: 1.8em 1.6em 1.6em;
 			text-decoration: none;
 			color: inherit;
 			transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
