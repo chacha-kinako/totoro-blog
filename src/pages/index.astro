@@ -1,8 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Divider from '../components/Divider.astro';
@@ -11,19 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
 
 const homeAbout = siteConfig.homeAbout;
-
-const allPosts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-const latestPosts = allPosts.slice(0, 3);
-const featuredPosts = allPosts.filter(p => p.data.featured || p.data.showInPopular).slice(0, 3);
-
-const homeCategories = [
-	{ icon: '💎', name: 'コレクション',    desc: 'お気に入りを集めて',   href: '/categories/コレクション' },
-	{ icon: '✨', name: 'おすすめ・まとめ', desc: '迷ったらここから',     href: '/categories/おすすめ・まとめ' },
-	{ icon: '🎁', name: '今月の仲間入り',  desc: '新しく迎えたグッズ',   href: '/categories/今月の仲間入り' },
-	{ icon: '📖', name: 'お小遣い帳',      desc: 'リアルな収支公開',     href: '/categories/お小遣い帳' },
-];
+const exteriorImage = siteConfig.hero?.exteriorImage ?? '';
 
 // ビルド時点の季節（表示後にJSで現在の月に合わせて切り替える）
 const month = new Date().getMonth() + 1;
@@ -97,6 +83,18 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			width: 100%;
 			height: auto;
 			display: block;
+		}
+		.crayon-hero__photo {
+			max-width: 100%;
+			max-height: 480px;
+			width: auto;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: contain;
 		}
 		@media (max-width: 720px) {
 			.crayon-hero { padding: 1.6em 1em 0.6em; }
@@ -345,6 +343,9 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			grid-template-columns: repeat(2, 1fr);
 			gap: 2.4rem;
 		}
+		.entrance-grid--three {
+			grid-template-columns: repeat(3, 1fr);
+		}
 		.entrance-card {
 			display: flex;
 			flex-direction: column;
@@ -543,6 +544,9 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 				</p>
 			</div>
 			<div class="crayon-hero__art">
+				{exteriorImage ? (
+				<img class="crayon-hero__photo crayon-photo" src={exteriorImage} alt="おうちの外観" />
+				) : (
 				<svg viewBox="0 0 480 350" role="img" aria-label="丸窓の家と季節の木のクレヨンイラスト" xmlns="http://www.w3.org/2000/svg">
 					<!-- 太陽 -->
 					<g filter="url(#hand-wobble)">
@@ -718,17 +722,18 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 						))}
 					</g>
 				</svg>
+				)}
 			</div>
 		</div>
 	</section>
 
 	<!-- クイックナビ（全幅） -->
 	<nav class="quick-nav">
-		<a href="/blog/latest" class="quick-nav__btn quick-nav__btn--fill">最新記事</a>
+		<a href="/zukan" class="quick-nav__btn quick-nav__btn--fill">図書室</a>
+		<a href="/rooms" class="quick-nav__btn quick-nav__btn--fill">部屋</a>
+		<a href="/kozukai" class="quick-nav__btn quick-nav__btn--fill">お小遣い帳</a>
+		<a href="/blog/latest" class="quick-nav__btn">最新記事</a>
 		<a href="/blog/popular" class="quick-nav__btn">人気記事</a>
-		<a href="/zukan/all" class="quick-nav__btn">図鑑入口</a>
-		<a href="/blog" class="quick-nav__btn">レビュー入口</a>
-		<a href="/categories" class="quick-nav__btn">カテゴリ検索</a>
 		<a href="/about" class="quick-nav__btn">プロフィール</a>
 	</nav>
 
@@ -736,161 +741,28 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 	<div class="page-outer">
 		<main class="page-main">
 
-			<!-- 最新記事 -->
-			<section class="home-section home-section--alt" id="latest">
-				<div class="home-section__inner">
-					<div class="home-section__heading">
-						<span class="home-section__heading-label">LATEST POSTS</span>
-						<span class="home-section__heading-text">最新記事</span>
-					</div>
-					<ul class="post-grid">
-						{latestPosts.map((post) => (
-							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									{post.data.cardImage ? (
-										<>
-											<div class="post-card__thumb">
-												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-												{post.data.cardText && (
-													<span class="post-card__thumb-label">{post.data.cardText}</span>
-												)}
-											</div>
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-											</div>
-										</>
-									) : (
-										<>
-											<div class="post-card__bar" />
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-												{post.data.description && (
-													<p class="post-card__desc">{post.data.description}</p>
-												)}
-											</div>
-										</>
-									)}
-								</a>
-							</li>
-						))}
-						{Array.from({length: Math.max(0, 3 - latestPosts.length)}).map(() => (
-							<li class="post-card post-card--coming">
-								<div class="post-card__bar" />
-								<div class="post-card__body">
-									<p class="post-card__date">近日公開予定</p>
-									<h3 class="post-card__title">Coming Soon...</h3>
-									<p class="post-card__desc">新しい記事を準備中です🌿</p>
-								</div>
-							</li>
-						))}
-					</ul>
-					<div class="home-section__more">
-						<a href="/blog/latest">記事をもっと見る →</a>
-					</div>
-				</div>
-			</section>
-
-			<!-- 人気記事 -->
-			<section class="home-section home-section--white" id="popular">
-				<div class="home-section__inner">
-					<div class="home-section__heading">
-						<span class="home-section__heading-label">POPULAR POSTS</span>
-						<span class="home-section__heading-text">人気記事</span>
-					</div>
-					<ul class="post-grid">
-						{featuredPosts.map((post) => (
-							<li class="post-card">
-								<a href={`/blog/${post.id}/`}>
-									{post.data.cardImage ? (
-										<>
-											<div class="post-card__thumb">
-												<img src={post.data.cardImage} alt={post.data.cardText ?? post.data.title} />
-												{post.data.cardText && (
-													<span class="post-card__thumb-label">{post.data.cardText}</span>
-												)}
-											</div>
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-											</div>
-										</>
-									) : (
-										<>
-											<div class="post-card__bar" />
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-												{post.data.description && (
-													<p class="post-card__desc">{post.data.description}</p>
-												)}
-											</div>
-										</>
-									)}
-								</a>
-							</li>
-						))}
-						{Array.from({length: Math.max(0, 3 - featuredPosts.length)}).map(() => (
-							<li class="post-card post-card--coming">
-								<div class="post-card__bar" />
-								<div class="post-card__body">
-									<p class="post-card__date">近日公開予定</p>
-									<h3 class="post-card__title">Coming Soon...</h3>
-									<p class="post-card__desc">新しい記事を準備中です🌿</p>
-								</div>
-							</li>
-						))}
-					</ul>
-					<div class="home-section__more">
-						<a href="/blog/popular">記事をもっと見る →</a>
-					</div>
-				</div>
-			</section>
-
-			<div class="home-section__inner"><Divider variant="leaf" /></div>
-
-			<!-- 図鑑入口 ＆ レビュー入口 -->
+			<!-- 3本柱：図書室・部屋・お小遣い帳 -->
 			<section class="home-section home-section--alt" id="entrances">
 				<div class="home-section__inner">
-					<div class="entrance-grid">
-						<a href="/zukan/all" class="entrance-card">
+					<div class="entrance-grid entrance-grid--three">
+						<a href="/zukan" class="entrance-card">
 							<span class="entrance-card__icon"><HandIcon name="book" size={56} /></span>
-							<h2 class="entrance-card__title">図鑑をひらく</h2>
-							<p class="entrance-card__desc">コレクションを眺めて楽しむ場所<br>部屋ごとに分かれた図鑑です</p>
-							<span class="entrance-card__btn">図鑑に入る →</span>
+							<h2 class="entrance-card__title">📚 図書室</h2>
+							<p class="entrance-card__desc">コレクションを眺めて楽しむ場所<br>全図鑑の一覧です</p>
+							<span class="entrance-card__btn">図書室に入る →</span>
 						</a>
-						<a href="/blog" class="entrance-card">
-							<span class="entrance-card__icon"><HandIcon name="article" size={56} /></span>
-							<h2 class="entrance-card__title">レビューを読む</h2>
-							<p class="entrance-card__desc">実際の使用感・感想を見る場所<br>陶器・マグ・フィギュア・ぬいぐるみ</p>
-							<span class="entrance-card__btn">レビューを見る →</span>
+						<a href="/rooms" class="entrance-card">
+							<span class="entrance-card__icon"><HandIcon name="home" size={56} /></span>
+							<h2 class="entrance-card__title">🧸 部屋</h2>
+							<p class="entrance-card__desc">ジャンルごとの情報ハブ<br>図鑑・レビュー・特集記事など</p>
+							<span class="entrance-card__btn">部屋に入る →</span>
 						</a>
-					</div>
-				</div>
-			</section>
-
-			<!-- カテゴリ検索 -->
-			<section class="home-section home-section--white" id="categories">
-				<div class="home-section__inner">
-					<div class="home-section__heading">
-						<span class="home-section__heading-label">CATEGORIES</span>
-						<span class="home-section__heading-text">カテゴリから探す</span>
-					</div>
-					<ul class="category-grid">
-						{homeCategories.map((cat) => (
-							<li class="category-card">
-								<div class="category-card__bar" />
-								<a href={cat.href}>
-									<span class="category-card__icon">{cat.icon}</span>
-									<span class="category-card__name">{cat.name}</span>
-									<span class="category-card__desc">{cat.desc}</span>
-								</a>
-							</li>
-						))}
-					</ul>
-					<div class="home-section__more">
-						<a href="/categories">カテゴリをすべて見る →</a>
+						<a href="/kozukai" class="entrance-card">
+							<span class="entrance-card__icon"><HandIcon name="tag" size={56} /></span>
+							<h2 class="entrance-card__title">💰 お小遣い帳</h2>
+							<p class="entrance-card__desc">毎月のコレクション日記<br>リアルな収支も公開</p>
+							<span class="entrance-card__btn">お小遣い帳を見る →</span>
+						</a>
 					</div>
 				</div>
 			</section>

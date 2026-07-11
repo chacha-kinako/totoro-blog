@@ -1,0 +1,422 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import Divider from '../../components/Divider.astro';
+import { SITE_TITLE } from '../../consts';
+import roomsData from '../../data/rooms.json';
+import zukanDataRaw from '../../data/zukan.json';
+import siteConfig from '../../data/site-config.json';
+
+type RoomEntry = {
+	slug: string;
+	name: string;
+	emoji: string;
+	color: string;
+	sortOrder: number;
+	isActive: boolean;
+	top3: { rank: number; slug: string; title: string }[];
+};
+
+type ZukanItem = {
+	id: string;
+	name?: string;
+	comment?: string;
+	image: string;
+	reviewLink: string;
+	affiliateLink: string;
+	room?: string;
+};
+
+export function getStaticPaths() {
+	const rooms = roomsData as RoomEntry[];
+	return rooms
+		.filter((r) => r.isActive)
+		.map((r) => ({ params: { slug: r.slug }, props: { room: r } }));
+}
+
+const { room } = Astro.props as { room: RoomEntry };
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const roomPosts = allPosts.filter((p) => p.data.room === room.slug);
+
+const latestPosts = roomPosts.slice(0, 4);
+const popularPosts = roomPosts.filter((p) => p.data.showInPopular).slice(0, 4);
+const reviewPosts = roomPosts.filter((p) => p.data.articleType === 'review');
+const hikakuPosts = roomPosts.filter((p) => p.data.articleType === 'hikaku');
+const matomePosts = roomPosts.filter((p) => p.data.articleType === 'matome');
+const tokushuPosts = roomPosts.filter((p) => p.data.articleType === 'tokushu');
+
+const top3 = room.top3
+	.slice()
+	.sort((a, b) => a.rank - b.rank)
+	.map((t) => ({ ...t, post: allPosts.find((p) => p.id === t.slug) }))
+	.filter((t) => t.post);
+
+const zukanItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter(
+	(item) => item.room === room.name,
+);
+
+const interiorImage = siteConfig.hero?.interiorImage ?? '';
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`${room.name} | ${SITE_TITLE}`} description={`${room.name}の図鑑・レビュー・特集記事などをまとめたページです。`} />
+	<style>
+		.room-hub-header {
+			text-align: center;
+			padding: 2.4em 1em 1.6em;
+			background: #fff;
+		}
+		.room-hub-header__label {
+			display: inline-block;
+			font-size: 0.7em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.22em;
+			margin-bottom: 0.6em;
+			padding: 0.3em 1.1em;
+			border: 1.5px solid var(--orange-light);
+			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
+			background: var(--orange-pale);
+		}
+		.room-hub-header__title {
+			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
+			font-size: 1.9em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0;
+		}
+
+		.interior-hero {
+			max-width: 900px;
+			margin: 1.6em auto 0;
+			padding: 0 1.2em;
+		}
+		.interior-hero img {
+			max-width: 100%;
+			max-height: 380px;
+			width: auto;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: contain;
+		}
+
+		.page-outer {
+			max-width: 1320px;
+			margin: 0 auto;
+			padding: 0 0.5em 0 1.5em;
+			display: flex;
+			gap: 4em;
+			align-items: flex-start;
+		}
+		.page-main {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.hub-section {
+			padding: 2.6em 0;
+		}
+		.hub-section__inner { padding: 0 1.5em; }
+		.hub-section__heading {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3em;
+			margin: 0 0 1.6em;
+		}
+		.hub-section__heading-text {
+			font-family: var(--font-hand);
+			font-size: 1.25em;
+			font-weight: 700;
+			color: var(--blue-ink);
+			padding-bottom: 0.3em;
+			text-decoration: underline wavy var(--blue-light) 2.5px;
+			text-underline-offset: 8px;
+		}
+
+		/* ── 図鑑カードグリッド ── */
+		.zukan-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 12px;
+		}
+		.zukan-card {
+			background: #fff;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: var(--shadow-sm);
+			border: 2px solid var(--beige-light);
+		}
+		.zukan-card__img { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: var(--milk-dark); }
+		.zukan-card__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+		.zukan-card__name { font-size: 0.74em; font-weight: 700; padding: 6px 8px 2px; color: var(--text); }
+
+		/* ── 記事カードグリッド（簡易） ── */
+		.post-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 1.2rem;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.post-card {
+			background: #fff;
+			border-radius: 16px 12px 18px 10px / 12px 18px 10px 16px;
+			border: 2px solid var(--beige-light);
+			box-shadow: var(--shadow-sm);
+			overflow: hidden;
+		}
+		.post-card a { display: block; text-decoration: none; color: inherit; }
+		.post-card__body { padding: 0.9em 1em 1.1em; }
+		.post-card__date { font-size: 0.68em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.3em; }
+		.post-card__title {
+			font-size: 0.85em;
+			font-weight: 700;
+			font-family: var(--font-hand);
+			color: var(--blue-ink);
+			line-height: 1.5;
+			margin: 0;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		/* ── TOP3 ── */
+		.top3-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0.8em;
+		}
+		.top3-item {
+			display: flex;
+			align-items: center;
+			gap: 1em;
+			background: #fff;
+			border: 2px solid var(--beige-light);
+			border-radius: 16px 12px 18px 10px / 12px 18px 10px 16px;
+			padding: 0.9em 1.2em;
+			text-decoration: none;
+			color: inherit;
+			box-shadow: var(--shadow-sm);
+		}
+		.top3-item__rank {
+			font-size: 1.6em;
+			flex-shrink: 0;
+		}
+		.top3-item__title {
+			font-size: 0.88em;
+			font-weight: 700;
+			font-family: var(--font-hand);
+			color: var(--blue-ink);
+		}
+
+		@media (max-width: 900px) {
+			.zukan-grid { grid-template-columns: repeat(3, 1fr); }
+			.post-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 560px) {
+			.zukan-grid { grid-template-columns: repeat(2, 1fr); }
+			.post-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+<body>
+	<Header />
+	<main>
+		<div class="room-hub-header">
+			<span class="room-hub-header__label">ROOM</span>
+			<h1 class="room-hub-header__title">{room.emoji} {room.name}</h1>
+		</div>
+
+		{interiorImage && (
+			<div class="interior-hero">
+				<img src={interiorImage} alt="おうちの中の様子" />
+			</div>
+		)}
+
+		<div class="page-outer">
+			<main class="page-main">
+
+				{zukanItems.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading">
+								<span class="hub-section__heading-text">📖 図鑑</span>
+							</div>
+							<div class="zukan-grid">
+								{zukanItems.slice(0, 8).map((item) => (
+									<a class="zukan-card" href={item.reviewLink || `/room/${room.slug}`}>
+										<div class="zukan-card__img"><img src={item.image} alt={item.name ?? ''} loading="lazy" /></div>
+										{item.name && <div class="zukan-card__name">{item.name}</div>}
+									</a>
+								))}
+							</div>
+						</div>
+					</section>
+				)}
+
+				{reviewPosts.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">🔍 レビュー</span></div>
+							<ul class="post-grid">
+								{reviewPosts.slice(0, 8).map((post) => (
+									<li class="post-card">
+										<a href={`/blog/${post.id}/`}>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				)}
+
+				{latestPosts.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">🆕 最新記事</span></div>
+							<ul class="post-grid">
+								{latestPosts.map((post) => (
+									<li class="post-card">
+										<a href={`/blog/${post.id}/`}>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				)}
+
+				{popularPosts.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">💗 人気記事</span></div>
+							<ul class="post-grid">
+								{popularPosts.map((post) => (
+									<li class="post-card">
+										<a href={`/blog/${post.id}/`}>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				)}
+
+				{top3.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">🏆 おすすめTOP3</span></div>
+							<div class="top3-list">
+								{top3.map((t) => (
+									<a class="top3-item" href={`/blog/${t.post!.id}/`}>
+										<span class="top3-item__rank">{t.rank === 1 ? '🥇' : t.rank === 2 ? '🥈' : '🥉'}</span>
+										<span class="top3-item__title">{t.post!.data.title}</span>
+									</a>
+								))}
+							</div>
+						</div>
+					</section>
+				)}
+
+				{hikakuPosts.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">⚖️ 比較記事</span></div>
+							<ul class="post-grid">
+								{hikakuPosts.map((post) => (
+									<li class="post-card">
+										<a href={`/blog/${post.id}/`}>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				)}
+
+				{matomePosts.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">📚 まとめ記事</span></div>
+							<ul class="post-grid">
+								{matomePosts.map((post) => (
+									<li class="post-card">
+										<a href={`/blog/${post.id}/`}>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				)}
+
+				{tokushuPosts.length > 0 && (
+					<section class="hub-section">
+						<div class="hub-section__inner">
+							<div class="hub-section__heading"><span class="hub-section__heading-text">🌟 特集記事</span></div>
+							<ul class="post-grid">
+								{tokushuPosts.map((post) => (
+									<li class="post-card">
+										<a href={`/blog/${post.id}/`}>
+											<div class="post-card__body">
+												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="post-card__title">{post.data.title}</h3>
+											</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				)}
+
+				{zukanItems.length === 0 && roomPosts.length === 0 && (
+					<div class="hub-section__inner" style="text-align:center; color: var(--text-muted); padding: 3em 1em;">
+						🌱 まだこの部屋にはコンテンツがありません。少しまってね！
+					</div>
+				)}
+
+				<div class="hub-section__inner"><Divider variant="leaf" /></div>
+			</main>
+
+			<Sidebar />
+		</div>
+	</main>
+	<Footer />
+</body>
+</html>

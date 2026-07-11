@@ -1,0 +1,181 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { SITE_TITLE } from '../consts';
+import siteConfig from '../data/site-config.json';
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const kozukaiPosts = allPosts.filter((p) => p.data.articleType === 'kozukai');
+
+const interiorImage = siteConfig.hero?.interiorImage ?? '';
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`お小遣い帳 | ${SITE_TITLE}`} description="毎月のコレクション日記。予算・使った金額・仲間入りしたグッズをリアルに公開しています。" />
+	<style>
+		.kozukai-header {
+			text-align: center;
+			padding: 2.6em 1em 1.8em;
+			background: #fff;
+		}
+		.kozukai-header__label {
+			display: inline-block;
+			font-size: 0.7em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.22em;
+			margin-bottom: 0.6em;
+			padding: 0.3em 1.1em;
+			border: 1.5px solid var(--orange-light);
+			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
+			background: var(--orange-pale);
+		}
+		.kozukai-header__title {
+			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
+			font-size: 2em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.4em;
+			line-height: 1.3;
+		}
+		.kozukai-header__desc {
+			font-size: 0.88em;
+			color: var(--text-muted);
+			margin: 0;
+			line-height: 1.8;
+		}
+
+		.interior-hero {
+			max-width: 900px;
+			margin: 1.6em auto 0;
+			padding: 0 1.2em;
+		}
+		.interior-hero img {
+			max-width: 100%;
+			max-height: 420px;
+			width: auto;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: contain;
+		}
+
+		.page-outer {
+			max-width: 1320px;
+			margin: 0 auto;
+			padding: 2.4em 0.5em 5em 1.5em;
+			display: flex;
+			gap: 4em;
+			align-items: flex-start;
+		}
+		.page-main { flex: 1; min-width: 0; padding: 0 1.5em; }
+
+		.kozukai-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+		}
+		.kozukai-item {
+			display: flex;
+			gap: 1.2em;
+			align-items: center;
+			background: #fff;
+			border: 2px solid var(--beige-light);
+			border-radius: 20px 16px 22px 14px / 16px 22px 14px 20px;
+			box-shadow: var(--shadow-sm);
+			padding: 1.1em 1.4em;
+			text-decoration: none;
+			color: inherit;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.kozukai-item:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-hover);
+			text-decoration: none;
+		}
+		.kozukai-item__icon {
+			font-size: 1.8em;
+			flex-shrink: 0;
+		}
+		.kozukai-item__date {
+			font-size: 0.7em;
+			color: var(--text-muted);
+			font-weight: 600;
+			margin-bottom: 0.3em;
+		}
+		.kozukai-item__title {
+			font-size: 0.94em;
+			font-weight: 700;
+			font-family: var(--font-hand);
+			color: var(--blue-ink);
+			line-height: 1.6;
+			margin: 0;
+		}
+		.kozukai-empty {
+			text-align: center;
+			color: var(--text-muted);
+			padding: 3em 1em;
+			line-height: 2;
+		}
+
+		@media (max-width: 860px) {
+			.page-outer { flex-direction: column; padding: 1.8em 1em 4em; gap: 1.5em; }
+			.page-main { padding: 0; }
+		}
+	</style>
+</head>
+<body>
+	<Header />
+	<main>
+		<div class="kozukai-header">
+			<span class="kozukai-header__label">KOZUKAI</span>
+			<h1 class="kozukai-header__title">💰 お小遣い帳</h1>
+			<p class="kozukai-header__desc">
+				毎月のコレクション日記です<br>
+				予算・使った金額・仲間入りしたグッズをリアルに公開しています
+			</p>
+		</div>
+
+		{interiorImage && (
+			<div class="interior-hero">
+				<img src={interiorImage} alt="おうちの中の様子" />
+			</div>
+		)}
+
+		<div class="page-outer">
+			<div class="page-main">
+				{kozukaiPosts.length === 0 ? (
+					<p class="kozukai-empty">🌱 まだお小遣い帳の記事がありません<br>少しまってね！</p>
+				) : (
+					<ul class="kozukai-list" style="list-style:none; margin:0; padding:0;">
+						{kozukaiPosts.map((post) => (
+							<li>
+								<a class="kozukai-item" href={`/blog/${post.id}/`}>
+									<span class="kozukai-item__icon">💰</span>
+									<span>
+										<p class="kozukai-item__date"><FormattedDate date={post.data.pubDate} /></p>
+										<h2 class="kozukai-item__title">{post.data.title}</h2>
+									</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				)}
+			</div>
+			<Sidebar />
+		</div>
+	</main>
+	<Footer />
+</body>
+</html>

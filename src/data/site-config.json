@@ -1,4 +1,8 @@
 {
+  "hero": {
+    "exteriorImage": "/images/img_1783730329416_5v5vc.webp",
+    "interiorImage": "/images/img_1783730347752_9c36j.webp"
+  },
   "homeAbout": {
     "icon": "🍀",
     "name": "エンジョイ！ジブリライフ！",

@@ -18,6 +18,8 @@ const blog = defineCollection({
 			cardText: z.string().optional(),
 			featured: z.boolean().optional(),
 			category: z.string().optional(),
+			room: z.string().optional(),
+			articleType: z.string().optional(),
 			showInLatest: z.boolean().optional(),
 			showInPopular: z.boolean().optional(),
 			showInCategories: z.array(z.string()).optional(),

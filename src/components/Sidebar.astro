@@ -8,18 +8,6 @@ const allPosts = (await getCollection('blog')).sort(
 const latestPosts = allPosts.slice(0, 6);
 const popularPosts = allPosts.filter(p => p.data.showInPopular || p.data.featured).slice(0, 6);
 
-const categories = [
-	{ icon: '💎', name: 'コレクション' },
-	{ icon: '✨', name: 'おすすめ・まとめ' },
-	{ icon: '🎁', name: '今月の仲間入り' },
-	{ icon: '📖', name: 'お小遣い帳' },
-	{ icon: '🛍️', name: 'グッズ購入のいろは' },
-	{ icon: '🪆', name: 'フィギア' },
-	{ icon: '🍵', name: '陶器' },
-	{ icon: '🍽️', name: '食器' },
-	{ icon: '📦', name: '総合' },
-];
-
 const ghibliWorks = [
 	{ icon: '🌱', name: 'となりのトトロ' },
 	{ icon: '🛁', name: '千と千尋の神隠し' },
@@ -68,24 +56,6 @@ const ghibliWorks = [
 			{ghibliWorks.map(w => (
 				<li><a href={`/works/${encodeURIComponent(w.name)}`} class="sb-link">{w.icon} {w.name}</a></li>
 			))}
-		</ul>
-	</WoodenSign>
-
-	<WoodenSign title="カテゴリ別" icon="category" color="green" moreHref="/categories">
-		<ul class="sb-list">
-			{categories.map(cat => (
-				<li><a href={`/categories/${encodeURIComponent(cat.name)}`} class="sb-link">{cat.icon} {cat.name}</a></li>
-			))}
-		</ul>
-	</WoodenSign>
-
-	<WoodenSign title="図鑑" icon="book" color="orange" moreHref="/zukan/all" moreLabel="図鑑TOPへ">
-		<ul class="sb-list">
-			<li><a href="/zukan/nuigurumi" class="sb-link">🧸 ぬいぐるみの部屋</a></li>
-			<li><a href="/zukan/toki" class="sb-link">🍵 陶器の部屋</a></li>
-			<li><a href="/zukan/figure" class="sb-link">🪆 フィギアの部屋</a></li>
-			<li><a href="/zukan/shokki" class="sb-link">🍽️ 食器の部屋</a></li>
-			<li><a href="/zukan/all" class="sb-link">📦 総合部屋</a></li>
 		</ul>
 	</WoodenSign>
 </aside>

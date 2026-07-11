@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "nuigurumi",
+    "name": "ぬいぐるみの部屋",
+    "emoji": "🧸",
+    "color": "#F2A9BC",
+    "sortOrder": 1,
+    "isActive": true,
+    "top3": []
+  },
+  {
+    "slug": "figure",
+    "name": "フィギアの部屋",
+    "emoji": "🪆",
+    "color": "#D08B3E",
+    "sortOrder": 2,
+    "isActive": true,
+    "top3": []
+  },
+  {
+    "slug": "shokki",
+    "name": "食器の部屋",
+    "emoji": "🍽️",
+    "color": "#64AAE8",
+    "sortOrder": 3,
+    "isActive": true,
+    "top3": []
+  },
+  {
+    "slug": "toki",
+    "name": "陶器の部屋",
+    "emoji": "🍵",
+    "color": "#A5C86B",
+    "sortOrder": 4,
+    "isActive": true,
+    "top3": []
+  },
+  {
+    "slug": "planter",
+    "name": "プランターカバーの部屋",
+    "emoji": "🪴",
+    "color": "#8FBF6E",
+    "sortOrder": 5,
+    "isActive": true,
+    "top3": []
+  }
+]

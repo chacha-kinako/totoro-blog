@@ -1,0 +1,192 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import CrayonDoor from '../components/CrayonDoor.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import roomsData from '../data/rooms.json';
+import siteConfig from '../data/site-config.json';
+
+type RoomEntry = {
+	slug: string;
+	name: string;
+	emoji: string;
+	color: string;
+	sortOrder: number;
+	isActive: boolean;
+};
+
+const rooms = (roomsData as RoomEntry[])
+	.filter((r) => r.isActive)
+	.sort((a, b) => a.sortOrder - b.sortOrder);
+
+const interiorImage = siteConfig.hero?.interiorImage ?? '';
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`部屋 | ${SITE_TITLE}`} description="ジャンルごとに分かれた部屋。図鑑・レビュー・特集記事などをまとめて楽しめます。" />
+	<style>
+		.rooms-header {
+			text-align: center;
+			padding: 2.6em 1em 1.8em;
+			background: #fff;
+		}
+		.rooms-header__label {
+			display: inline-block;
+			font-size: 0.7em;
+			font-weight: 700;
+			color: var(--orange);
+			letter-spacing: 0.22em;
+			margin-bottom: 0.6em;
+			padding: 0.3em 1.1em;
+			border: 1.5px solid var(--orange-light);
+			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
+			background: var(--orange-pale);
+		}
+		.rooms-header__title {
+			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
+			font-size: 2em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.4em;
+			line-height: 1.3;
+		}
+		.rooms-header__desc {
+			font-size: 0.88em;
+			color: var(--text-muted);
+			margin: 0;
+			line-height: 1.8;
+		}
+
+		.interior-hero {
+			max-width: 900px;
+			margin: 1.6em auto 0;
+			padding: 0 1.2em;
+		}
+		.interior-hero img {
+			max-width: 100%;
+			max-height: 420px;
+			width: auto;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: contain;
+		}
+
+		.room-section {
+			padding: 2.6em 0 5em;
+			background: var(--milk);
+		}
+		.room-section__inner {
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 0 1.2em;
+		}
+		.room-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 1.2rem;
+			align-items: end;
+		}
+		.room-card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			text-decoration: none;
+			color: inherit;
+			transition: transform 0.2s;
+		}
+		.room-card:hover {
+			transform: translateY(-6px);
+			text-decoration: none;
+		}
+		.room-card :global(.crayon-door) {
+			filter: drop-shadow(0 4px 7px rgba(120, 90, 50, 0.18));
+			transition: filter 0.2s;
+		}
+		.room-card:hover :global(.crayon-door) {
+			filter: drop-shadow(0 8px 13px rgba(120, 90, 50, 0.28));
+		}
+		.room-card__enter {
+			display: inline-block;
+			margin-top: 0.55em;
+			padding: 0.35em 1.2em;
+			border-radius: 30px 34px 28px 36px / 34px 28px 36px 30px;
+			border: 1.5px solid var(--orange-light);
+			color: var(--orange-dark);
+			font-size: 0.72em;
+			font-weight: 700;
+			font-family: 'Yomogi', 'Hiragino Maru Gothic ProN', sans-serif;
+			transition: background 0.18s, color 0.18s;
+		}
+		.room-card:hover .room-card__enter {
+			background: var(--orange);
+			color: #fff;
+			border-color: var(--orange);
+		}
+		.rooms-empty {
+			text-align: center;
+			color: var(--text-muted);
+			padding: 3em 1em;
+		}
+
+		@media (max-width: 700px) {
+			.room-grid {
+				grid-template-columns: repeat(3, 1fr);
+				gap: 0.8rem;
+			}
+			.room-card__enter {
+				margin-top: 0.5em;
+				padding: 0.3em 0.9em;
+				font-size: 0.68em;
+			}
+			.rooms-header { padding: 1.8em 1em 1.4em; }
+			.rooms-header__title { font-size: 1.55em; }
+			.room-section { padding: 1.8em 0 4em; }
+		}
+	</style>
+</head>
+<body>
+	<Header />
+	<main>
+		<div class="rooms-header">
+			<span class="rooms-header__label">ROOMS</span>
+			<h1 class="rooms-header__title">🧸 部屋</h1>
+			<p class="rooms-header__desc">
+				ジャンルごとに分かれた情報ハブです<br>
+				図鑑・レビュー・特集記事などをまとめて楽しめます
+			</p>
+		</div>
+
+		{interiorImage && (
+			<div class="interior-hero">
+				<img src={interiorImage} alt="おうちの中の様子" />
+			</div>
+		)}
+
+		<section class="room-section">
+			<div class="room-section__inner">
+				{rooms.length === 0 ? (
+					<p class="rooms-empty">🌱 準備中です</p>
+				) : (
+					<div class="room-grid">
+						{rooms.map((room) => (
+							<a class="room-card" href={`/room/${room.slug}`}>
+								<CrayonDoor slug={`rooms-${room.slug}`} label={room.name.replace('の部屋', '')} base={room.color || '#F5C845'} dark={room.color || '#D19E1D'} />
+								<span class="room-card__enter">部屋に入る →</span>
+							</a>
+						))}
+					</div>
+				)}
+			</div>
+		</section>
+	</main>
+	<Footer />
+</body>
+</html>
