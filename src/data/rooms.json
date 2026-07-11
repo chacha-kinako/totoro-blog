@@ -43,5 +43,14 @@
     "sortOrder": 5,
     "isActive": true,
     "top3": []
+  },
+  {
+    "slug": "パズル",
+    "name": "パズルの部屋",
+    "emoji": "🧩",
+    "color": "#F5C845",
+    "sortOrder": 6,
+    "isActive": true,
+    "top3": []
   }
 ]
