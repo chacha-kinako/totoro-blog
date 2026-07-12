@@ -21,6 +21,7 @@ const rooms = (roomsData as RoomEntry[])
 	.sort((a, b) => a.sortOrder - b.sortOrder);
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
+const roomsSignImage = siteConfig.hero?.roomsSignImage ?? '';
 ---
 
 <!doctype html>
@@ -29,53 +30,58 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 	<BaseHead title={`部屋 | ${SITE_TITLE}`} description="ジャンルごとに分かれた部屋。図鑑・レビュー・特集記事などをまとめて楽しめます。" />
 	<style>
 		.rooms-header {
-			text-align: center;
-			padding: 1.3em 1em 1em;
 			background: #fff;
+			padding: 1.6em 1.2em;
 		}
-		.rooms-header__label {
-			display: inline-block;
-			font-size: 0.68em;
-			font-weight: 700;
-			color: var(--orange);
-			letter-spacing: 0.22em;
-			margin-bottom: 0.4em;
-			padding: 0.25em 1em;
-			border: 1.5px solid var(--orange-light);
-			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
-			background: var(--orange-pale);
+		.rooms-header__inner {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			gap: 2em;
 		}
-		.rooms-header__title {
+		.rooms-header__sign {
+			width: min(30%, 320px);
+			flex-shrink: 0;
+		}
+		.rooms-header__sign img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.rooms-header__photo {
+			flex: 1;
+			min-width: 0;
+		}
+		.rooms-header__photo img {
+			width: 100%;
+			height: auto;
+			max-height: 420px;
+			display: block;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: cover;
+		}
+		.rooms-header__title-fallback {
+			text-align: center;
 			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
 			font-size: 1.5em;
 			font-weight: 700;
 			color: var(--text);
-			margin: 0 0 0.3em;
-			line-height: 1.3;
-		}
-		.rooms-header__desc {
-			font-size: 0.82em;
-			color: var(--text-muted);
 			margin: 0;
-			line-height: 1.5;
 		}
-
-		.interior-hero {
-			max-width: 900px;
-			margin: 1em auto 0;
-			padding: 0 1.2em;
-		}
-		.interior-hero img {
-			max-width: 100%;
-			max-height: 160px;
-			width: auto;
-			height: auto;
-			display: block;
-			margin: 0 auto;
-			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
-			border: 3px solid var(--wood-light);
-			box-shadow: var(--shadow-md);
-			object-fit: contain;
+		@media (max-width: 700px) {
+			.rooms-header__inner {
+				flex-direction: column;
+				gap: 1em;
+			}
+			.rooms-header__sign {
+				width: min(60%, 220px);
+			}
+			.rooms-header__photo img {
+				max-height: 220px;
+			}
 		}
 
 		.room-section {
@@ -156,19 +162,21 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 	<Header />
 	<main>
 		<div class="rooms-header">
-			<span class="rooms-header__label">ROOMS</span>
-			<h1 class="rooms-header__title">🧸 部屋</h1>
-			<p class="rooms-header__desc">
-				ジャンルごとに分かれた情報ハブです<br>
-				図鑑・レビュー・特集記事などをまとめて楽しめます
-			</p>
-		</div>
-
-		{interiorImage && (
-			<div class="interior-hero">
-				<img src={interiorImage} alt="おうちの中の様子" />
+			<div class="rooms-header__inner">
+				{roomsSignImage ? (
+					<div class="rooms-header__sign">
+						<img src={roomsSignImage} alt="グッズ部屋" />
+					</div>
+				) : (
+					<h1 class="rooms-header__title-fallback">🧸 部屋</h1>
+				)}
+				{interiorImage && (
+					<div class="rooms-header__photo">
+						<img src={interiorImage} alt="おうちの中の様子" />
+					</div>
+				)}
 			</div>
-		)}
+		</div>
 
 		<section class="room-section">
 			<div class="room-section__inner">

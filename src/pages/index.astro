@@ -9,7 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
 
 const homeAbout = siteConfig.homeAbout;
-const exteriorImage = siteConfig.hero?.exteriorImage ?? '';
+const exteriorImage = siteConfig.hero?.homeHeroImage || siteConfig.hero?.exteriorImage || '';
 
 // ビルド時点の季節（表示後にJSで現在の月に合わせて切り替える）
 const month = new Date().getMonth() + 1;
@@ -80,22 +80,25 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			width: min(30%, 220px);
 			flex-shrink: 0;
 		}
+		.crayon-hero__art--photo {
+			width: min(54%, 700px);
+			flex-shrink: 1;
+		}
 		.crayon-hero__art svg {
 			width: 100%;
 			height: auto;
 			display: block;
 		}
 		.crayon-hero__photo {
-			max-width: 100%;
-			max-height: 200px;
-			width: auto;
+			width: 100%;
+			max-height: 420px;
 			height: auto;
 			display: block;
 			margin: 0 auto;
 			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
 			border: 3px solid var(--wood-light);
 			box-shadow: var(--shadow-md);
-			object-fit: contain;
+			object-fit: cover;
 		}
 		@media (max-width: 720px) {
 			.crayon-hero { padding: 1em 1em 0.4em; }
@@ -107,7 +110,8 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			.crayon-hero__title { font-size: 1.4em; }
 			.crayon-hero__tagline { display: none; }
 			.crayon-hero__art { width: min(55%, 200px); }
-			.crayon-hero__photo { max-height: 140px; }
+			.crayon-hero__art--photo { width: 100%; }
+			.crayon-hero__photo { max-height: 220px; }
 		}
 
 		/* ── クイックナビ ── */
@@ -550,9 +554,9 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 					絵本の中のおうちへ、あそびにきてください🌿
 				</p>
 			</div>
-			<div class="crayon-hero__art">
+			<div class={`crayon-hero__art${exteriorImage ? ' crayon-hero__art--photo' : ''}`}>
 				{exteriorImage ? (
-				<img class="crayon-hero__photo crayon-photo" src={exteriorImage} alt="おうちの外観" />
+				<img class="crayon-hero__photo crayon-photo" src={exteriorImage} alt="おうちの中の様子" />
 				) : (
 				<svg viewBox="0 0 480 350" role="img" aria-label="丸窓の家と季節の木のクレヨンイラスト" xmlns="http://www.w3.org/2000/svg">
 					<!-- 太陽 -->

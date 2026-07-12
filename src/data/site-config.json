@@ -1,7 +1,9 @@
 {
   "hero": {
     "exteriorImage": "/images/img_1783781654380_anp3p.webp",
-    "interiorImage": "/images/img_1783781659074_1hcvk.webp"
+    "interiorImage": "/images/img_1783781659074_1hcvk.webp",
+    "homeHeroImage": "/images/hero-interior-photo.jpg",
+    "roomsSignImage": "/images/rooms-sign.png"
   },
   "homeAbout": {
     "icon": "🍀",
