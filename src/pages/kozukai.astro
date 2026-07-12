@@ -14,6 +14,7 @@ const allPosts = (await getCollection('blog')).sort(
 const kozukaiPosts = allPosts.filter((p) => p.data.articleType === 'kozukai');
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
+const kozukaiSignImage = siteConfig.hero?.kozukaiSignImage ?? '';
 ---
 
 <!doctype html>
@@ -22,59 +23,63 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 	<BaseHead title={`お小遣い帳 | ${SITE_TITLE}`} description="毎月のコレクション日記。予算・使った金額・仲間入りしたグッズをリアルに公開しています。" />
 	<style>
 		.kozukai-header {
+			padding: 1.2em 1.2em 0.6em;
+		}
+		.kozukai-header__inner {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			gap: 2em;
+		}
+		.kozukai-header__sign {
+			width: min(30%, 320px);
+			flex-shrink: 0;
+		}
+		.kozukai-header__sign img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.kozukai-header__photo {
+			flex: 1;
+			min-width: 0;
+		}
+		.kozukai-header__photo img {
+			width: 100%;
+			height: auto;
+			max-height: 420px;
+			display: block;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: cover;
+		}
+		.kozukai-header__title-fallback {
 			text-align: center;
-			padding: 1.3em 1em 1em;
-			background: #fff;
-		}
-		.kozukai-header__label {
-			display: inline-block;
-			font-size: 0.68em;
-			font-weight: 700;
-			color: var(--orange);
-			letter-spacing: 0.22em;
-			margin-bottom: 0.4em;
-			padding: 0.25em 1em;
-			border: 1.5px solid var(--orange-light);
-			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
-			background: var(--orange-pale);
-		}
-		.kozukai-header__title {
 			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
 			font-size: 1.5em;
 			font-weight: 700;
 			color: var(--text);
-			margin: 0 0 0.3em;
-			line-height: 1.3;
-		}
-		.kozukai-header__desc {
-			font-size: 0.82em;
-			color: var(--text-muted);
 			margin: 0;
-			line-height: 1.5;
 		}
-
-		.interior-hero {
-			max-width: 900px;
-			margin: 1em auto 0;
-			padding: 0 1.2em;
-		}
-		.interior-hero img {
-			max-width: 100%;
-			max-height: 160px;
-			width: auto;
-			height: auto;
-			display: block;
-			margin: 0 auto;
-			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
-			border: 3px solid var(--wood-light);
-			box-shadow: var(--shadow-md);
-			object-fit: contain;
+		@media (max-width: 700px) {
+			.kozukai-header__inner {
+				flex-direction: column;
+				gap: 1em;
+			}
+			.kozukai-header__sign {
+				width: min(60%, 220px);
+			}
+			.kozukai-header__photo img {
+				max-height: 220px;
+			}
 		}
 
 		.page-outer {
 			max-width: 1320px;
 			margin: 0 auto;
-			padding: 1.4em 0.5em 5em 1.5em;
+			padding: 0.6em 0.5em 5em 1.5em;
 			display: flex;
 			gap: 4em;
 			align-items: flex-start;
@@ -139,19 +144,21 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 	<Header />
 	<main>
 		<div class="kozukai-header">
-			<span class="kozukai-header__label">KOZUKAI</span>
-			<h1 class="kozukai-header__title">💰 お小遣い帳</h1>
-			<p class="kozukai-header__desc">
-				毎月のコレクション日記です<br>
-				予算・使った金額・仲間入りしたグッズをリアルに公開しています
-			</p>
-		</div>
-
-		{interiorImage && (
-			<div class="interior-hero">
-				<img src={interiorImage} alt="おうちの中の様子" />
+			<div class="kozukai-header__inner">
+				{kozukaiSignImage ? (
+					<div class="kozukai-header__sign">
+						<img src={kozukaiSignImage} alt="お小遣い帳" />
+					</div>
+				) : (
+					<h1 class="kozukai-header__title-fallback">💰 お小遣い帳</h1>
+				)}
+				{interiorImage && (
+					<div class="kozukai-header__photo">
+						<img src={interiorImage} alt="おうちの中の様子" />
+					</div>
+				)}
 			</div>
-		)}
+		</div>
 
 		<div class="page-outer">
 			<div class="page-main">
