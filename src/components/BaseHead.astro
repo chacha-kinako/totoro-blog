@@ -11,11 +11,15 @@ interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata;
+	imageUrl?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const { title, description, image, imageUrl } = Astro.props;
+const ogImageURL = imageUrl
+	? new URL(imageUrl, Astro.url)
+	: new URL((image ?? FallbackImage).src, Astro.url);
 ---
 
 <!-- Global Metadata -->
@@ -53,14 +57,14 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:image" content={ogImageURL} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+<meta property="twitter:image" content={ogImageURL} />
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-F67C58QSSH"></script>

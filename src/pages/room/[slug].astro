@@ -45,12 +45,13 @@ const allPosts = (await getCollection('blog')).sort(
 );
 const roomPosts = allPosts.filter((p) => p.data.room === room.slug);
 
-const latestPosts = roomPosts.slice(0, 4);
-const popularPosts = roomPosts.filter((p) => p.data.showInPopular).slice(0, 4);
 const reviewPosts = roomPosts.filter((p) => p.data.articleType === 'review');
-const hikakuPosts = roomPosts.filter((p) => p.data.articleType === 'hikaku');
-const matomePosts = roomPosts.filter((p) => p.data.articleType === 'matome');
-const tokushuPosts = roomPosts.filter((p) => p.data.articleType === 'tokushu');
+const latestReviewPosts = reviewPosts.slice(0, 4);
+const popularReviewPosts = reviewPosts.filter((p) => p.data.showInPopular).slice(0, 4);
+// 特集記事＝比較・まとめ・特集タイプをまとめて1ブロックに（新着順）
+const tokushuBlockPosts = roomPosts.filter((p) =>
+	['hikaku', 'matome', 'tokushu'].includes(p.data.articleType ?? ''),
+);
 
 const top3 = room.top3
 	.slice()
@@ -269,70 +270,10 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 					</section>
 				)}
 
-				{reviewPosts.length > 0 && (
-					<section class="hub-section">
-						<div class="hub-section__inner">
-							<div class="hub-section__heading"><span class="hub-section__heading-text">🔍 レビュー</span></div>
-							<ul class="post-grid">
-								{reviewPosts.slice(0, 8).map((post) => (
-									<li class="post-card">
-										<a href={`/blog/${post.id}/`}>
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-											</div>
-										</a>
-									</li>
-								))}
-							</ul>
-						</div>
-					</section>
-				)}
-
-				{latestPosts.length > 0 && (
-					<section class="hub-section">
-						<div class="hub-section__inner">
-							<div class="hub-section__heading"><span class="hub-section__heading-text">🆕 最新記事</span></div>
-							<ul class="post-grid">
-								{latestPosts.map((post) => (
-									<li class="post-card">
-										<a href={`/blog/${post.id}/`}>
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-											</div>
-										</a>
-									</li>
-								))}
-							</ul>
-						</div>
-					</section>
-				)}
-
-				{popularPosts.length > 0 && (
-					<section class="hub-section">
-						<div class="hub-section__inner">
-							<div class="hub-section__heading"><span class="hub-section__heading-text">💗 人気記事</span></div>
-							<ul class="post-grid">
-								{popularPosts.map((post) => (
-									<li class="post-card">
-										<a href={`/blog/${post.id}/`}>
-											<div class="post-card__body">
-												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
-												<h3 class="post-card__title">{post.data.title}</h3>
-											</div>
-										</a>
-									</li>
-								))}
-							</ul>
-						</div>
-					</section>
-				)}
-
 				{top3.length > 0 && (
 					<section class="hub-section">
 						<div class="hub-section__inner">
-							<div class="hub-section__heading"><span class="hub-section__heading-text">🏆 おすすめTOP3</span></div>
+							<div class="hub-section__heading"><span class="hub-section__heading-text">🏆 おすすめレビューTOP3</span></div>
 							<div class="top3-list">
 								{top3.map((t) => (
 									<a class="top3-item" href={`/blog/${t.post!.id}/`}>
@@ -345,12 +286,12 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 					</section>
 				)}
 
-				{hikakuPosts.length > 0 && (
+				{latestReviewPosts.length > 0 && (
 					<section class="hub-section">
 						<div class="hub-section__inner">
-							<div class="hub-section__heading"><span class="hub-section__heading-text">⚖️ 比較記事</span></div>
+							<div class="hub-section__heading"><span class="hub-section__heading-text">🆕 最新レビュー</span></div>
 							<ul class="post-grid">
-								{hikakuPosts.map((post) => (
+								{latestReviewPosts.map((post) => (
 									<li class="post-card">
 										<a href={`/blog/${post.id}/`}>
 											<div class="post-card__body">
@@ -365,12 +306,12 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 					</section>
 				)}
 
-				{matomePosts.length > 0 && (
+				{popularReviewPosts.length > 0 && (
 					<section class="hub-section">
 						<div class="hub-section__inner">
-							<div class="hub-section__heading"><span class="hub-section__heading-text">📚 まとめ記事</span></div>
+							<div class="hub-section__heading"><span class="hub-section__heading-text">💗 人気レビュー</span></div>
 							<ul class="post-grid">
-								{matomePosts.map((post) => (
+								{popularReviewPosts.map((post) => (
 									<li class="post-card">
 										<a href={`/blog/${post.id}/`}>
 											<div class="post-card__body">
@@ -385,12 +326,12 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 					</section>
 				)}
 
-				{tokushuPosts.length > 0 && (
+				{tokushuBlockPosts.length > 0 && (
 					<section class="hub-section">
 						<div class="hub-section__inner">
 							<div class="hub-section__heading"><span class="hub-section__heading-text">🌟 特集記事</span></div>
 							<ul class="post-grid">
-								{tokushuPosts.map((post) => (
+								{tokushuBlockPosts.map((post) => (
 									<li class="post-card">
 										<a href={`/blog/${post.id}/`}>
 											<div class="post-card__body">

@@ -4,12 +4,15 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Divider from '../components/Divider.astro';
-import HandIcon from '../components/HandIcon.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
+import showcaseData from '../data/showcase.json';
+
+type ShowcaseEntry = { rank: number; slug: string; title: string; cardImage: string };
 
 const homeAbout = siteConfig.homeAbout;
 const exteriorImage = siteConfig.hero?.homeHeroImage || siteConfig.hero?.exteriorImage || '';
+const showcase = (showcaseData as ShowcaseEntry[]).sort((a, b) => a.rank - b.rank);
 
 // ビルド時点の季節（表示後にJSで現在の月に合わせて切り替える）
 const month = new Date().getMonth() + 1;
@@ -346,6 +349,94 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 		.post-card--coming .post-card__title {
 			color: var(--text-muted);
 			font-style: italic;
+		}
+
+		/* ── 展示コーナー（新着コレクション） ── */
+		.showcase-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 1.2rem;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		@media (max-width: 860px) {
+			.showcase-grid { grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+		}
+		@media (max-width: 560px) {
+			.showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+		}
+		.showcase-card {
+			display: block;
+			text-decoration: none;
+			color: inherit;
+			background: #fff;
+			border-radius: 16px 12px 18px 10px / 12px 18px 10px 16px;
+			border: 2px solid var(--beige-light);
+			box-shadow: var(--shadow-sm);
+			overflow: hidden;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.showcase-card:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-hover);
+			text-decoration: none;
+		}
+		.showcase-card__img {
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			overflow: hidden;
+			background: var(--milk-dark);
+		}
+		.showcase-card__img img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			filter: url(#crayon-photo);
+		}
+		.showcase-card__title {
+			font-size: 0.72em;
+			font-weight: 700;
+			font-family: var(--font-hand);
+			color: var(--blue-ink);
+			line-height: 1.4;
+			padding: 0.5em 0.6em 0.7em;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		/* ── 4本柱：看板画像を横一列（スクロールなしで収まる） ── */
+		.pillar-signs {
+			display: flex;
+			justify-content: center;
+			gap: 1.1em;
+			flex-wrap: nowrap;
+		}
+		.pillar-sign {
+			flex: 1;
+			min-width: 0;
+			max-width: 240px;
+			text-decoration: none;
+			display: block;
+			transition: transform 0.2s, filter 0.2s;
+		}
+		.pillar-sign:hover {
+			transform: translateY(-4px);
+			text-decoration: none;
+		}
+		.pillar-sign img {
+			width: 100%;
+			height: auto;
+			display: block;
+			filter: drop-shadow(0 3px 8px rgba(120, 90, 50, 0.25));
+			border-radius: 10px;
+		}
+		@media (max-width: 720px) {
+			.pillar-signs { flex-wrap: wrap; gap: 0.8em; }
+			.pillar-sign { flex: 1 1 40%; max-width: 45%; }
 		}
 
 		/* ── 図鑑・レビュー入口 ── */
@@ -752,31 +843,51 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 	<div class="page-outer">
 		<main class="page-main">
 
-			<!-- 3本柱：図書室・部屋・お小遣い帳 -->
+			<!-- 4本柱：看板画像を横一列で -->
 			<section class="home-section home-section--alt" id="entrances">
 				<div class="home-section__inner">
-					<div class="entrance-grid entrance-grid--three">
-						<a href="/zukan" class="entrance-card">
-							<span class="entrance-card__icon"><HandIcon name="book" size={56} /></span>
-							<h2 class="entrance-card__title">📚 図書室</h2>
-							<p class="entrance-card__desc">コレクションを眺めて楽しむ場所<br>全図鑑の一覧です</p>
-							<span class="entrance-card__btn">図書室に入る →</span>
+					<div class="pillar-signs">
+						<a href="/zukan" class="pillar-sign">
+							<img src="/images/toshoshitsu-sign.png" alt="📚 図書室" loading="lazy" />
 						</a>
-						<a href="/rooms" class="entrance-card">
-							<span class="entrance-card__icon"><HandIcon name="home" size={56} /></span>
-							<h2 class="entrance-card__title">🧸 部屋</h2>
-							<p class="entrance-card__desc">ジャンルごとの情報ハブ<br>図鑑・レビュー・特集記事など</p>
-							<span class="entrance-card__btn">部屋に入る →</span>
+						<a href="/rooms" class="pillar-sign">
+							<img src="/images/goodsroom-sign.png" alt="🧸 グッズ部屋" loading="lazy" />
 						</a>
-						<a href="/kozukai" class="entrance-card">
-							<span class="entrance-card__icon"><HandIcon name="tag" size={56} /></span>
-							<h2 class="entrance-card__title">💰 お小遣い帳</h2>
-							<p class="entrance-card__desc">毎月のコレクション日記<br>リアルな収支も公開</p>
-							<span class="entrance-card__btn">お小遣い帳を見る →</span>
+						<a href="/kozukai" class="pillar-sign">
+							<img src="/images/kozukai-home-sign.png" alt="💰 おこづかい帳" loading="lazy" />
+						</a>
+						<a href="/danwashitsu" class="pillar-sign">
+							<img src="/images/danwashitsu-sign.jpg" alt="☕ 談話室" loading="lazy" />
 						</a>
 					</div>
 				</div>
 			</section>
+
+			{showcase.length > 0 && (
+				<>
+					<div class="home-section__inner"><Divider variant="curl" /></div>
+					<section class="home-section home-section--alt" id="showcase">
+						<div class="home-section__inner">
+							<div class="home-section__heading">
+								<span class="home-section__heading-label">SHOWCASE</span>
+								<span class="home-section__heading-text">展示コーナー（新着コレクション）</span>
+							</div>
+							<ul class="showcase-grid">
+								{showcase.map((item) => (
+									<li>
+										<a class="showcase-card" href={`/blog/${item.slug}/`}>
+											<div class="showcase-card__img">
+												{item.cardImage && <img src={item.cardImage} alt={item.title} loading="lazy" />}
+											</div>
+											<div class="showcase-card__title">{item.title}</div>
+										</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</section>
+				</>
+			)}
 
 			<div class="home-section__inner"><Divider variant="curl" /></div>
 

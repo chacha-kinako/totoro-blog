@@ -14,6 +14,7 @@ type ZukanItem = {
 	reviewLink: string;
 	affiliateLink: string;
 	room?: string;
+	price?: number | null;
 };
 
 export function getStaticPaths() {
@@ -177,6 +178,12 @@ const rooms = [
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
+		.zukan-card__price {
+			font-size: 0.72em;
+			font-weight: 700;
+			color: var(--orange-dark);
+			margin-bottom: 2px;
+		}
 		.zukan-card__comment {
 			font-size: 0.68em;
 			color: var(--text-muted);
@@ -332,9 +339,10 @@ const rooms = [
 							<div class="zukan-card__img">
 								<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
 							</div>
-							{(item.name || item.comment) && (
+							{(item.name || item.comment || item.price) && (
 								<div class="zukan-card__info">
 									{item.name && <div class="zukan-card__name">{item.name}</div>}
+									{item.price != null && <div class="zukan-card__price">¥{item.price.toLocaleString()}</div>}
 									{item.comment && <div class="zukan-card__comment">{item.comment}</div>}
 								</div>
 							)}

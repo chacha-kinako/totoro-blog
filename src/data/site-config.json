@@ -4,7 +4,9 @@
     "interiorImage": "/images/img_1783781659074_1hcvk.webp",
     "homeHeroImage": "/images/hero-interior-photo.jpg",
     "roomsSignImage": "/images/rooms-sign.png",
-    "kozukaiSignImage": "/images/kozukai-sign.png"
+    "kozukaiSignImage": "/images/kozukai-sign.png",
+    "danwashitsuSignImage": "/images/danwashitsu-sign.jpg",
+    "toshoshitsuSignImage": "/images/toshoshitsu-sign.png"
   },
   "homeAbout": {
     "icon": "🍀",

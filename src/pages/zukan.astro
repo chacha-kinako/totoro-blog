@@ -4,6 +4,10 @@ import CrayonDoor from '../components/CrayonDoor.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
+import siteConfig from '../data/site-config.json';
+
+const interiorImage = siteConfig.hero?.interiorImage ?? '';
+const toshoshitsuSignImage = siteConfig.hero?.toshoshitsuSignImage ?? '/images/toshoshitsu-sign.png';
 
 const rooms = [
 	{
@@ -59,43 +63,69 @@ const rooms = [
 <head>
 	<BaseHead title={`図書室 | ${SITE_TITLE}`} description="トトロ・ジブリグッズの図鑑。コレクションを眺めて楽しむ場所です。" />
 	<style>
-		/* ── ページヘッダー ── */
+		/* ── ページヘッダー（看板＋内観、他の3本柱と統一） ── */
 		.zukan-header {
+			padding: 1.2em 1.2em 0.6em;
+		}
+		.zukan-header__inner {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			gap: 2em;
+		}
+		.zukan-header__sign {
+			width: min(30%, 320px);
+			flex-shrink: 0;
+		}
+		.zukan-header__sign img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.zukan-header__photo {
+			flex: 1;
+			min-width: 0;
+		}
+		.zukan-header__photo img {
+			width: 100%;
+			height: auto;
+			max-height: 420px;
+			display: block;
+			border-radius: 22px 26px 20px 24px / 24px 20px 26px 22px;
+			border: 3px solid var(--wood-light);
+			box-shadow: var(--shadow-md);
+			object-fit: cover;
+		}
+		.zukan-header__title-fallback {
 			text-align: center;
-			padding: 1.3em 1em 1em;
-			background: #fff;
-		}
-		.zukan-header__label {
-			display: inline-block;
-			font-size: 0.68em;
-			font-weight: 700;
-			color: var(--orange);
-			letter-spacing: 0.22em;
-			margin-bottom: 0.4em;
-			padding: 0.25em 1em;
-			border: 1.5px solid var(--orange-light);
-			border-radius: 40px 46px 38px 48px / 46px 38px 48px 40px;
-			background: var(--orange-pale);
-		}
-		.zukan-header__title {
 			font-family: 'Yomogi', 'Kaisei Decol', 'Hiragino Maru Gothic ProN', serif;
 			font-size: 1.5em;
 			font-weight: 700;
 			color: var(--text);
-			margin: 0 0 0.3em;
-			line-height: 1.3;
-		}
-		.zukan-header__desc {
-			font-size: 0.82em;
-			color: var(--text-muted);
 			margin: 0;
-			line-height: 1.5;
+		}
+		@media (max-width: 700px) {
+			.zukan-header__inner {
+				flex-direction: column;
+				gap: 1em;
+			}
+			.zukan-header__sign {
+				width: min(60%, 220px);
+			}
+			.zukan-header__photo img {
+				max-height: 220px;
+			}
 		}
 
-		/* ── 検索ボックス ── */
+		/* ── 検索ボックス（ヘッダーの下・扉一覧の上） ── */
+		.zukan-search-wrap {
+			text-align: center;
+			padding: 0.6em 1em 0;
+		}
 		.zukan-search {
 			max-width: 480px;
-			margin: 1.4em auto 0;
+			margin: 0 auto;
 			display: flex;
 			gap: 8px;
 			padding: 0 1em;
@@ -217,12 +247,23 @@ const rooms = [
 	<Header />
 	<main>
 		<div class="zukan-header">
-			<span class="zukan-header__label">LIBRARY</span>
-			<h1 class="zukan-header__title">📚 図書室</h1>
-			<p class="zukan-header__desc">
-				コレクションを眺めて楽しむ場所です<br>
-				扉を選んでなかを覗いてみてください
-			</p>
+			<div class="zukan-header__inner">
+				{toshoshitsuSignImage ? (
+					<div class="zukan-header__sign">
+						<img src={toshoshitsuSignImage} alt="図書室" />
+					</div>
+				) : (
+					<h1 class="zukan-header__title-fallback">📚 図書室</h1>
+				)}
+				{interiorImage && (
+					<div class="zukan-header__photo">
+						<img src={interiorImage} alt="おうちの中の様子" />
+					</div>
+				)}
+			</div>
+		</div>
+
+		<div class="zukan-search-wrap">
 			<form class="zukan-search" action="/zukan/all" method="get">
 				<input
 					type="search"
