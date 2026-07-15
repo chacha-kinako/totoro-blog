@@ -1,0 +1,157 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import Sidebar from '../../../components/Sidebar.astro';
+import { SITE_TITLE } from '../../../consts';
+import roomsData from '../../../data/rooms.json';
+
+type RoomEntry = {
+	slug: string;
+	name: string;
+	emoji: string;
+	color: string;
+	sortOrder: number;
+	isActive: boolean;
+	top3: { rank: number; slug: string; title: string }[];
+};
+
+export function getStaticPaths() {
+	const rooms = roomsData as RoomEntry[];
+	return rooms
+		.filter((r) => r.isActive)
+		.map((r) => ({ params: { slug: r.slug }, props: { room: r } }));
+}
+
+const { room } = Astro.props as { room: RoomEntry };
+
+const posts = (await getCollection('blog'))
+	.filter((p) => p.data.room === room.slug && p.data.articleType === 'review')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`${room.name}のレビュー一覧 | ${SITE_TITLE}`} description={`${room.name}のレビュー記事をすべて表示します。`} />
+	<style>
+		.page-outer {
+			max-width: 1080px;
+			margin: 0 auto;
+			padding: 0 1.5em;
+			display: grid;
+			grid-template-columns: 1fr 280px;
+			gap: 2.5em;
+		}
+		.page-main { min-width: 0; }
+		.page-heading { padding: 2em 0 1.5em; }
+		.page-heading__label {
+			font-size: 0.72em;
+			letter-spacing: 0.12em;
+			color: var(--text-muted);
+			font-weight: 700;
+		}
+		.page-heading__title {
+			font-family: var(--font-hand);
+			color: var(--blue-ink);
+			font-size: 1.6em;
+			margin: 0.2em 0 0;
+		}
+		.post-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 1.2rem;
+			list-style: none;
+			margin: 0;
+			padding: 0 0 4em;
+		}
+		.post-card {
+			background: #fff;
+			border-radius: 20px 16px 22px 14px / 16px 22px 14px 20px;
+			border: 2px solid var(--beige-light);
+			box-shadow: var(--shadow-sm);
+			overflow: hidden;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+		.post-card a { display: block; text-decoration: none; color: inherit; height: 100%; }
+		.post-card__thumb {
+			position: relative;
+			width: 100%;
+			aspect-ratio: 3 / 2;
+			overflow: hidden;
+			background: var(--milk-dark);
+		}
+		.post-card__thumb img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			transition: transform 0.3s;
+			filter: url(#crayon-photo);
+		}
+		.post-card:hover .post-card__thumb img { transform: scale(1.04); }
+		.post-card__bar { height: 4px; background: var(--mustard-light); }
+		.post-card__body { padding: 1.2em 1.3em 1.5em; }
+		.post-card__date { font-size: 0.62em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.4em; opacity: 0.8; }
+		.post-card__title {
+			font-size: 0.88em;
+			font-weight: 700;
+			color: var(--blue-ink);
+			font-family: var(--font-hand);
+			line-height: 1.55;
+			margin: 0;
+		}
+		.empty-state {
+			text-align: center;
+			color: var(--text-muted);
+			padding: 3em 1em;
+		}
+		@media (max-width: 900px) {
+			.page-outer { grid-template-columns: 1fr; padding: 0 1em; }
+			.post-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 560px) {
+			.post-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+<body>
+	<Header />
+	<div class="page-outer">
+		<main class="page-main">
+			<div class="page-heading">
+				<span class="page-heading__label">{room.emoji} {room.name.toUpperCase()} REVIEWS</span>
+				<h1 class="page-heading__title">{room.name}のレビュー一覧</h1>
+			</div>
+			{posts.length > 0 ? (
+				<ul class="post-grid">
+					{posts.map((post) => (
+						<li class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								{post.data.cardImage ? (
+									<div class="post-card__thumb">
+										<img src={post.data.cardImage} alt={post.data.title} loading="lazy" />
+									</div>
+								) : (
+									<div class="post-card__bar" />
+								)}
+								<div class="post-card__body">
+									<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
+									<h2 class="post-card__title">{post.data.title}</h2>
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p class="empty-state">🌱 まだこの部屋のレビューがありません。</p>
+			)}
+		</main>
+		<Sidebar />
+	</div>
+	<Footer />
+</body>
+</html>

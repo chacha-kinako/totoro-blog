@@ -180,9 +180,24 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 			box-shadow: var(--shadow-sm);
 			overflow: hidden;
 		}
-		.post-card a { display: block; text-decoration: none; color: inherit; }
+		.post-card a { display: block; text-decoration: none; color: inherit; height: 100%; }
+		.post-card__thumb {
+			position: relative;
+			width: 100%;
+			aspect-ratio: 3 / 2;
+			overflow: hidden;
+			background: var(--milk-dark);
+		}
+		.post-card__thumb img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			filter: url(#crayon-photo);
+		}
+		.post-card__bar { height: 4px; background: var(--mustard-light); }
 		.post-card__body { padding: 0.9em 1em 1.1em; }
-		.post-card__date { font-size: 0.68em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.3em; }
+		.post-card__date { font-size: 0.62em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.3em; opacity: 0.8; }
 		.post-card__title {
 			font-size: 0.85em;
 			font-weight: 700;
@@ -190,11 +205,24 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 			color: var(--blue-ink);
 			line-height: 1.5;
 			margin: 0;
-			display: -webkit-box;
-			-webkit-line-clamp: 3;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
 		}
+		.room-more-link {
+			display: block;
+			text-align: center;
+			margin: 0.6em 0 0;
+			padding: 0.9em 1.2em;
+			background: #fff;
+			border: 2px solid var(--beige-light);
+			border-radius: 50px;
+			color: var(--blue-ink);
+			font-family: var(--font-hand);
+			font-weight: 700;
+			font-size: 0.9em;
+			text-decoration: none;
+			box-shadow: var(--shadow-sm);
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.room-more-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
 
 		/* ── TOP3 ── */
 		.top3-list {
@@ -294,6 +322,13 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 								{latestReviewPosts.map((post) => (
 									<li class="post-card">
 										<a href={`/blog/${post.id}/`}>
+											{post.data.cardImage ? (
+												<div class="post-card__thumb">
+													<img src={post.data.cardImage} alt={post.data.title} loading="lazy" />
+												</div>
+											) : (
+												<div class="post-card__bar" />
+											)}
 											<div class="post-card__body">
 												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
 												<h3 class="post-card__title">{post.data.title}</h3>
@@ -302,6 +337,7 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 									</li>
 								))}
 							</ul>
+							<a class="room-more-link" href={`/room/${room.slug}/reviews`}>すべてのレビューを見る →</a>
 						</div>
 					</section>
 				)}
@@ -314,6 +350,13 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 								{popularReviewPosts.map((post) => (
 									<li class="post-card">
 										<a href={`/blog/${post.id}/`}>
+											{post.data.cardImage ? (
+												<div class="post-card__thumb">
+													<img src={post.data.cardImage} alt={post.data.title} loading="lazy" />
+												</div>
+											) : (
+												<div class="post-card__bar" />
+											)}
 											<div class="post-card__body">
 												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
 												<h3 class="post-card__title">{post.data.title}</h3>
@@ -334,6 +377,13 @@ const interiorImage = siteConfig.hero?.interiorImage ?? '';
 								{tokushuBlockPosts.map((post) => (
 									<li class="post-card">
 										<a href={`/blog/${post.id}/`}>
+											{post.data.cardImage ? (
+												<div class="post-card__thumb">
+													<img src={post.data.cardImage} alt={post.data.title} loading="lazy" />
+												</div>
+											) : (
+												<div class="post-card__bar" />
+											)}
 											<div class="post-card__body">
 												<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
 												<h3 class="post-card__title">{post.data.title}</h3>
