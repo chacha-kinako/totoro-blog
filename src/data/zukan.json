@@ -115,5 +115,15 @@
     "reviewLink": "/blog/nekobasu-ceramic-review",
     "affiliateLink": "",
     "room": "陶器の部屋"
+  },
+  {
+    "id": "goods-3",
+    "image": "/images/img_1784119784121_0do60.webp",
+    "name": "ポーズがいっぱいトトロ①１たち",
+    "comment": "まずは王道！",
+    "reviewLink": "/blog/20260529",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "price": 1320
   }
 ]
