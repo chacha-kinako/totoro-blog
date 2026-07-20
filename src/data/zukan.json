@@ -17,5 +17,15 @@
     "affiliateLink": "",
     "room": "フィギアの部屋",
     "price": 1320
+  },
+  {
+    "id": "goods-1",
+    "image": "/images/img_1784466866657_xwojh.webp",
+    "name": "中トトロみ～つけた！",
+    "comment": "映画の世界観広がる！",
+    "reviewLink": "/blog/20200719",
+    "affiliateLink": "",
+    "room": "陶器の部屋",
+    "price": 13200
   }
 ]
