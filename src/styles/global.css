@@ -110,12 +110,25 @@ body {
 	max-width: 100vw;
 }
 
-/* 記事内の広い要素（表・広告・埋め込み）は画面からはみ出さず横スクロールに */
-.prose table {
-	display: block;
-	width: 100%;
+/* 記事内の表は本文の幅いっぱいに広がる。
+   以前は display:block で横スクロールさせていたが、それだと表としての幅の割り振りが
+   効かなくなり、中身が左側にぎゅっと寄って「半分で切れた」ような見た目になっていた。
+   長い語はセル内で折り返すことで、狭い画面でもはみ出さない */
+.prose .table-scroll {
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
+	margin: 1.5em 0;
+	max-width: 100%;
+}
+.prose table {
+	display: table;
+	width: 100%;
+	table-layout: auto;
+	margin: 0;
+}
+.prose table th,
+.prose table td {
+	overflow-wrap: anywhere;
 }
 .prose iframe,
 .prose embed,
