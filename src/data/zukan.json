@@ -1,12 +1,13 @@
 [
   {
     "id": "goods-62",
-    "image": "/images/img_1783781896444_ymzq5.webp",
+    "image": "/images/img_1784668594654_qvk54.webp",
     "name": "ネコバス　陶器",
     "comment": "迫力満点！",
     "reviewLink": "/blog/nekobasu-ceramic-review",
     "affiliateLink": "",
-    "room": "陶器の部屋"
+    "room": "陶器の部屋",
+    "price": 49500
   },
   {
     "id": "goods-3",
