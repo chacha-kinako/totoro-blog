@@ -60,12 +60,13 @@ const posts = (await getCollection('blog'))
 			margin: 0.2em 0 0;
 		}
 		.post-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 1.2rem;
+			display: flex;
+			flex-direction: column;
+			gap: 0.9rem;
 			list-style: none;
 			margin: 0;
 			padding: 0 0 4em;
+			max-width: 640px;
 		}
 		.post-card {
 			background: #fff;
@@ -75,12 +76,20 @@ const posts = (await getCollection('blog'))
 			overflow: hidden;
 			transition: transform 0.2s, box-shadow 0.2s;
 		}
-		.post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-		.post-card a { display: block; text-decoration: none; color: inherit; height: 100%; }
+		.post-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+		.post-card a {
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			text-decoration: none;
+			color: inherit;
+			min-height: 96px;
+		}
 		.post-card__thumb {
 			position: relative;
-			width: 100%;
-			aspect-ratio: 3 / 2;
+			flex-shrink: 0;
+			width: 128px;
+			align-self: stretch;
 			overflow: hidden;
 			background: var(--milk-dark);
 		}
@@ -93,16 +102,27 @@ const posts = (await getCollection('blog'))
 			filter: url(#crayon-photo);
 		}
 		.post-card:hover .post-card__thumb img { transform: scale(1.04); }
-		.post-card__bar { height: 4px; background: var(--mustard-light); }
-		.post-card__body { padding: 1.2em 1.3em 1.5em; }
+		.post-card__bar { flex-shrink: 0; width: 6px; background: var(--mustard-light); }
+		.post-card__body {
+			flex: 1;
+			min-width: 0;
+			padding: 0.85em 1.1em;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
 		.post-card__date { font-size: 0.62em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.4em; opacity: 0.8; }
 		.post-card__title {
-			font-size: 0.88em;
+			font-size: 0.9em;
 			font-weight: 700;
 			color: var(--blue-ink);
 			font-family: var(--font-hand);
-			line-height: 1.55;
+			line-height: 1.5;
 			margin: 0;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
 		}
 		.empty-state {
 			text-align: center;
@@ -111,10 +131,10 @@ const posts = (await getCollection('blog'))
 		}
 		@media (max-width: 900px) {
 			.page-outer { grid-template-columns: 1fr; padding: 0 1em; }
-			.post-grid { grid-template-columns: repeat(2, 1fr); }
 		}
 		@media (max-width: 560px) {
-			.post-grid { grid-template-columns: 1fr; }
+			.post-card a { min-height: 84px; }
+			.post-card__thumb { width: 104px; }
 		}
 	</style>
 </head>
