@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
 import Footer from '../../../components/Footer.astro';
-import FormattedDate from '../../../components/FormattedDate.astro';
 import Header from '../../../components/Header.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../../consts';
@@ -30,6 +29,8 @@ const { room } = Astro.props as { room: RoomEntry };
 const posts = (await getCollection('blog'))
 	.filter((p) => p.data.room === room.slug && p.data.articleType === 'review')
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
 ---
 
 <!doctype html>
@@ -110,20 +111,22 @@ const posts = (await getCollection('blog'))
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
+			gap: 0.25em;
 		}
-		.post-card__date { font-size: 0.62em; color: var(--text-muted); font-weight: 600; margin-bottom: 0.4em; opacity: 0.8; }
 		.post-card__title {
-			font-size: 0.9em;
+			font-size: 0.76em;
 			font-weight: 700;
 			color: var(--blue-ink);
 			font-family: var(--font-hand);
 			line-height: 1.5;
 			margin: 0;
+			min-height: 4.5em;
 			display: -webkit-box;
-			-webkit-line-clamp: 2;
+			-webkit-line-clamp: 3;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
+		.post-card__date { align-self: flex-end; font-size: 0.65em; color: var(--text-muted); font-weight: 600; opacity: 0.8; }
 		.empty-state {
 			text-align: center;
 			color: var(--text-muted);
@@ -159,8 +162,8 @@ const posts = (await getCollection('blog'))
 									<div class="post-card__bar" />
 								)}
 								<div class="post-card__body">
-									<p class="post-card__date"><FormattedDate date={post.data.pubDate} /></p>
 									<h2 class="post-card__title">{post.data.title}</h2>
+									<p class="post-card__date">{jaDate(post.data.pubDate)}</p>
 								</div>
 							</a>
 						</li>
