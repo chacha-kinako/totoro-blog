@@ -189,7 +189,6 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 			align-items: stretch;
 			text-decoration: none;
 			color: inherit;
-			min-height: 96px;
 		}
 		.post-card__thumb {
 			position: relative;
@@ -223,9 +222,9 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 			color: var(--blue-ink);
 			line-height: 1.5;
 			margin: 0;
-			min-height: 4.5em;
+			min-height: 3em;
 			display: -webkit-box;
-			-webkit-line-clamp: 3;
+			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
@@ -282,7 +281,6 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 		}
 		@media (max-width: 560px) {
 			.zukan-grid { grid-template-columns: repeat(2, 1fr); }
-			.post-card a { min-height: 84px; }
 			.post-card__thumb { width: 104px; }
 		}
 	</style>
