@@ -28,5 +28,15 @@
     "affiliateLink": "",
     "room": "陶器の部屋",
     "price": 13200
+  },
+  {
+    "id": "goods-248",
+    "image": "/images/img_1784985696948_x21lw.webp",
+    "name": "マグカップ　赤　ジジ",
+    "comment": "深い赤色が落ち着く",
+    "reviewLink": "/blog/20260620",
+    "affiliateLink": "",
+    "room": "食器の部屋",
+    "price": 1980
   }
 ]
