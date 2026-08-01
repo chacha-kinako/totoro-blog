@@ -38,5 +38,15 @@
     "affiliateLink": "",
     "room": "食器の部屋",
     "price": 1980
+  },
+  {
+    "id": "goods-325",
+    "image": "/images/img_1785545551528_35fyk.webp",
+    "name": "小トトロ　み～つけた！",
+    "comment": "映画の世界をお部屋に",
+    "reviewLink": "/blog/20260801",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=http%3A%2F%2Fwww.rakuten.co.jp%2F",
+    "room": "陶器の部屋",
+    "price": 9900
   }
 ]
