@@ -25,7 +25,7 @@
     "name": "中トトロ　み～つけた！",
     "comment": "映画の世界観広がる！",
     "reviewLink": "/blog/20200719",
-    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonguri%2F10008793%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fdonguri%2Fi%2F10008793%2F",
+    "affiliateLink": "",
     "room": "陶器の部屋",
     "price": 13200
   },
@@ -38,5 +38,25 @@
     "affiliateLink": "",
     "room": "食器の部屋",
     "price": 1980
+  },
+  {
+    "id": "goods-325",
+    "image": "/images/img_1785545551528_35fyk.webp",
+    "name": "小トトロ　み～つけた！",
+    "comment": "映画の世界をお部屋に",
+    "reviewLink": "/blog/20260801",
+    "affiliateLink": "",
+    "room": "陶器の部屋",
+    "price": 9900
+  },
+  {
+    "id": "goods-4",
+    "image": "/images/img_1785762255902_1p13s.webp",
+    "name": "ポーズがいっぱいトトロ②１オカリナ",
+    "comment": "月夜の晩に♪",
+    "reviewLink": "/blog/20260709",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "price": 1100
   }
 ]
