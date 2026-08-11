@@ -68,5 +68,15 @@
     "affiliateLink": "",
     "room": "食器の部屋",
     "price": 1980
+  },
+  {
+    "id": "goods-253",
+    "image": "/images/img_1786437067723_zq1v3.webp",
+    "name": "マグカップ　紅の豚",
+    "comment": "爽やかなあおぞら♪",
+    "reviewLink": "/blog/20260811",
+    "affiliateLink": "",
+    "room": "食器の部屋",
+    "price": 2750
   }
 ]
