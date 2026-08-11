@@ -58,5 +58,15 @@
     "affiliateLink": "",
     "room": "フィギアの部屋",
     "price": 1100
+  },
+  {
+    "id": "goods-247",
+    "image": "/images/img_1786434281952_pd673.webp",
+    "name": "ジジのマグカップ　白",
+    "comment": "映画にでてくるあのマグ",
+    "reviewLink": "/blog/20260615-1",
+    "affiliateLink": "",
+    "room": "食器の部屋",
+    "price": 1980
   }
 ]
