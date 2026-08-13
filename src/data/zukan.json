@@ -78,5 +78,15 @@
     "affiliateLink": "",
     "room": "食器の部屋",
     "price": 2750
+  },
+  {
+    "id": "goods-208",
+    "image": "/images/img_1786625446957_9h3qc.webp",
+    "name": "ポーズがいっぱいトトロ①５とび",
+    "comment": "コマに乗って空を飛ぶ！",
+    "reviewLink": "/blog/20260813",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "price": 1320
   }
 ]
