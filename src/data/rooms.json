@@ -28,19 +28,10 @@
   },
   {
     "slug": "toki",
-    "name": "陶器の部屋",
+    "name": "置物の部屋",
     "emoji": "🍵",
     "color": "#A5C86B",
     "sortOrder": 4,
-    "isActive": true,
-    "top3": []
-  },
-  {
-    "slug": "planter",
-    "name": "プランターカバーの部屋",
-    "emoji": "🪴",
-    "color": "#8FBF6E",
-    "sortOrder": 5,
     "isActive": true,
     "top3": []
   },
@@ -50,7 +41,7 @@
     "emoji": "🧩",
     "color": "#F5C845",
     "sortOrder": 6,
-    "isActive": true,
+    "isActive": false,
     "top3": []
   }
 ]
