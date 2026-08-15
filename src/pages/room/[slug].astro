@@ -28,6 +28,8 @@ type ZukanItem = {
 	reviewLink: string;
 	affiliateLink: string;
 	room?: string;
+	roomSlug?: string;
+	simple?: boolean;
 };
 
 export function getStaticPaths() {
@@ -58,8 +60,9 @@ const top3 = room.top3
 	.map((t) => ({ ...t, post: allPosts.find((p) => p.id === t.slug) }))
 	.filter((t) => t.post);
 
-const zukanItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter(
-	(item) => item.room === room.name,
+// 部屋名は変更されることがあるので、まずスラッグで判定し、無い古いカードだけ部屋名で拾う
+const zukanItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter((item) =>
+	item.roomSlug ? item.roomSlug === room.slug : item.room === room.name,
 );
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
@@ -309,7 +312,7 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 								<span class="hub-section__heading-text">📖 図鑑</span>
 							</div>
 							<div class="zukan-grid">
-								{zukanItems.slice(0, 8).map((item) => (
+								{zukanItems.map((item) => (
 									<a class="zukan-card" href={item.reviewLink || `/room/${room.slug}`}>
 										<div class="zukan-card__img"><img src={item.image} alt={item.name ?? ''} loading="lazy" /></div>
 										{item.name && <div class="zukan-card__name">{item.name}</div>}

@@ -14,29 +14,34 @@ type ZukanItem = {
 	reviewLink: string;
 	affiliateLink: string;
 	room?: string;
+	roomSlug?: string;
+	simple?: boolean;
 	price?: number | null;
 };
 
 export function getStaticPaths() {
 	return [
-		{ params: { room: 'nuigurumi' }, props: { roomName: 'ぬいぐるみの部屋', roomIcon: '🧸', filter: 'ぬいぐるみの部屋' } },
-		{ params: { room: 'toki' },      props: { roomName: '陶器の部屋',       roomIcon: '🍵', filter: '陶器の部屋' } },
-		{ params: { room: 'figure' },    props: { roomName: 'フィギアの部屋',   roomIcon: '🪆', filter: 'フィギアの部屋' } },
-		{ params: { room: 'shokki' },    props: { roomName: '食器の部屋',       roomIcon: '🍽️', filter: '食器の部屋' } },
-		{ params: { room: 'all' },       props: { roomName: '総合部屋',         roomIcon: '📦', filter: null } },
+		{ params: { room: 'nuigurumi' }, props: { roomName: 'ぬいぐるみの部屋', roomIcon: '🧸', filter: 'nuigurumi', filterName: 'ぬいぐるみの部屋' } },
+		{ params: { room: 'toki' },      props: { roomName: '置物の部屋',       roomIcon: '🍵', filter: 'toki',      filterName: '置物の部屋' } },
+		{ params: { room: 'figure' },    props: { roomName: 'フィギアの部屋',   roomIcon: '🪆', filter: 'figure',    filterName: 'フィギアの部屋' } },
+		{ params: { room: 'shokki' },    props: { roomName: '食器の部屋',       roomIcon: '🍽️', filter: 'shokki',    filterName: '食器の部屋' } },
+		{ params: { room: 'all' },       props: { roomName: '総合部屋',         roomIcon: '📦', filter: null,        filterName: null } },
 	];
 }
 
-const { roomName, roomIcon, filter } = Astro.props;
+const { roomName, roomIcon, filter, filterName } = Astro.props;
 const currentRoom = Astro.params.room;
 
-const allItems: ZukanItem[] = zukanDataRaw as ZukanItem[];
-const items = filter ? allItems.filter((item) => item.room === filter) : allItems;
+// simple = レビュー記事から自動生成した簡易カード。図書室の図鑑には出さない（部屋トップ専用）
+const allItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter((item) => !item.simple);
+const items = filter
+	? allItems.filter((item) => (item.roomSlug ? item.roomSlug === filter : item.room === filterName))
+	: allItems;
 
 const rooms = [
 	{ slug: 'all',       name: '総合部屋',   base: '#F5C845', dark: '#D19E1D' },
 	{ slug: 'nuigurumi', name: 'ぬいぐるみ', base: '#F2A9BC', dark: '#D97A94' },
-	{ slug: 'toki',      name: '陶器',       base: '#A5C86B', dark: '#7BA344' },
+	{ slug: 'toki',      name: '置物',       base: '#A5C86B', dark: '#7BA344' },
 	{ slug: 'figure',    name: 'フィギア',   base: '#D08B3E', dark: '#9C6420' },
 	{ slug: 'shokki',    name: '食器',       base: '#64AAE8', dark: '#3B7EC0' },
 ];

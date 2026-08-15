@@ -6,7 +6,8 @@
     "comment": "迫力満点！",
     "reviewLink": "/blog/nekobasu-ceramic-review",
     "affiliateLink": "",
-    "room": "陶器の部屋",
+    "room": "置物の部屋",
+    "roomSlug": "toki",
     "price": 49500
   },
   {
@@ -17,6 +18,7 @@
     "reviewLink": "/blog/20260529",
     "affiliateLink": "",
     "room": "フィギアの部屋",
+    "roomSlug": "figure",
     "price": 1320
   },
   {
@@ -27,16 +29,18 @@
     "reviewLink": "/blog/20200719",
     "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonguri%2F10008793%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fdonguri%2Fi%2F10008793%2F",
     "room": "置物の部屋",
+    "roomSlug": "toki",
     "price": 13200
   },
   {
     "id": "goods-248",
     "image": "/images/img_1784985696948_x21lw.webp",
-    "name": "マグカップ　赤　ジジ",
+    "name": "ジジのマグカップ　赤",
     "comment": "深い赤色が落ち着く",
     "reviewLink": "/blog/20260620",
     "affiliateLink": "",
     "room": "食器の部屋",
+    "roomSlug": "shokki",
     "price": 1980
   },
   {
@@ -46,7 +50,8 @@
     "comment": "映画の世界をお部屋に",
     "reviewLink": "/blog/20260801",
     "affiliateLink": "",
-    "room": "陶器の部屋",
+    "room": "置物の部屋",
+    "roomSlug": "toki",
     "price": 9900
   },
   {
@@ -57,6 +62,7 @@
     "reviewLink": "/blog/20260709",
     "affiliateLink": "",
     "room": "フィギアの部屋",
+    "roomSlug": "figure",
     "price": 1100
   },
   {
@@ -67,16 +73,18 @@
     "reviewLink": "/blog/20260615-1",
     "affiliateLink": "",
     "room": "食器の部屋",
+    "roomSlug": "shokki",
     "price": 1980
   },
   {
     "id": "goods-253",
     "image": "/images/img_1786437067723_zq1v3.webp",
-    "name": "マグカップ　紅の豚",
+    "name": "紅の豚　ぽこぽこマグカップ　飛行機雲",
     "comment": "爽やかなあおぞら♪",
     "reviewLink": "/blog/20260811",
     "affiliateLink": "",
     "room": "食器の部屋",
+    "roomSlug": "shokki",
     "price": 2750
   },
   {
@@ -87,6 +95,7 @@
     "reviewLink": "/blog/20260813",
     "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonguri%2F10007019%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fdonguri%2Fi%2F10007019%2F",
     "room": "フィギアの部屋",
+    "roomSlug": "figure",
     "price": 1320
   },
   {
@@ -97,6 +106,91 @@
     "reviewLink": "/blog/20260815",
     "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=621",
     "room": "置物の部屋",
+    "roomSlug": "toki",
     "price": 12100
+  },
+  {
+    "id": "goods-112",
+    "image": "/images/img_1779974039132_whx2s.webp",
+    "name": "小トトロクッション",
+    "comment": "",
+    "reviewLink": "/blog/20260511",
+    "affiliateLink": "",
+    "room": "ぬいぐるみの部屋",
+    "roomSlug": "nuigurumi",
+    "price": null,
+    "simple": true
+  },
+  {
+    "id": "goods-210",
+    "image": "/images/img_1780215494259_xn3uj.webp",
+    "name": "ポーズがいっぱいトトロ②２コマ回し",
+    "comment": "",
+    "reviewLink": "/blog/20260531-1",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 1100,
+    "simple": true
+  },
+  {
+    "id": "goods-206",
+    "image": "/images/img_1782390792264_tb476.webp",
+    "name": "ポーズがいっぱいトトロ①３おひるね",
+    "comment": "",
+    "reviewLink": "/blog/20260625-1",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 1320,
+    "simple": true
+  },
+  {
+    "id": "goods-33",
+    "image": "/images/img_1782304762469_ch05a.webp",
+    "name": "ポーズがいっぱいトトロ①２あめふり",
+    "comment": "",
+    "reviewLink": "/blog/20260624-1",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 1320,
+    "simple": true
+  },
+  {
+    "id": "goods-249",
+    "image": "/images/img_1780925355649_oogph.webp",
+    "name": "マグカップ　ピンク　ジジ",
+    "comment": "",
+    "reviewLink": "/blog/20260608",
+    "affiliateLink": "",
+    "room": "食器の部屋",
+    "roomSlug": "shokki",
+    "price": null,
+    "simple": true
+  },
+  {
+    "id": "goods-213",
+    "image": "/images/img_1781696705401_yiior.webp",
+    "name": "ポーズがいっぱいトトロ②５吠え",
+    "comment": "",
+    "reviewLink": "/blog/20260617-max",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 1100,
+    "simple": true
+  },
+  {
+    "id": "goods-207",
+    "image": "/images/img_1781048671680_irt6n.webp",
+    "name": "ポーズがいっぱいトトロ①４かさとび",
+    "comment": "",
+    "reviewLink": "/blog/20260610",
+    "affiliateLink": "",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 1320,
+    "simple": true
   }
 ]
