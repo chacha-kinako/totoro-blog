@@ -192,5 +192,16 @@
     "roomSlug": "figure",
     "price": 1320,
     "simple": true
+  },
+  {
+    "id": "goods-328",
+    "image": "/images/img_1786865402288_faw6k.webp",
+    "name": "魔女の宅急便　ジジのマグカップ　ミント",
+    "comment": "特別感あるミントカラー",
+    "reviewLink": "",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=621",
+    "room": "食器の部屋",
+    "roomSlug": "shokki",
+    "price": 1980
   }
 ]
