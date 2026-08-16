@@ -4,17 +4,11 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import { worksWithPosts } from '../works';
 
-const works = [
-	{ icon: '🌱', name: 'となりのトトロ',       desc: 'ほのぼのトトログッズ' },
-	{ icon: '🛁', name: '千と千尋の神隠し',     desc: '湯屋の世界に浸る' },
-	{ icon: '🐺', name: 'もののけ姫',            desc: '森と神々のグッズ' },
-	{ icon: '🧹', name: '魔女の宅急便',          desc: 'キキと一緒に飛ぼう' },
-	{ icon: '🏰', name: '天空の城ラピュタ',      desc: 'バルスの世界' },
-	{ icon: '🌾', name: '風の谷のナウシカ',      desc: '風の谷の記憶' },
-	{ icon: '🐟', name: '崖の上のポニョ',        desc: '海の女の子' },
-	{ icon: '🔥', name: 'ハウルの動く城',        desc: '動く城の住人たち' },
-];
+// 記事がある作品だけ表示する（記事が公開されると自動で増える）
+const works = worksWithPosts(await getCollection('blog'));
 ---
 
 <!doctype html>

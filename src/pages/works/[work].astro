@@ -7,6 +7,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import { SITE_TITLE } from '../../consts';
+import { worksWithPosts } from '../../works';
 
 export async function getStaticPaths() {
 	let pageOrder: Record<string, string[]> = {};
@@ -15,18 +16,9 @@ export async function getStaticPaths() {
 		if (existsSync(p)) pageOrder = JSON.parse(readFileSync(p, 'utf-8'));
 	} catch {}
 
-	const ghibliWorks = [
-		{ icon: '🌱', name: 'となりのトトロ' },
-		{ icon: '🛁', name: '千と千尋の神隠し' },
-		{ icon: '🐺', name: 'もののけ姫' },
-		{ icon: '🧹', name: '魔女の宅急便' },
-		{ icon: '🏰', name: '天空の城ラピュタ' },
-		{ icon: '🌾', name: '風の谷のナウシカ' },
-		{ icon: '🐟', name: '崖の上のポニョ' },
-		{ icon: '🔥', name: 'ハウルの動く城' },
-	];
-
 	const allPosts = await getCollection('blog');
+	// 記事が1本も無い作品はページ自体を作らない（記事が公開されると自動で作られる）
+	const ghibliWorks = worksWithPosts(allPosts);
 
 	return ghibliWorks.map((work) => {
 		const workOrder: string[] = (pageOrder as Record<string, string[]>)[`work:${work.name}`] || [];

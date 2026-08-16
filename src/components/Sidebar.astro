@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import WoodenSign from './WoodenSign.astro';
+import { worksWithPosts } from '../works';
 
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -8,16 +9,8 @@ const allPosts = (await getCollection('blog')).sort(
 const latestPosts = allPosts.slice(0, 6);
 const popularPosts = allPosts.filter(p => p.data.showInPopular || p.data.featured).slice(0, 6);
 
-const ghibliWorks = [
-	{ icon: '🌱', name: 'となりのトトロ' },
-	{ icon: '🛁', name: '千と千尋の神隠し' },
-	{ icon: '🐺', name: 'もののけ姫' },
-	{ icon: '🧹', name: '魔女の宅急便' },
-	{ icon: '🏰', name: '天空の城ラピュタ' },
-	{ icon: '🌾', name: '風の谷のナウシカ' },
-	{ icon: '🐟', name: '崖の上のポニョ' },
-	{ icon: '🔥', name: 'ハウルの動く城' },
-];
+// 記事がある作品だけ表示する（記事が公開されると自動で増える）
+const ghibliWorks = worksWithPosts(allPosts);
 ---
 
 <aside class="sidebar">
@@ -51,13 +44,15 @@ const ghibliWorks = [
 		</ul>
 	</WoodenSign>
 
-	<WoodenSign title="作品別" icon="work" color="blue" moreHref="/works">
-		<ul class="sb-list">
-			{ghibliWorks.map(w => (
-				<li><a href={`/works/${encodeURIComponent(w.name)}`} class="sb-link">{w.icon} {w.name}</a></li>
-			))}
-		</ul>
-	</WoodenSign>
+	{ghibliWorks.length > 0 && (
+		<WoodenSign title="作品別" icon="work" color="blue" moreHref="/works">
+			<ul class="sb-list">
+				{ghibliWorks.map(w => (
+					<li><a href={`/works/${encodeURIComponent(w.name)}`} class="sb-link">{w.icon} {w.name}</a></li>
+				))}
+			</ul>
+		</WoodenSign>
+	)}
 </aside>
 
 <style>
