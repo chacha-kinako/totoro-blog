@@ -160,14 +160,14 @@
   {
     "id": "goods-249",
     "image": "/images/img_1780925355649_oogph.webp",
-    "name": "マグカップ　ピンク　ジジ",
+    "name": "ジジのマグカップ　ピンク",
     "comment": "",
     "reviewLink": "/blog/20260608",
     "affiliateLink": "",
     "room": "食器の部屋",
     "roomSlug": "shokki",
-    "price": null,
-    "simple": true
+    "simple": true,
+    "price": 1980
   },
   {
     "id": "goods-213",
