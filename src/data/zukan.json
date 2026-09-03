@@ -111,15 +111,14 @@
   },
   {
     "id": "goods-112",
-    "image": "/images/img_1779974039132_whx2s.webp",
+    "image": "/images/img_1788440348227_07lhe.webp",
     "name": "小トトロクッション",
-    "comment": "",
+    "comment": "ソファにトトロ♪",
     "reviewLink": "/blog/20260511",
-    "affiliateLink": "",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fpenport%2Fk-8389%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fpenport%2Fi%2F10058170%2F",
     "room": "ぬいぐるみの部屋",
     "roomSlug": "nuigurumi",
-    "simple": true,
-    "price": null
+    "price": 2420
   },
   {
     "id": "goods-210",
