@@ -202,5 +202,16 @@
     "room": "食器の部屋",
     "roomSlug": "shokki",
     "price": 1980
+  },
+  {
+    "id": "goods-39",
+    "image": "/images/img_1788686160589_a6ngw.webp",
+    "name": "ミニマグネット　大トトロ　DGY",
+    "comment": "シックな色合いが魅力",
+    "reviewLink": "/blog/20260906",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Futu-wa%2Fk-6615%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Futu-wa%2Fi%2F10004943%2F",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 770
   }
 ]
