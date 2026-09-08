@@ -213,5 +213,16 @@
     "room": "フィギアの部屋",
     "roomSlug": "figure",
     "price": 770
+  },
+  {
+    "id": "goods-40",
+    "image": "/images/img_1788909276434_obgr9.webp",
+    "name": "ミニマグネット　中トトロ",
+    "comment": "やさしい水色がかわいい",
+    "reviewLink": "/blog/20260909",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Futu-wa%2Fk-6616%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Futu-wa%2Fi%2F10004945%2F",
+    "room": "フィギアの部屋",
+    "roomSlug": "figure",
+    "price": 770
   }
 ]
