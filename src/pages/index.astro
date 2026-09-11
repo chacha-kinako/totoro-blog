@@ -845,12 +845,12 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 
 	<!-- クイックナビ（全幅） -->
 	<nav class="quick-nav">
-		<a href="/zukan" class="quick-nav__btn quick-nav__btn--fill">図書室</a>
-		<a href="/rooms" class="quick-nav__btn quick-nav__btn--fill">部屋</a>
-		<a href="/kozukai" class="quick-nav__btn quick-nav__btn--fill">お小遣い帳</a>
+		<a href="/zukan/" class="quick-nav__btn quick-nav__btn--fill">図書室</a>
+		<a href="/rooms/" class="quick-nav__btn quick-nav__btn--fill">部屋</a>
+		<a href="/kozukai/" class="quick-nav__btn quick-nav__btn--fill">お小遣い帳</a>
 		<a href="/blog/latest" class="quick-nav__btn">最新記事</a>
 		<a href="/blog/popular" class="quick-nav__btn">人気記事</a>
-		<a href="/about" class="quick-nav__btn">プロフィール</a>
+		<a href="/about/" class="quick-nav__btn">プロフィール</a>
 	</nav>
 
 	<!-- 2カラム：メインコンテンツ + 整理棚 -->
@@ -861,16 +861,16 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			<section class="home-section home-section--alt" id="entrances">
 				<div class="home-section__inner">
 					<div class="pillar-signs">
-						<a href="/zukan" class="pillar-sign">
+						<a href="/zukan/" class="pillar-sign">
 							<img src="/images/toshoshitsu-sign.png" alt="📚 図書室" loading="lazy" />
 						</a>
-						<a href="/rooms" class="pillar-sign">
+						<a href="/rooms/" class="pillar-sign">
 							<img src="/images/goodsroom-sign.png" alt="🧸 グッズ部屋" loading="lazy" />
 						</a>
-						<a href="/kozukai" class="pillar-sign">
+						<a href="/kozukai/" class="pillar-sign">
 							<img src="/images/kozukai-home-sign.png" alt="💰 おこづかい帳" loading="lazy" />
 						</a>
-						<a href="/danwashitsu" class="pillar-sign">
+						<a href="/danwashitsu/" class="pillar-sign">
 							<img src="/images/danwashitsu-sign.png" alt="☕ 談話室" loading="lazy" />
 						</a>
 					</div>
@@ -919,7 +919,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 							{homeAbout.text.split('\n').filter((l: string) => l.trim()).map((line: string) => (
 								<p>{line}</p>
 							))}
-							<a href="/about" class="about-teaser__link">プロフィールを読む →</a>
+							<a href="/about/" class="about-teaser__link">プロフィールを読む →</a>
 						</div>
 					</div>
 				</div>
