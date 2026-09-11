@@ -5,57 +5,13 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
+import { getZukanRooms } from '../zukan-rooms';
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
 const toshoshitsuSignImage = siteConfig.hero?.toshoshitsuSignImage ?? '/images/toshoshitsu-sign.png';
 
-const rooms = [
-	{
-		slug: 'figure',
-		short: 'フィギア',
-		name: 'フィギアの部屋',
-		href: '/zukan/figure',
-		desc: 'フィギュアたちが集合',
-		base: '#D08B3E',
-		dark: '#9C6420',
-	},
-	{
-		slug: 'nuigurumi',
-		short: 'ぬいぐるみ',
-		name: 'ぬいぐるみの部屋',
-		href: '/zukan/nuigurumi',
-		desc: 'ふわふわの仲間たち',
-		base: '#F2A9BC',
-		dark: '#D97A94',
-	},
-	{
-		slug: 'shokki',
-		short: '食器',
-		name: '食器の部屋',
-		href: '/zukan/shokki',
-		desc: 'マグやお皿など',
-		base: '#64AAE8',
-		dark: '#3B7EC0',
-	},
-	{
-		slug: 'toki',
-		short: '置物',
-		name: '置物の部屋',
-		href: '/zukan/toki',
-		desc: '陶器の置物たち',
-		base: '#A5C86B',
-		dark: '#7BA344',
-	},
-	{
-		slug: 'all',
-		short: '総合部屋',
-		name: '総合部屋',
-		href: '/zukan/all',
-		desc: '全グッズを一覧で',
-		base: '#F5C845',
-		dark: '#D19E1D',
-	},
-];
+// 部屋の扉は rooms.json（管理室が更新）から自動生成。最後に総合部屋が付く
+const rooms = getZukanRooms();
 ---
 
 <!doctype html>
@@ -175,7 +131,8 @@ const rooms = [
 		}
 		.room-grid {
 			display: grid;
-			grid-template-columns: repeat(5, 1fr);
+			/* 部屋が増えても崩れないよう、幅に応じて自動で列数を決める */
+			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 			gap: 1.2rem;
 			align-items: end;
 		}
@@ -201,12 +158,6 @@ const rooms = [
 		.room-card:hover :global(.crayon-door) {
 			filter: drop-shadow(0 8px 13px rgba(120, 90, 50, 0.28));
 		}
-		.room-card__desc {
-			font-size: 0.72em;
-			color: var(--text-muted);
-			line-height: 1.5;
-			margin-top: 0.7em;
-		}
 		.room-card__enter {
 			display: inline-block;
 			margin-top: 0.55em;
@@ -231,7 +182,6 @@ const rooms = [
 				grid-template-columns: repeat(3, 1fr);
 				gap: 0.8rem;
 			}
-			.room-card__desc { display: none; }
 			.room-card__enter {
 				margin-top: 0.5em;
 				padding: 0.3em 0.9em;
@@ -279,9 +229,8 @@ const rooms = [
 			<div class="room-section__inner">
 				<div class="room-grid">
 					{rooms.map((room) => (
-						<a class="room-card" href={room.href}>
+						<a class="room-card" href={`/zukan/${room.slug}`}>
 							<CrayonDoor slug={`top-${room.slug}`} label={room.short} base={room.base} dark={room.dark} />
-							<span class="room-card__desc">{room.desc}</span>
 							<span class="room-card__enter">部屋に入る →</span>
 						</a>
 					))}

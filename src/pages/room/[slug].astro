@@ -60,9 +60,10 @@ const top3 = room.top3
 	.map((t) => ({ ...t, post: allPosts.find((p) => p.id === t.slug) }))
 	.filter((t) => t.post);
 
+// この部屋の図鑑カード（図書室に載る本カードのみ。simple=簡易カードは除外）。1枚以上あれば図鑑への案内を出す
 // 部屋名は変更されることがあるので、まずスラッグで判定し、無い古いカードだけ部屋名で拾う
-const zukanItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter((item) =>
-	item.roomSlug ? item.roomSlug === room.slug : item.room === room.name,
+const zukanItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter(
+	(item) => !item.simple && (item.roomSlug ? item.roomSlug === room.slug : item.room === room.name),
 );
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
@@ -150,22 +151,21 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 			text-underline-offset: 8px;
 		}
 
-		/* ── 図鑑カードグリッド ── */
-		.zukan-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 12px;
-		}
-		.zukan-card {
+		/* ── 図鑑部屋への案内ボタン（図鑑そのものは図書室に任せる） ── */
+		.zukan-link-wrap { text-align: center; }
+		.zukan-link {
+			display: inline-block;
+			padding: 0.5em 1.4em;
+			border-radius: 30px 34px 28px 36px / 34px 28px 36px 30px;
+			border: 1.5px solid var(--orange-light);
 			background: #fff;
-			border-radius: 12px;
-			overflow: hidden;
-			box-shadow: var(--shadow-sm);
-			border: 2px solid var(--beige-light);
+			color: var(--orange-dark);
+			font-size: 0.82em;
+			font-weight: 700;
+			text-decoration: none;
+			transition: background 0.18s, color 0.18s;
 		}
-		.zukan-card__img { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: var(--milk-dark); }
-		.zukan-card__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-		.zukan-card__name { font-size: 0.74em; font-weight: 700; padding: 6px 8px 2px; color: var(--text); }
+		.zukan-link:hover { background: var(--orange); color: #fff; border-color: var(--orange); text-decoration: none; }
 
 		/* ── 記事カードリスト（写真左・タイトル右・縦1列） ── */
 		.post-grid {
@@ -279,11 +279,7 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 			color: var(--blue-ink);
 		}
 
-		@media (max-width: 900px) {
-			.zukan-grid { grid-template-columns: repeat(3, 1fr); }
-		}
 		@media (max-width: 560px) {
-			.zukan-grid { grid-template-columns: repeat(2, 1fr); }
 			.post-card__thumb { width: 104px; }
 		}
 	</style>
@@ -307,18 +303,8 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 
 				{zukanItems.length > 0 && (
 					<section class="hub-section">
-						<div class="hub-section__inner">
-							<div class="hub-section__heading">
-								<span class="hub-section__heading-text">📖 図鑑</span>
-							</div>
-							<div class="zukan-grid">
-								{zukanItems.map((item) => (
-									<a class="zukan-card" href={item.reviewLink || `/room/${room.slug}`}>
-										<div class="zukan-card__img"><img src={item.image} alt={item.name ?? ''} loading="lazy" /></div>
-										{item.name && <div class="zukan-card__name">{item.name}</div>}
-									</a>
-								))}
-							</div>
+						<div class="hub-section__inner zukan-link-wrap">
+							<a class="zukan-link" href={`/zukan/${room.slug}`}>📖 この部屋の図鑑をみる →</a>
 						</div>
 					</section>
 				)}
@@ -421,7 +407,7 @@ const jaDate = (d: Date) => `${d.getFullYear()}年${d.getMonth() + 1}月${d.getD
 					</section>
 				)}
 
-				{zukanItems.length === 0 && roomPosts.length === 0 && (
+				{roomPosts.length === 0 && (
 					<div class="hub-section__inner" style="text-align:center; color: var(--text-muted); padding: 3em 1em;">
 						🌱 まだこの部屋にはコンテンツがありません。少しまってね！
 					</div>
