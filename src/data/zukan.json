@@ -224,5 +224,16 @@
     "room": "マグネットの部屋",
     "roomSlug": "magnet",
     "price": 770
+  },
+  {
+    "id": "goods-329",
+    "image": "/images/img_1789372841856_7udca.webp",
+    "name": "ミニマグネット　大トトロ　グレー",
+    "comment": "王道カラー！",
+    "reviewLink": "/blog/20260914",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fhw-pinokio%2F10000737%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fhw-pinokio%2Fi%2F10000737%2F",
+    "room": "マグネットの部屋",
+    "roomSlug": "magnet",
+    "price": 770
   }
 ]
