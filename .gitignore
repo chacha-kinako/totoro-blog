@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# 写真素材（元写真・HEIC）はブログに含めない。記事の写真は管理室経由で public/images に入る
+*.HEIC
