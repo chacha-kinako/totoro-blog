@@ -144,15 +144,14 @@
   },
   {
     "id": "goods-33",
-    "image": "/images/img_1782304762469_ch05a.webp",
+    "image": "/images/img_1790035383737_xlo35.webp",
     "name": "ポーズがいっぱいトトロ①２あめふり",
-    "comment": "",
+    "comment": "トトロといえば傘！",
     "reviewLink": "/blog/20260624-1",
-    "affiliateLink": "",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonguri%2F10007019%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fdonguri%2Fi%2F10007019%2F",
     "room": "フィギアの部屋",
     "roomSlug": "figure",
-    "price": 1320,
-    "simple": true
+    "price": 1320
   },
   {
     "id": "goods-249",
