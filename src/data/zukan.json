@@ -252,5 +252,16 @@
     "room": "マグネットの部屋",
     "roomSlug": "magnet",
     "price": 660
+  },
+  {
+    "id": "goods-43",
+    "image": "/images/img_1790141931337_avxps.webp",
+    "name": "ミニマグネット　ネコバス",
+    "comment": "ニヤッと笑顔",
+    "reviewLink": "/blog/20260923",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Futu-wa%2Fk-6618%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Futu-wa%2Fi%2F10004950%2F",
+    "room": "マグネットの部屋",
+    "roomSlug": "magnet",
+    "price": 880
   }
 ]
