@@ -329,5 +329,16 @@
     "room": "マグネットの部屋",
     "roomSlug": "magnet",
     "price": 990
+  },
+  {
+    "id": "goods-42",
+    "image": "/images/img_1790426187960_do7o6.webp",
+    "name": "ミニマグネット　ムゼオトトロ",
+    "comment": "ぷっくりおなか！",
+    "reviewLink": "/blog/20260930",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Futu-wa%2Fk-6614%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Futu-wa%2Fi%2F10004944%2F",
+    "room": "マグネットの部屋",
+    "roomSlug": "magnet",
+    "price": 660
   }
 ]
