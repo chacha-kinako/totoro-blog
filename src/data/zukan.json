@@ -318,5 +318,16 @@
     "room": "フィギアの部屋",
     "roomSlug": "figure",
     "price": 1100
+  },
+  {
+    "id": "goods-162",
+    "image": "/images/img_1790411057203_6wkx0.webp",
+    "name": "ミニマグネット　コネコバス",
+    "comment": "限定コネコバス",
+    "reviewLink": "/blog/20260929",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Futu-wa%2Fk-6614%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Futu-wa%2Fi%2F10004944%2F",
+    "room": "マグネットの部屋",
+    "roomSlug": "magnet",
+    "price": 990
   }
 ]
