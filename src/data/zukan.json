@@ -340,5 +340,16 @@
     "room": "マグネットの部屋",
     "roomSlug": "magnet",
     "price": 660
+  },
+  {
+    "id": "goods-188",
+    "image": "/images/img_1791552790752_hsdhg.webp",
+    "name": "お散歩日和",
+    "comment": "トトロとお散歩",
+    "reviewLink": "/blog/20261009",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fparty-honpo%2Fpw-25564s%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fparty-honpo%2Fi%2F10504793%2F",
+    "room": "パズルの部屋",
+    "roomSlug": "パズル",
+    "price": 1760
   }
 ]
