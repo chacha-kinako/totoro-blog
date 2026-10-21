@@ -6,7 +6,7 @@ heroImage: ''
 cardImage: '/images/img_1779514075894_51k2i.webp'
 category: 'おすすめ・まとめ'
 showInLatest: false
-showInPopular: true
+showInPopular: false
 showInReview: false
 showInCategories: ['おすすめ・まとめ']
 showInWorks: ['となりのトトロ']
