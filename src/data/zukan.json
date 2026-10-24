@@ -372,5 +372,16 @@
     "room": "食器の部屋",
     "roomSlug": "shokki",
     "price": 2750
+  },
+  {
+    "id": "goods-252",
+    "image": "/images/img_1792825349093_1omma.webp",
+    "name": "ハウルの動く城　ぽこぽこマグカップ　洗たく日和",
+    "comment": "かわいいキャラ大集合！",
+    "reviewLink": "/blog/20261017",
+    "affiliateLink": "https://af.moshimo.com/af/c/click?a_id=5714628&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fitem.rakuten.co.jp%2Fdonguri%2F10011580%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fdonguri%2Fi%2F10011580%2F",
+    "room": "食器の部屋",
+    "roomSlug": "shokki",
+    "price": 2750
   }
 ]
