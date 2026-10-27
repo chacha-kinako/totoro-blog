@@ -130,6 +130,14 @@ body {
 .prose table td {
 	overflow-wrap: anywhere;
 }
+/* 右寄せの列（価格・点数・金額）は折り返さない。
+   スマホで「各1,320円」が「各1,320 / 円」の2段に割れて読みにくかったため。
+   幅が足りないときは他の列（グッズ名・ひとこと）が折り返して譲る */
+.prose table th[align="right"],
+.prose table td[align="right"] {
+	white-space: nowrap;
+	overflow-wrap: normal;
+}
 .prose iframe,
 .prose embed,
 .prose object,
