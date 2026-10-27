@@ -52,14 +52,5 @@
     "sortOrder": 7,
     "isActive": true,
     "top3": []
-  },
-  {
-    "slug": "ghibli-park",
-    "name": "ジブリパークの部屋",
-    "emoji": "🎠",
-    "color": "#6CC4B0",
-    "sortOrder": 8,
-    "isActive": true,
-    "top3": []
   }
 ]
