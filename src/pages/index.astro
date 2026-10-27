@@ -7,12 +7,15 @@ import Divider from '../components/Divider.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
 import showcaseData from '../data/showcase.json';
+import fs from 'node:fs';
 
 type ShowcaseEntry = { rank: number; slug: string; title: string; cardImage: string };
 
 const homeAbout = siteConfig.homeAbout;
 const exteriorImage = siteConfig.hero?.homeHeroImage || siteConfig.hero?.exteriorImage || '';
 const showcase = (showcaseData as ShowcaseEntry[]).sort((a, b) => a.rank - b.rank);
+// ジブリパークの看板画像は public/images/park-sign.png を置けば自動で切り替わる（無いあいだは文字の看板）
+const hasParkSign = fs.existsSync('public/images/park-sign.png');
 
 // ビルド時点の季節（表示後にJSで現在の月に合わせて切り替える）
 const month = new Date().getMonth() + 1;
@@ -449,6 +452,32 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			filter: drop-shadow(0 3px 8px rgba(120, 90, 50, 0.25));
 			border-radius: 10px;
 		}
+		/* 看板画像ができるまでの文字の看板（ほかの看板の板の部分と大きさ・高さをそろえる） */
+		.pillar-sign--text { container-type: inline-size; }
+		.pillar-sign__text {
+			margin-top: 22%;
+			aspect-ratio: 16 / 10;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 0.15em;
+			background: #f3dfb8;
+			border: 3px solid #b98b55;
+			border-radius: 16px 20px 14px 18px / 18px 14px 20px 16px;
+			filter: drop-shadow(0 3px 8px rgba(120, 90, 50, 0.25));
+			color: var(--text);
+			text-align: center;
+			white-space: nowrap;
+		}
+		.pillar-sign__text-emoji { font-size: 13cqw; line-height: 1.1; }
+		.pillar-sign__text-name {
+			font-family: var(--font-hand);
+			font-weight: 700;
+			font-size: 12cqw;
+			line-height: 1.2;
+		}
+		.pillar-sign__text-sub { font-size: 5.6cqw; color: var(--text-muted); }
 		@media (max-width: 720px) {
 			.pillar-signs { flex-wrap: wrap; gap: 0.8em; }
 			.pillar-sign { flex: 1 1 40%; max-width: 45%; }
@@ -848,6 +877,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 		<a href="/zukan/" class="quick-nav__btn quick-nav__btn--fill">図書室</a>
 		<a href="/rooms/" class="quick-nav__btn quick-nav__btn--fill">部屋</a>
 		<a href="/kozukai/" class="quick-nav__btn quick-nav__btn--fill">お小遣い帳</a>
+		<a href="/park/" class="quick-nav__btn quick-nav__btn--fill">ジブリパーク</a>
 		<a href="/blog/latest" class="quick-nav__btn">最新記事</a>
 		<a href="/blog/popular" class="quick-nav__btn">人気記事</a>
 		<a href="/about/" class="quick-nav__btn">プロフィール</a>
@@ -857,7 +887,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 	<div class="page-outer">
 		<main class="page-main">
 
-			<!-- 4本柱：看板画像を横一列で -->
+			<!-- 5本柱：看板画像を横一列で -->
 			<section class="home-section home-section--alt" id="entrances">
 				<div class="home-section__inner">
 					<div class="pillar-signs">
@@ -872,6 +902,17 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 						</a>
 						<a href="/danwashitsu/" class="pillar-sign">
 							<img src="/images/danwashitsu-sign.png" alt="☕ 談話室" loading="lazy" />
+						</a>
+						<a href="/park/" class={hasParkSign ? 'pillar-sign' : 'pillar-sign pillar-sign--text'}>
+							{hasParkSign ? (
+								<img src="/images/park-sign.png" alt="🎡 ジブリパーク" loading="lazy" />
+							) : (
+								<span class="pillar-sign__text">
+									<span class="pillar-sign__text-emoji">🎡</span>
+									<span class="pillar-sign__text-name">ジブリパーク</span>
+									<span class="pillar-sign__text-sub">グッズ・旅行記・回り方のコツ</span>
+								</span>
+							)}
 						</a>
 					</div>
 				</div>

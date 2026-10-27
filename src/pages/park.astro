@@ -1,0 +1,215 @@
+---
+// 🎡 ジブリパークの柱：グッズ・旅行記・回り方のコツをひとまとめにした入口
+// 載る記事 = 作品ページで「ジブリパーク」にチェックした記事（src/works.ts の isParkPost）
+// お小遣い帳は月ごとの記録なので /kozukai/ のみに置き、ここには出さない
+import fs from 'node:fs';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { SITE_TITLE } from '../consts';
+import { isParkPost } from '../works';
+
+const parkPosts = (await getCollection('blog'))
+	.filter((p) => isParkPost(p) && p.data.articleType !== 'kozukai')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const GOODS_TYPES = ['review', 'hikaku', 'matome', 'tokushu'];
+// 旅行記は前編→後編と読み進めるので、古い順に並べる
+const travelPosts = parkPosts.filter((p) => p.data.articleType === 'travel').reverse();
+
+const sections = [
+	{ key: 'goods', icon: '🛍', title: 'グッズ・戦利品', posts: parkPosts.filter((p) => GOODS_TYPES.includes(p.data.articleType ?? '')), empty: '' },
+	{ key: 'travel', icon: '🚶', title: '旅行記', posts: travelPosts, empty: '旅行記はただいま準備中です。少しまってね！' },
+	{ key: 'guide', icon: '🗺', title: '回り方・準備のコツ', posts: parkPosts.filter((p) => p.data.articleType === 'guide'), empty: '' },
+	{ key: 'other', icon: '💬', title: 'パークのおしゃべり', posts: parkPosts.filter((p) => ['zatsudan', 'other', ''].includes(p.data.articleType ?? '')), empty: '' },
+].filter((s) => s.posts.length > 0 || s.empty);
+
+// 看板画像は public/images/park-sign.png を置けば自動で表示（無いあいだは文字の看板）
+const hasSign = fs.existsSync('public/images/park-sign.png');
+---
+
+<!doctype html>
+<html lang="ja">
+<head>
+	<BaseHead title={`ジブリパーク | ${SITE_TITLE}`} description="ジブリパークで買ったグッズ・旅行記・回り方のコツをまとめた場所です。" />
+	<style>
+		.park-header {
+			padding: 1.6em 1.2em 0.8em;
+		}
+		.park-header__inner {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			gap: 2em;
+		}
+		.park-header__sign {
+			width: min(30%, 320px);
+			flex-shrink: 0;
+		}
+		.park-header__sign img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.park-header__title {
+			font-family: var(--font-hand);
+			font-size: 1.7em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.3em;
+		}
+		.park-header__lead {
+			margin: 0;
+			line-height: 1.9;
+			color: var(--text-muted);
+			font-size: 0.95em;
+		}
+		@media (max-width: 700px) {
+			.park-header__inner { flex-direction: column; gap: 1em; text-align: center; }
+			.park-header__sign { width: min(60%, 220px); }
+		}
+
+		.page-outer {
+			max-width: 1320px;
+			margin: 0 auto;
+			padding: 0.6em 0.5em 5em 1.5em;
+			display: flex;
+			gap: 4em;
+			align-items: flex-start;
+		}
+		.page-main { flex: 1; min-width: 0; padding: 0 1.5em; }
+
+		.park-section { margin-bottom: 2.4em; }
+		.park-section__title {
+			font-family: var(--font-hand);
+			font-size: 1.2em;
+			font-weight: 700;
+			color: var(--blue-ink);
+			margin: 0 0 0.8em;
+			padding-bottom: 0.3em;
+			border-bottom: 2px dashed var(--beige);
+		}
+		.park-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.park-item {
+			display: flex;
+			gap: 1.2em;
+			align-items: center;
+			background: #fff;
+			border: 2px solid var(--beige-light);
+			border-radius: 20px 16px 22px 14px / 16px 22px 14px 20px;
+			box-shadow: var(--shadow-sm);
+			padding: 0.9em 1.2em;
+			text-decoration: none;
+			color: inherit;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.park-item:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-hover);
+			text-decoration: none;
+		}
+		.park-item__thumb {
+			width: 96px;
+			height: 96px;
+			flex-shrink: 0;
+			border-radius: 12px;
+			object-fit: cover;
+			display: block;
+		}
+		.park-item__icon { font-size: 1.8em; flex-shrink: 0; width: 96px; text-align: center; }
+		.park-item__date {
+			font-size: 0.7em;
+			color: var(--text-muted);
+			font-weight: 600;
+			margin-bottom: 0.3em;
+		}
+		.park-item__title {
+			font-size: 0.94em;
+			font-weight: 700;
+			font-family: var(--font-hand);
+			color: var(--blue-ink);
+			line-height: 1.6;
+			margin: 0;
+		}
+		.park-empty {
+			color: var(--text-muted);
+			padding: 1em 0.4em;
+			margin: 0;
+			line-height: 2;
+		}
+
+		@media (max-width: 860px) {
+			.page-outer { flex-direction: column; padding: 1.8em 1em 4em; gap: 1.5em; }
+			.page-main { padding: 0; }
+		}
+		@media (max-width: 480px) {
+			.park-item__thumb, .park-item__icon { width: 72px; height: 72px; }
+		}
+	</style>
+</head>
+<body>
+	<Header />
+	<main>
+		<div class="park-header">
+			<div class="park-header__inner">
+				{hasSign && (
+					<div class="park-header__sign">
+						<img src="/images/park-sign.png" alt="ジブリパーク" />
+					</div>
+				)}
+				<div>
+					<h1 class="park-header__title">🎡 ジブリパーク</h1>
+					<p class="park-header__lead">
+						2026年10月、家族で初めて行ったジブリパーク。<br>
+						連れて帰ってきたグッズや旅の思い出、回り方のコツをまとめています。
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-outer">
+			<div class="page-main">
+				{sections.map((s) => (
+					<section class="park-section">
+						<h2 class="park-section__title">{s.icon} {s.title}</h2>
+						{s.posts.length === 0 ? (
+							<p class="park-empty">🌱 {s.empty}</p>
+						) : (
+							<ul class="park-list">
+								{s.posts.map((post) => (
+									<li>
+										<a class="park-item" href={`/blog/${post.id}/`}>
+											{post.data.cardImage ? (
+												<img class="park-item__thumb" src={post.data.cardImage} alt="" loading="lazy" />
+											) : (
+												<span class="park-item__icon">{s.icon}</span>
+											)}
+											<span>
+												<p class="park-item__date"><FormattedDate date={post.data.pubDate} /></p>
+												<h3 class="park-item__title">{post.data.title}</h3>
+											</span>
+										</a>
+									</li>
+								))}
+							</ul>
+						)}
+					</section>
+				))}
+			</div>
+			<Sidebar />
+		</div>
+	</main>
+	<Footer />
+</body>
+</html>

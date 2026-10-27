@@ -7,10 +7,12 @@ import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import { SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
+import { isParkPost } from '../works';
 
-const allPosts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+// ジブリパークの記事は専用の柱（/park/）に並べるので、談話室には出さない
+const allPosts = (await getCollection('blog'))
+	.filter((p) => !isParkPost(p))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const guidePosts = allPosts.filter((p) => p.data.articleType === 'guide');
 const tokushuPosts = allPosts.filter(

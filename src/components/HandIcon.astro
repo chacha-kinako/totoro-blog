@@ -3,7 +3,7 @@
 interface Props {
 	name:
 		| 'home' | 'search' | 'category' | 'profile' | 'mail'
-		| 'article' | 'book' | 'work' | 'arrow' | 'menu' | 'heart' | 'calendar' | 'tag';
+		| 'article' | 'book' | 'work' | 'arrow' | 'menu' | 'heart' | 'calendar' | 'tag' | 'park';
 	size?: number;
 	class?: string;
 }
@@ -78,6 +78,12 @@ const { name, size = 20, class: klass = '' } = Astro.props;
 		<>
 			<rect x="3.6" y="5.3" width="16.8" height="15" rx="2" />
 			<path d="M3.6 9.8h16.8 M8 3.5v4 M16 3.5v4" />
+		</>
+	)}
+	{name === 'park' && (
+		<>
+			<circle cx="12" cy="10" r="6.6" />
+			<path d="M12 3.4v13.2 M5.4 10h13.2 M7.3 5.3l9.4 9.4 M16.7 5.3l-9.4 9.4 M8.5 20.5 12 16.6l3.5 3.9 M6.5 20.5h11" />
 		</>
 	)}
 	{name === 'tag' && (

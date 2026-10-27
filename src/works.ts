@@ -25,3 +25,13 @@ export function worksWithPosts<T extends { data: { showInWorks?: string[] } }>(
 		posts.some((p) => (Array.isArray(p.data.showInWorks) ? p.data.showInWorks.includes(w.name) : false)),
 	).map((w) => ({ ...w }));
 }
+
+// ── ジブリパークの柱（ヘッダーの「ジブリパーク」・/park/） ──
+// 作品ページで「ジブリパーク」にチェックした記事が、ジブリパークの柱に並ぶ（管理室の掲載先ボタンが自動でつける）。
+// グッズ部屋の記事（パークで買ったグッズのレビュー等）にもつけてよい＝部屋とパークの両方に出る。
+// 談話室にはパークの記事を出さない（パーク記事が談話室に散らばらないように）
+export const PARK_WORK = 'ジブリパーク';
+
+export function isParkPost(p: { data: { showInWorks?: string[] } }): boolean {
+	return Array.isArray(p.data.showInWorks) && p.data.showInWorks.includes(PARK_WORK);
+}
