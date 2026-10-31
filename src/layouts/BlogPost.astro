@@ -78,6 +78,18 @@ const { title, description, pubDate, updatedDate, cardImage } = Astro.props;
 				border-left: 3px solid var(--green-light);
 			}
 
+			/* PR表記（ステマ規制対応・全記事共通） */
+			.article-header__pr {
+				display: inline-block;
+				font-size: 0.78em;
+				color: var(--text-muted);
+				margin: 0 0 0.6em;
+				padding: 0.15em 0.8em;
+				border: 1.5px solid var(--border);
+				border-radius: 999px;
+				background: var(--cream);
+			}
+
 			/* 本文：紙に手描きしたイメージ */
 			.prose {
 				background: #fff;
@@ -131,6 +143,7 @@ const { title, description, pubDate, updatedDate, cardImage } = Astro.props;
 								<span>（更新: <FormattedDate date={updatedDate} />）</span>
 							)}
 						</div>
+						<p class="article-header__pr">本記事にはプロモーション（広告）が含まれています</p>
 						<h1>{title}</h1>
 						{description && (
 							<p class="article-header__desc">{description}</p>
