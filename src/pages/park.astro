@@ -1,7 +1,7 @@
 ---
 // 🎡 ジブリパークの柱：グッズ・旅行記・回り方のコツをひとまとめにした入口
 // 載る記事 = 作品ページで「ジブリパーク」にチェックした記事（src/works.ts の isParkPost）
-// お小遣い帳は月ごとの記録なので /kozukai/ のみに置き、ここには出さない
+// お小遣い帳はパークに行った月の号だけ「ジブリパーク」にチェックして、ここにも載せる（/kozukai/ と同じ記事）
 import fs from 'node:fs';
 import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
@@ -13,7 +13,7 @@ import { SITE_TITLE } from '../consts';
 import { isParkPost } from '../works';
 
 const parkPosts = (await getCollection('blog'))
-	.filter((p) => isParkPost(p) && p.data.articleType !== 'kozukai')
+	.filter((p) => isParkPost(p))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const GOODS_TYPES = ['review', 'hikaku', 'matome', 'tokushu'];
@@ -24,6 +24,7 @@ const sections = [
 	{ key: 'goods', icon: '🛍', title: 'グッズ・戦利品', posts: parkPosts.filter((p) => GOODS_TYPES.includes(p.data.articleType ?? '')), empty: '' },
 	{ key: 'travel', icon: '🚶', title: '旅行記', posts: travelPosts, empty: '旅行記はただいま準備中です。少しまってね！' },
 	{ key: 'guide', icon: '🗺', title: '回り方・準備のコツ', posts: parkPosts.filter((p) => p.data.articleType === 'guide'), empty: '' },
+	{ key: 'kozukai', icon: '💰', title: 'おこづかい帳', posts: parkPosts.filter((p) => p.data.articleType === 'kozukai'), empty: '' },
 	{ key: 'other', icon: '💬', title: 'パークのおしゃべり', posts: parkPosts.filter((p) => ['zatsudan', 'other', ''].includes(p.data.articleType ?? '')), empty: '' },
 ].filter((s) => s.posts.length > 0 || s.empty);
 
