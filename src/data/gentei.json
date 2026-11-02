@@ -1,16 +1,5 @@
 [
   {
-    "id": "goods-335",
-    "place": "park",
-    "name": "ハッター手提袋 SS",
-    "price": 100,
-    "shop": "ハッター帽子店",
-    "area": "魔女の谷",
-    "image": "/images/img_1793630437392_s4usm.webp",
-    "link": "/blog/20261027/#g-shopper",
-    "linkType": "fallback"
-  },
-  {
     "id": "goods-338",
     "place": "park",
     "name": "魔女の谷コレクション／メリーゴーランドかご",
@@ -77,17 +66,6 @@
     "linkType": "fallback"
   },
   {
-    "id": "goods-365",
-    "place": "park",
-    "name": "魔女団手提袋 LL",
-    "price": 550,
-    "shop": "13人の魔女団",
-    "area": "魔女の谷",
-    "image": "/images/img_1793630437419_8b4nb.webp",
-    "link": "/blog/20261027/#g-shopper",
-    "linkType": "fallback"
-  },
-  {
     "id": "goods-368",
     "place": "park",
     "name": "建物シリーズ／グーチョキパン店",
@@ -121,17 +99,6 @@
     "linkType": "fallback"
   },
   {
-    "id": "goods-391",
-    "place": "park",
-    "name": "冒険飛行団 M 手提袋",
-    "price": 300,
-    "shop": "冒険飛行団",
-    "area": "ジブリの大倉庫",
-    "image": "/images/img_1793630437441_bqg9d.webp",
-    "link": "/blog/20261027/#g-shopper",
-    "linkType": "fallback"
-  },
-  {
     "id": "goods-403",
     "place": "park",
     "name": "サンキャッチャー／魔女の宅急便",
@@ -151,28 +118,6 @@
     "area": "魔女の谷",
     "image": "/images/img_1793630437453_i2mm8.webp",
     "link": "/blog/20261027/#g-deco",
-    "linkType": "fallback"
-  },
-  {
-    "id": "goods-409",
-    "place": "park",
-    "name": "ジブリパーク共通 クラフト手提袋 M",
-    "price": 100,
-    "shop": "もののけの里（売店）",
-    "area": "もののけの里",
-    "image": "/images/img_1793630437458_zi7h5.webp",
-    "link": "/blog/20261027/#g-shopper",
-    "linkType": "fallback"
-  },
-  {
-    "id": "goods-410",
-    "place": "park",
-    "name": "ロタンダ風ヶ丘 M 手提袋",
-    "price": 150,
-    "shop": "ロタンダ風ヶ丘",
-    "area": "北エントランス",
-    "image": "/images/img_1793630437459_mx9it.webp",
-    "link": "/blog/20261027/#g-shopper",
     "linkType": "fallback"
   },
   {
@@ -877,6 +822,61 @@
     "area": "ジブリの大倉庫",
     "image": "/images/img_1793630437443_g8pe6.webp",
     "link": "/blog/20261027/#g-magnet",
+    "linkType": "fallback"
+  },
+  {
+    "id": "goods-335",
+    "place": "park",
+    "name": "ハッター手提袋 SS",
+    "price": 100,
+    "shop": "ハッター帽子店",
+    "area": "魔女の谷",
+    "image": "/images/img_1793630437392_s4usm.webp",
+    "link": "/blog/20261027/#g-shopper",
+    "linkType": "fallback"
+  },
+  {
+    "id": "goods-365",
+    "place": "park",
+    "name": "魔女団手提袋 LL",
+    "price": 550,
+    "shop": "13人の魔女団",
+    "area": "魔女の谷",
+    "image": "/images/img_1793630437419_8b4nb.webp",
+    "link": "/blog/20261027/#g-shopper",
+    "linkType": "fallback"
+  },
+  {
+    "id": "goods-391",
+    "place": "park",
+    "name": "冒険飛行団 M 手提袋",
+    "price": 300,
+    "shop": "冒険飛行団",
+    "area": "ジブリの大倉庫",
+    "image": "/images/img_1793630437441_bqg9d.webp",
+    "link": "/blog/20261027/#g-shopper",
+    "linkType": "fallback"
+  },
+  {
+    "id": "goods-409",
+    "place": "park",
+    "name": "ジブリパーク共通 クラフト手提袋 M",
+    "price": 100,
+    "shop": "もののけの里（売店）",
+    "area": "もののけの里",
+    "image": "/images/img_1793630437458_zi7h5.webp",
+    "link": "/blog/20261027/#g-shopper",
+    "linkType": "fallback"
+  },
+  {
+    "id": "goods-410",
+    "place": "park",
+    "name": "ロタンダ風ヶ丘 M 手提袋",
+    "price": 150,
+    "shop": "ロタンダ風ヶ丘",
+    "area": "北エントランス",
+    "image": "/images/img_1793630437459_mx9it.webp",
+    "link": "/blog/20261027/#g-shopper",
     "linkType": "fallback"
   },
   {
