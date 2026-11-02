@@ -649,28 +649,6 @@
     "linkType": "fallback"
   },
   {
-    "id": "goods-363",
-    "place": "park",
-    "name": "黒猫ジジ マスコット 座",
-    "price": 1628,
-    "shop": "13人の魔女団",
-    "area": "魔女の谷",
-    "image": "",
-    "link": "/blog/20261027/#g-plush",
-    "linkType": "fallback"
-  },
-  {
-    "id": "goods-374",
-    "place": "park",
-    "name": "ふんわり ヤックル マスコット",
-    "price": 1650,
-    "shop": "冒険飛行団",
-    "area": "ジブリの大倉庫",
-    "image": "",
-    "link": "/blog/20261027/#g-plush",
-    "linkType": "fallback"
-  },
-  {
     "id": "goods-381",
     "place": "park",
     "name": "ピンバッジ／キツネリス",
@@ -877,39 +855,6 @@
     "area": "北エントランス",
     "image": "/images/img_1793630437459_mx9it.webp",
     "link": "/blog/20261027/#g-shopper",
-    "linkType": "fallback"
-  },
-  {
-    "id": "goods-53",
-    "place": "park",
-    "name": "ジブリパーク大階段１",
-    "price": null,
-    "shop": "ジブリパーク",
-    "area": "",
-    "image": "",
-    "link": "/park/",
-    "linkType": "fallback"
-  },
-  {
-    "id": "goods-54",
-    "place": "park",
-    "name": "ジブリパーク大階段２",
-    "price": null,
-    "shop": "ジブリパーク",
-    "area": "",
-    "image": "",
-    "link": "/park/",
-    "linkType": "fallback"
-  },
-  {
-    "id": "goods-66",
-    "place": "park",
-    "name": "ジブリパークネコバス",
-    "price": null,
-    "shop": "ジブリパーク",
-    "area": "",
-    "image": "",
-    "link": "/park/",
     "linkType": "fallback"
   }
 ]
