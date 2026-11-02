@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 import zukanDataRaw from '../../data/zukan.json';
+import { getAllGenteiIds } from '../../zukan-gentei';
 import { getZukanRooms } from '../../zukan-rooms';
 
 type ZukanItem = {
@@ -38,9 +39,11 @@ const currentRoom = Astro.params.room;
 
 // simple = レビュー記事から自動生成した簡易カード。図書室の図鑑には出さない（部屋トップ専用）
 const allItems: ZukanItem[] = (zukanDataRaw as ZukanItem[]).filter((item) => !item.simple);
+// 限定の扉のグッズは限定の扉だけで見せる（総合部屋には混ぜない）
+const genteiIds = getAllGenteiIds();
 const items = filter
 	? allItems.filter((item) => (item.roomSlug ? item.roomSlug === filter : item.room === filterName))
-	: allItems;
+	: allItems.filter((item) => !genteiIds.has(item.id));
 
 const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r.base, dark: r.dark }));
 ---

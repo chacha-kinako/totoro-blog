@@ -36,8 +36,8 @@ const DOORS: GenteiDoor[] = [
 		name: 'ジブリパーク限定',
 		emoji: '🎡',
 		short: 'パーク限定',
-		base: '#8FC9A8',
-		dark: '#4E8C6A',
+		base: '#F59A4B',
+		dark: '#C96A22',
 		lead: '通販では買えない、ジブリパークだけのグッズです。2026年10月12日に実際に買ったものを、お店のエリアごとに並べました。',
 		asOf: '価格・商品名は2026年10月時点のレシート表記です。',
 		areas: ['魔女の谷', 'ジブリの大倉庫'],
@@ -52,6 +52,11 @@ const cards = genteiData as GenteiCard[];
 
 export function getGenteiCards(place: string): GenteiCard[] {
 	return cards.filter((c) => c.place === place);
+}
+
+/** 限定の扉に載っているグッズのid（goods-○○）。総合部屋から外すのに使う */
+export function getAllGenteiIds(): Set<string> {
+	return new Set(cards.map((c) => c.id));
 }
 
 export function getGenteiDoors(): GenteiDoor[] {

@@ -6,14 +6,14 @@ import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
 import { getGenteiDoors } from '../zukan-gentei';
-import { getZukanRooms } from '../zukan-rooms';
+import { ALL_ROOM, getZukanRooms } from '../zukan-rooms';
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
 const toshoshitsuSignImage = siteConfig.hero?.toshoshitsuSignImage ?? '/images/toshoshitsu-sign.png';
 
-// 部屋の扉は rooms.json（管理室が更新）から自動生成。最後に総合部屋が付く
-const rooms = getZukanRooms();
-// 限定の扉（部屋とは別枠。その場所でしか買えないグッズ）。カードがある場所だけ扉が出る
+// 部屋の扉は rooms.json（管理室が更新）から自動生成。部屋を増やすと上の段に扉が増える
+const rooms = getZukanRooms().filter((r) => r.slug !== ALL_ROOM.slug);
+// いちばん下の「とくべつな扉」の段：限定の扉（カードがある場所だけ）＋総合部屋
 const genteiDoors = getGenteiDoors();
 ---
 
@@ -134,8 +134,8 @@ const genteiDoors = getGenteiDoors();
 		}
 		.room-grid {
 			display: grid;
-			/* 部屋が増えても崩れないよう、幅に応じて自動で列数を決める */
-			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+			/* パソコンは1段に5つ。6つ目からは次の段へ */
+			grid-template-columns: repeat(5, minmax(0, 1fr));
 			gap: 1.2rem;
 			align-items: end;
 		}
@@ -179,7 +179,7 @@ const genteiDoors = getGenteiDoors();
 			border-color: var(--orange);
 		}
 
-		/* ── 限定の扉（部屋の扉の下に、点線で区切って置く） ── */
+		/* ── とくべつな扉（部屋の扉の下に、点線で区切って置く） ── */
 		.gentei-block {
 			margin-top: 2.4em;
 			padding-top: 1.4em;
@@ -205,7 +205,7 @@ const genteiDoors = getGenteiDoors();
 			justify-content: center;
 		}
 		.gentei-block .room-card {
-			width: 140px;
+			width: calc((100% - 4 * 1.2rem) / 5);
 		}
 		@media (max-width: 700px) {
 			.gentei-block .room-card {
@@ -273,20 +273,22 @@ const genteiDoors = getGenteiDoors();
 					))}
 				</div>
 
-				{genteiDoors.length > 0 && (
-					<div class="gentei-block">
-						<h2 class="gentei-block__title">✨ 限定の扉</h2>
-						<p class="gentei-block__lead">通販では買えない、その場所だけのグッズ</p>
-						<div class="room-grid">
-							{genteiDoors.map((d) => (
-								<a class="room-card" href={`/zukan/${d.slug}/`}>
-									<CrayonDoor slug={`top-${d.slug}`} label={d.short} base={d.base} dark={d.dark} />
-									<span class="room-card__enter">扉をひらく →</span>
-								</a>
-							))}
-						</div>
+				<div class="gentei-block">
+					<h2 class="gentei-block__title">✨ とくべつな扉</h2>
+					<p class="gentei-block__lead">その場所でしか買えない限定グッズと、ぜんぶのグッズ</p>
+					<div class="room-grid">
+						{genteiDoors.map((d) => (
+							<a class="room-card" href={`/zukan/${d.slug}/`}>
+								<CrayonDoor slug={`top-${d.slug}`} label={d.short} base={d.base} dark={d.dark} />
+								<span class="room-card__enter">扉をひらく →</span>
+							</a>
+						))}
+						<a class="room-card" href={`/zukan/${ALL_ROOM.slug}`}>
+							<CrayonDoor slug={`top-${ALL_ROOM.slug}`} label={ALL_ROOM.short} base={ALL_ROOM.base} dark={ALL_ROOM.dark} />
+							<span class="room-card__enter">部屋に入る →</span>
+						</a>
 					</div>
-				)}
+				</div>
 			</div>
 		</section>
 	</main>
