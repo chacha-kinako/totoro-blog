@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import siteConfig from '../data/site-config.json';
+import { getGenteiDoors } from '../zukan-gentei';
 import { getZukanRooms } from '../zukan-rooms';
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
@@ -12,6 +13,8 @@ const toshoshitsuSignImage = siteConfig.hero?.toshoshitsuSignImage ?? '/images/t
 
 // 部屋の扉は rooms.json（管理室が更新）から自動生成。最後に総合部屋が付く
 const rooms = getZukanRooms();
+// 限定の扉（部屋とは別枠。その場所でしか買えないグッズ）。カードがある場所だけ扉が出る
+const genteiDoors = getGenteiDoors();
 ---
 
 <!doctype html>
@@ -176,6 +179,40 @@ const rooms = getZukanRooms();
 			border-color: var(--orange);
 		}
 
+		/* ── 限定の扉（部屋の扉の下に、点線で区切って置く） ── */
+		.gentei-block {
+			margin-top: 2.4em;
+			padding-top: 1.4em;
+			border-top: 2px dashed var(--beige);
+			text-align: center;
+		}
+		.gentei-block__title {
+			font-family: 'Yomogi', 'Hiragino Maru Gothic ProN', serif;
+			font-size: 1.15em;
+			font-weight: 700;
+			color: var(--text);
+			margin: 0 0 0.2em;
+		}
+		.gentei-block__lead {
+			font-size: 0.8em;
+			color: var(--text-muted);
+			margin: 0 0 1.1em;
+		}
+		/* 扉の数が少なくても真ん中に寄せ、大きさは上の部屋の扉とそろえる */
+		.gentei-block .room-grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.gentei-block .room-card {
+			width: 140px;
+		}
+		@media (max-width: 700px) {
+			.gentei-block .room-card {
+				width: calc((100% - 1.6rem) / 3);
+			}
+		}
+
 		/* ── スマホ：扉を2〜3列でコンパクトに ── */
 		@media (max-width: 700px) {
 			.room-grid {
@@ -235,6 +272,21 @@ const rooms = getZukanRooms();
 						</a>
 					))}
 				</div>
+
+				{genteiDoors.length > 0 && (
+					<div class="gentei-block">
+						<h2 class="gentei-block__title">✨ 限定の扉</h2>
+						<p class="gentei-block__lead">通販では買えない、その場所だけのグッズ</p>
+						<div class="room-grid">
+							{genteiDoors.map((d) => (
+								<a class="room-card" href={`/zukan/${d.slug}/`}>
+									<CrayonDoor slug={`top-${d.slug}`} label={d.short} base={d.base} dark={d.dark} />
+									<span class="room-card__enter">扉をひらく →</span>
+								</a>
+							))}
+						</div>
+					</div>
+				)}
 			</div>
 		</section>
 	</main>
