@@ -130,21 +130,18 @@ const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r
 			min-width: 0;
 			padding: 0 1em;
 		}
+		/* 限定の扉（GenteiPage）と同じ大きさ。写真がずらっと並ぶことを優先 */
 		.zukan-grid {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 14px;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 12px;
 			margin-top: 1.2em;
 		}
-		@media (max-width: 900px) {
-			.zukan-grid { grid-template-columns: repeat(3, 1fr); }
-		}
-		@media (max-width: 560px) {
-			.zukan-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-		}
 
-		/* ── カード ── */
+		/* ── カード（写真・名前・値段を押すとレビューへ／下の細いボタンで在庫を確認） ── */
 		.zukan-card {
+			display: flex;
+			flex-direction: column;
 			background: #fff;
 			border-radius: 12px;
 			overflow: hidden;
@@ -156,6 +153,13 @@ const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r
 			box-shadow: var(--shadow-hover);
 			transform: translateY(-2px);
 		}
+		.zukan-card__main {
+			display: block;
+			flex: 1;
+			color: inherit;
+			text-decoration: none;
+		}
+		.zukan-card__main:hover { text-decoration: none; }
 		.zukan-card__img {
 			width: 100%;
 			aspect-ratio: 1 / 1;
@@ -170,63 +174,48 @@ const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r
 			transition: transform 0.25s;
 		}
 		.zukan-card:hover .zukan-card__img img { transform: scale(1.04); }
-		.zukan-card__info {
-			padding: 6px 8px 2px;
-		}
+		.zukan-card__info { padding: 6px 8px 6px; }
 		.zukan-card__name {
-			font-size: 0.75em;
+			font-size: 0.74em;
 			font-weight: 700;
 			color: var(--text);
 			line-height: 1.4;
 			min-height: 2.8em;
-			margin-bottom: 2px;
 			display: -webkit-box;
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
 		.zukan-card__price {
-			font-size: 0.72em;
+			margin-top: 2px;
+			font-size: 0.68em;
 			font-weight: 700;
 			color: var(--orange-dark);
-			margin-bottom: 2px;
 		}
-		.zukan-card__comment {
-			font-size: 0.68em;
-			color: var(--text-muted);
-			line-height: 1.4;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-		}
-		.zukan-card__links {
-			padding: 6px 8px 8px;
-			display: flex;
-			flex-direction: column;
-			gap: 5px;
-		}
-		.zukan-btn {
+		.zukan-card__buy {
 			display: block;
+			margin: 0 6px 6px;
+			padding: 4px 4px;
 			text-align: center;
-			padding: 7px 6px;
-			border-radius: 6px;
-			font-size: 0.72em;
+			font-size: 0.66em;
 			font-weight: 700;
-			text-decoration: none;
 			line-height: 1.3;
+			color: var(--green-dark);
+			background: var(--green-pale);
+			border: 1px solid var(--green-light);
+			border-radius: 6px;
+			text-decoration: none;
 			transition: opacity 0.15s;
 		}
-		.zukan-btn:hover { opacity: 0.8; text-decoration: none; }
-		.zukan-btn--review {
-			background: var(--orange-pale);
-			color: var(--orange-dark);
-			border: 1px solid var(--orange-light);
-		}
-		.zukan-btn--buy {
-			background: var(--green-pale);
-			color: var(--green-dark);
-			border: 1px solid var(--green-light);
+		.zukan-card__buy:hover { opacity: 0.8; text-decoration: none; }
+		@media (max-width: 560px) {
+			/* スマホは3列で写真をぎゅっと並べる */
+			.zukan-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+			.zukan-card { border-width: 1.5px; border-radius: 9px; }
+			.zukan-card__info { padding: 4px 5px 5px; }
+			.zukan-card__name { font-size: 0.66em; }
+			.zukan-card__price { font-size: 0.62em; }
+			.zukan-card__buy { margin: 0 4px 4px; padding: 3px 2px; font-size: 0.6em; }
 		}
 		.zukan-empty {
 			grid-column: 1 / -1;
@@ -322,7 +311,7 @@ const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r
 				<input
 					id="zukan-q"
 					type="search"
-					placeholder="🔍 なまえやコメントで探す"
+					placeholder="🔍 なまえで探す"
 					aria-label="この部屋のグッズを検索"
 				/>
 				<span class="zukan-search-count" id="zukan-q-count"></span>
@@ -342,30 +331,22 @@ const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r
 						<p>🔍 みつかりませんでした…<br>ことばを変えてためしてみてね</p>
 					</div>
 					{items.map((item) => (
-						<div class="zukan-card" data-search={`${item.name ?? ''} ${item.comment ?? ''}`.toLowerCase()}>
-							<div class="zukan-card__img">
-								<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
-							</div>
-							{(item.name || item.comment || item.price) && (
-								<div class="zukan-card__info">
-									{item.name && <div class="zukan-card__name">{item.name}</div>}
-									{item.price != null && <div class="zukan-card__price">¥{item.price.toLocaleString()}</div>}
-									{item.comment && <div class="zukan-card__comment">{item.comment}</div>}
+						<div class="zukan-card" data-search={(item.name ?? '').toLowerCase()}>
+							<a class="zukan-card__main" href={item.reviewLink || '/zukan/'}>
+								<div class="zukan-card__img">
+									<img src={item.image} alt={item.name ?? 'グッズ画像'} loading="lazy" />
 								</div>
+								<div class="zukan-card__info">
+									<div class="zukan-card__name">{item.name}</div>
+									{item.price != null && <div class="zukan-card__price">¥{item.price.toLocaleString()}</div>}
+								</div>
+							</a>
+							{item.affiliateLink && (
+								<a href={item.affiliateLink} class="zukan-card__buy"
+								   target="_blank" rel="noopener noreferrer nofollow">
+									🛒 在庫を確認
+								</a>
 							)}
-							<div class="zukan-card__links">
-								{item.reviewLink && (
-									<a href={item.reviewLink} class="zukan-btn zukan-btn--review">
-										レビューをみる
-									</a>
-								)}
-								{item.affiliateLink && (
-									<a href={item.affiliateLink} class="zukan-btn zukan-btn--buy"
-									   target="_blank" rel="noopener noreferrer nofollow">
-										在庫を確認する
-									</a>
-								)}
-							</div>
 						</div>
 					))}
 				</div>
