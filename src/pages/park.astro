@@ -121,14 +121,14 @@ const hasSign = fs.existsSync('public/images/park-sign.png');
 			text-decoration: none;
 		}
 		.park-item__thumb {
-			width: 96px;
-			height: 96px;
+			width: 150px;
+			height: 150px;
 			flex-shrink: 0;
 			border-radius: 12px;
 			object-fit: cover;
 			display: block;
 		}
-		.park-item__icon { font-size: 1.8em; flex-shrink: 0; width: 96px; text-align: center; }
+		.park-item__icon { font-size: 1.8em; flex-shrink: 0; width: 150px; text-align: center; }
 		.park-item__date {
 			font-size: 0.7em;
 			color: var(--text-muted);
@@ -154,8 +154,9 @@ const hasSign = fs.existsSync('public/images/park-sign.png');
 			.page-outer { flex-direction: column; padding: 1.8em 1em 4em; gap: 1.5em; }
 			.page-main { padding: 0; }
 		}
-		@media (max-width: 480px) {
-			.park-item__thumb, .park-item__icon { width: 72px; height: 72px; }
+		@media (max-width: 720px) {
+			.park-item { gap: 0.9em; padding: 0.7em 0.8em; }
+			.park-item__thumb, .park-item__icon { width: 112px; height: 112px; }
 		}
 	</style>
 </head>
