@@ -29,7 +29,7 @@ function rehypeWrapTables() {
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://totoro-blog.atelier0maru.workers.dev',
+	site: 'https://marumadonoie.com',
 	integrations: [mdx(), sitemap()],
 	// 管理室のエディタで改行したところを、ブログでもそのまま改行して表示する
 	// （Markdownの既定では1回の改行は無視されてしまうため）

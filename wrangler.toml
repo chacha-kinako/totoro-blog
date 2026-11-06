@@ -1,8 +1,18 @@
 name = "totoro-blog"
+main = "worker/redirect.js"
 compatibility_date = "2026-04-29"
 compatibility_flags = ["global_fetch_strictly_public"]
 # プレビューURLは無効（本番URL以外からのアクセス経路を作らない）
 preview_urls = false
+# 旧アドレスから新アドレスへ案内するため、workers.dev は残す（routes を書くと既定で無効になる）
+workers_dev = true
+routes = [
+	{ pattern = "marumadonoie.com", custom_domain = true },
+	{ pattern = "www.marumadonoie.com", custom_domain = true },
+]
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
+# ページだけ案内役を通す（画像類は無料枠を消費しないよう直接返す）
+run_worker_first = ["/*", "!/images/*", "!/_astro/*"]
