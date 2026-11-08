@@ -3,15 +3,18 @@ title: 'トトログッズ厳選50｜実は273個持ってる私の本気コレ�
 description: '100個以上のトトログッズを集めた私が、厳選50アイテムと特にお気に入りの10個を本音レビュー。失敗しない選び方や購入場所も解説します。'
 pubDate: '2026-04-30'
 heroImage: ''
-cardImage: '/images/img_1779514292688_5gthg.webp'
+cardImage: '/images/img_1792829549629_ilwjs.webp'
 category: 'コレクション'
-showInLatest: false
+room: ''
+articleType: 'review'
+showInLatest: true
 showInPopular: true
+showInReview: false
 showInCategories: ['コレクション']
 showInWorks: ['となりのトトロ']
 ---
 
-<div style="background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#1a6fa8;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">- 100個以上集めた私のコレクションから厳選した50アイテム<br>- その中でも特におすすめしたい厳選10<br>- 失敗しないトトログッズの選び方<br>- どこで買える？購入先と売り切れやすさ</p></div>
+<div style="background:#f0f9e8;border:2px solid #7cb342;border-radius:12px;padding:18px 22px;margin:22px 0" data-block="box-info"><p style="font-weight:700;color:#3a6a1a;margin:0 0 10px;font-size:1em">📌 この記事でわかること</p><p style="margin:0;line-height:1.75">- 100個以上集めた私のコレクションから厳選した50アイテム<br>- その中でも特におすすめしたい厳選10<br>- 失敗しないトトログッズの選び方<br>- どこで買える？購入先と売り切れやすさ</p></div>
 
 私はトトロが大好きで、小さい頃から少しずつグッズを集めてきました。
 
