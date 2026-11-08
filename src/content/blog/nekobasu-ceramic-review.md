@@ -3,7 +3,7 @@ title: 'ネコバス陶器は高い？実物レビューでわかった"買う�
 description: 'ネコバス陶器の価格は高いのか、実際に購入してわかったクオリティ・入手方法・デメリットをリアルにレビューします。'
 pubDate: '2026-05-04'
 heroImage: ''
-cardImage: '/images/img_1784668702100_fntxs.webp'
+cardImage: '/images/img_1792829549582_s2t22.webp'
 category: '陶器'
 room: 'toki'
 articleType: 'review'
