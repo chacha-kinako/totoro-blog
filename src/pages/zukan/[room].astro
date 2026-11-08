@@ -15,6 +15,8 @@ type ZukanItem = {
 	image: string;
 	reviewLink: string;
 	affiliateLink: string;
+	/** true = そのものではなく「にた商品」のリンク */
+	affiliateAlt?: boolean;
 	room?: string;
 	roomSlug?: string;
 	simple?: boolean;
@@ -344,7 +346,7 @@ const rooms = getZukanRooms().map((r) => ({ slug: r.slug, name: r.short, base: r
 							{item.affiliateLink && (
 								<a href={item.affiliateLink} class="zukan-card__buy"
 								   target="_blank" rel="noopener noreferrer nofollow">
-									🛒 在庫を確認
+									{item.affiliateAlt ? "🛒 にた商品をみる" : "🛒 在庫を確認"}
 								</a>
 							)}
 						</div>
