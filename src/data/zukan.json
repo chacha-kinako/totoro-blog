@@ -394,5 +394,17 @@
     "room": "食器の部屋",
     "roomSlug": "shokki",
     "price": 2750
+  },
+  {
+    "id": "goods-370",
+    "image": "/images/img_1793630437424_xkkts.webp",
+    "name": "ジグソーパズル「GHIBLI'S GRAND WAREHOUSE」108ピース",
+    "comment": "",
+    "reviewLink": "/blog/20261107",
+    "affiliateLink": "",
+    "room": "パズルの部屋",
+    "roomSlug": "パズル",
+    "simple": true,
+    "price": 1540
   }
 ]
