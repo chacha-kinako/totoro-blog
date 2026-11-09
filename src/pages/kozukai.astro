@@ -11,7 +11,25 @@ import siteConfig from '../data/site-config.json';
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const kozukaiPosts = allPosts.filter((p) => p.data.articleType === 'kozukai');
+// 公開順ではなく「何月の記録か」の新しい順に並べる（タイトルの「2026年6・7月」「4月の〜」から読み取る）。
+// 年がタイトルに無い記事は公開日の年、月が読めない記事は公開日の年月で並べる。
+// 同じ月に2本あるときは「お小遣い帳」を先、「満喫day」などをあとにする。
+const monthKey = (p: (typeof allPosts)[number]) => {
+	const m = p.data.title.match(/(?:(\d{4})年)?(\d{1,2})(?:・(\d{1,2}))?月/);
+	const d = p.data.pubDate;
+	if (!m) return d.getFullYear() * 100 + d.getMonth() + 1;
+	const year = m[1] ? Number(m[1]) : d.getFullYear();
+	return year * 100 + Number(m[3] ?? m[2]);
+};
+const isLedger = (p: (typeof allPosts)[number]) => /お小遣い帳|おこづかい帳/.test(p.data.title);
+const kozukaiPosts = allPosts
+	.filter((p) => p.data.articleType === 'kozukai')
+	.sort(
+		(a, b) =>
+			monthKey(b) - monthKey(a) ||
+			Number(isLedger(b)) - Number(isLedger(a)) ||
+			b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
 
 const interiorImage = siteConfig.hero?.interiorImage ?? '';
 const kozukaiSignImage = siteConfig.hero?.kozukaiSignImage ?? '';
