@@ -8,7 +8,7 @@ category: '陶器'
 room: 'toki'
 articleType: 'review'
 showInLatest: true
-showInPopular: true
+showInPopular: false
 showInReview: false
 showInCategories: ['陶器']
 showInWorks: ['となりのトトロ']
