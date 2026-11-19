@@ -8,7 +8,7 @@ category: 'コレクション'
 room: ''
 articleType: 'review'
 showInLatest: true
-showInPopular: true
+showInPopular: false
 showInReview: false
 showInCategories: ['コレクション']
 showInWorks: ['となりのトトロ']
