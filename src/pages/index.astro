@@ -378,11 +378,14 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			margin: 0;
 			padding: 0;
 		}
+		/* 列数ぶんだけ並べ、半端な段（1枚だけはみ出す段）を作らない */
 		@media (max-width: 860px) {
 			.showcase-grid { grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+			.showcase-grid > li:nth-child(n + 4) { display: none; }
 		}
 		@media (max-width: 560px) {
 			.showcase-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+			.showcase-grid > li:nth-child(4) { display: block; }
 		}
 		.showcase-card {
 			display: block;
@@ -413,6 +416,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			display: block;
 			filter: url(#crayon-photo);
 		}
+		/* 余白は外側、2行で切るのは内側の文字だけ（同じ要素に余白があると3行目の上半分が余白にのぞく） */
 		.showcase-card__title {
 			font-size: 0.72em;
 			font-weight: 700;
@@ -420,6 +424,9 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 			color: var(--blue-ink);
 			line-height: 1.4;
 			padding: 0.5em 0.6em 0.7em;
+		}
+		.showcase-card__title span {
+			height: 2.8em;
 			display: -webkit-box;
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
@@ -934,7 +941,7 @@ const seasonDisplay = (s: string) => (s === defaultSeason ? '' : 'display:none')
 											<div class="showcase-card__img">
 												{item.cardImage && <img src={item.cardImage} alt={item.title} loading="lazy" />}
 											</div>
-											<div class="showcase-card__title">{item.title}</div>
+											<div class="showcase-card__title"><span>{item.title}</span></div>
 										</a>
 									</li>
 								))}
