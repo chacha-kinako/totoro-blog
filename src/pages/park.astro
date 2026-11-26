@@ -28,6 +28,10 @@ const sections = [
 	{ key: 'other', icon: '💬', title: 'パークのおしゃべり', posts: parkPosts.filter((p) => ['zatsudan', 'other', ''].includes(p.data.articleType ?? '')), empty: '' },
 ].filter((s) => s.posts.length > 0 || s.empty);
 
+// 「はじめての方はこちら」カード：シリーズまとめ（入口）の記事を公開すると、いちばん上に自動で出る
+// （タイトルが【子連れジブリパーク旅行記・まとめ】で始まる記事。まだ無いあいだはカードも出ない）
+const matomePost = parkPosts.find((p) => p.data.title.startsWith('【子連れジブリパーク旅行記・まとめ】'));
+
 // 看板画像は public/images/park-sign.png を置けば自動で表示（無いあいだは文字の看板）
 const hasSign = fs.existsSync('public/images/park-sign.png');
 ---
@@ -150,6 +154,60 @@ const hasSign = fs.existsSync('public/images/park-sign.png');
 			line-height: 2;
 		}
 
+		.park-start {
+			display: flex;
+			gap: 1.4em;
+			align-items: center;
+			margin: 0 0 2.4em;
+			padding: 1.1em 1.3em;
+			background: #FFF8E7;
+			border: 3px dashed #E8853A;
+			border-radius: 24px 18px 26px 16px / 18px 26px 16px 24px;
+			box-shadow: var(--shadow-sm);
+			text-decoration: none;
+			color: inherit;
+			transition: transform 0.2s, box-shadow 0.2s;
+		}
+		.park-start:hover {
+			transform: translateY(-3px);
+			box-shadow: var(--shadow-hover);
+			text-decoration: none;
+		}
+		.park-start__thumb {
+			width: 190px;
+			height: 190px;
+			flex-shrink: 0;
+			border-radius: 14px;
+			object-fit: cover;
+			display: block;
+		}
+		.park-start__badge {
+			display: inline-block;
+			background: #E8853A;
+			color: #fff;
+			font-weight: 700;
+			font-size: 0.85em;
+			padding: 0.25em 0.9em;
+			border-radius: 999px;
+			margin-bottom: 0.5em;
+			white-space: nowrap;
+		}
+		.park-start__title {
+			font-family: var(--font-hand);
+			font-size: 1.05em;
+			font-weight: 700;
+			color: var(--blue-ink);
+			line-height: 1.6;
+			margin: 0 0 0.4em;
+		}
+		.park-start__lead {
+			margin: 0;
+			font-size: 0.88em;
+			line-height: 1.8;
+			color: #A0521B;
+			font-weight: 600;
+		}
+
 		@media (max-width: 860px) {
 			.page-outer { flex-direction: column; padding: 1.8em 1em 4em; gap: 1.5em; }
 			.page-main { padding: 0; }
@@ -157,6 +215,9 @@ const hasSign = fs.existsSync('public/images/park-sign.png');
 		@media (max-width: 720px) {
 			.park-item { gap: 0.9em; padding: 0.7em 0.8em; }
 			.park-item__thumb, .park-item__icon { width: 112px; height: 112px; }
+			.park-start { flex-direction: column; gap: 0.8em; padding: 1em; text-align: center; }
+			.park-start__thumb { width: min(100%, 260px); height: auto; aspect-ratio: 1 / 1; }
+			.park-start__lead { font-size: 0.85em; }
 		}
 	</style>
 </head>
@@ -182,6 +243,18 @@ const hasSign = fs.existsSync('public/images/park-sign.png');
 
 		<div class="page-outer">
 			<div class="page-main">
+				{matomePost && (
+					<a class="park-start" href={`/blog/${matomePost.id}/`}>
+						{matomePost.data.cardImage && (
+							<img class="park-start__thumb" src={matomePost.data.cardImage} alt="" loading="lazy" />
+						)}
+						<span>
+							<span class="park-start__badge">🔰 はじめての方はこちら</span>
+							<p class="park-start__title">{matomePost.data.title}</p>
+							<p class="park-start__lead">ジブリパーク記事の地図です！どこから読んでもOK、気になるところからどうぞ。</p>
+						</span>
+					</a>
+				)}
 				{sections.map((s) => (
 					<section class="park-section">
 						<h2 class="park-section__title">{s.icon} {s.title}</h2>
